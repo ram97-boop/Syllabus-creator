@@ -29,7 +29,7 @@ class CoursePart {
 class GradingScale {
 	HashMap<Integer,ArrayList<String>> gradingScaleMap;
 	
-	// Insert grading scales into gradingScaleMap here?
+	//Insert grading scales into gradingScaleMap here?
 	
 	
 	// Constructor
