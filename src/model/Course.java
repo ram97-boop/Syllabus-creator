@@ -29,14 +29,22 @@ class CoursePart {
 class GradingScale {
 	HashMap<Integer,ArrayList<String>> gradingScaleMap;
 	
+	// Insert grading scales into gradingScaleMap here?
+	
+	
+	// Constructor
 	public GradingScale() {
 		
 	}
 	
-	public Map.Entry<Integer,ArrayList<String>> getGradingSet() {
-		return null;
+//	public Map.Entry<Integer,ArrayList<String>> getGradingSet(int x) {
+//		return null;
+//	}
+//	// Return type is a placeholder likewise
+	
+	public String getGradingScale(int x) {
+		String scale = gradingScaleMap.get(x);
 	}
-	// Return type is a placeholder likewise
 }
 
 class Goal {
