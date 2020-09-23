@@ -1,5 +1,7 @@
 package View;
 
+import model.Course;
+
 import javax.swing.*;
 
 public class ExpectedResultPanel implements CoursePanel {
