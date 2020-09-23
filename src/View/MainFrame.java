@@ -37,5 +37,6 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
         JFrame frame = new MainFrame("Syllabus Creator");
         frame.setVisible(true);
+        frame.setSize(800, 600);
     }
 }
