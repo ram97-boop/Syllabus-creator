@@ -27,14 +27,37 @@ class CoursePart {
 }
 
 class GradingScale {
+	
 	HashMap<Integer,ArrayList<String>> gradingScaleMap;
 	
-	//Insert grading scales into gradingScaleMap here?
+	// ArrayList of A-F grading scale.
+	ArrayList<String> seven = new ArrayList<String>();
+	seven.add("A = Utmärkt");
+	seven.add("B = Mycket bra");
+	seven.add("C = Bra");
+	seven.add("D = Tillfredsställande");
+	seven.add("E = Tillräckligt");
+	seven.add("Fx = Underkänd, något mer arbete krävs");
+	seven.add("F = Underkänd, mycker mer arbete krävs");
 	
+	// ArrayList of VG-G-U
+	ArrayList<String> three = new ArrayList<String>();
+	three.add("VG");
+	three.add("G");
+	three.add("U");
+	
+	// ArrayList of G-U
+	ArrayList<String> two = new ArrayList<String>();
+	two.add("G");
+	two.add("U");
+	
+	// Insert grading scales into gradingScaleMap
+	gradingScaleMap.put(7, seven);
+	gradingScaleMap.put(3, three);
+	gradingScaleMap.put(2, two);
 	
 	// Constructor
 	public GradingScale() {
-		
 	}
 	
 //	public Map.Entry<Integer,ArrayList<String>> getGradingSet(int x) {
@@ -42,8 +65,9 @@ class GradingScale {
 //	}
 //	// Return type is a placeholder likewise
 	
-	public String getGradingScale(int x) {
-		String scale = gradingScaleMap.get(x);
+	public ArrayList<String> getGradingScale(int x) {
+		ArrayList<String> scale = gradingScaleMap.get(x);
+		return scale;
 	}
 }
 
