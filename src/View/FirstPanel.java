@@ -27,6 +27,8 @@ public class FirstPanel implements CoursePanel {
         return previousPanelButton;
     }
 
+    public void updateView() {     }
+
     public String getCourseName() {
         return courseName.getText();
     }
