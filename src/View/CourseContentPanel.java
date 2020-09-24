@@ -63,6 +63,10 @@ public class CourseContentPanel implements CoursePanel {
         return Integer.parseInt(nPartsField.getText());
     }
 
+    public JPanel getPartsPanel() {
+        return partsPanel;
+    }
+
 //    public String[] getParts() {
 //
 //    }

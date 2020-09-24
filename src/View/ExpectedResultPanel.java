@@ -84,6 +84,10 @@ public class ExpectedResultPanel implements CoursePanel {
         }
     }
 
+    public JPanel getGoalsWithPartsPanel() {
+        return goalsWithParts;
+    }
+
     public HashMap<String, Set<Integer>> getGoals() {
         return null;
     }

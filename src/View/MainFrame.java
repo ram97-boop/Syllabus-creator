@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
+
     private final CoursePanel[] panels = {
         FirstPanel.getInstance(),
         CourseContentPanel.getInstance(),
