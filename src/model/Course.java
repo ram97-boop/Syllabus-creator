@@ -22,6 +22,8 @@ public class Course {
 		this.code = code;
 	}
 	
+	
+	
 	// Getters
 	
 	public String getName() {
@@ -99,21 +101,4 @@ public class Course {
 	public boolean removeGoal(Goal goal) {
 		return this.goal.remove(goal);
 	}
-}
-
-class CoursePart {
-	String name;
-	double credits;
-	String examination;
-	Map.Entry<Integer,ArrayList<String>> gradingScale;
-		// Placeholder, will need to be changed since Map.Entry cannot be extracted from a HashMap
-	
-	public CoursePart() {
-		
-	}
-}
-
-class Goal {
-	String name;
-	ArrayList<CoursePart> parts;
 }
