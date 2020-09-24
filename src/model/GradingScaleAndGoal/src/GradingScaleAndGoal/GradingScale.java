@@ -26,7 +26,7 @@ public class GradingScale {
 		// ArrayList of G-U
 		ArrayList<String> two = new ArrayList<String>();
 		two.add("G");
-		two.add("U");
+		two.add("U"); 
 	
 		// Insert grading scales into gradingScaleMap
 		gradingScaleMap.put(7, seven);
