@@ -17,11 +17,21 @@ public class Course {
 	}
 	
 	public Course(String name,double credits,String code) {
-		this.name = name;
-		this.credits = credits;
-		this.code = code;
+		setName(name);
+		setCredits(credits);
+		setCode(code);
 	}
 	
+	public double sumCourseParts() {
+		
+		double totalCredits = 0;
+		
+		for (CoursePart part: courseParts) {
+			totalCredits += part.getCredits();
+		}
+		
+		return totalCredits;
+	}
 	
 	
 	// Getters
