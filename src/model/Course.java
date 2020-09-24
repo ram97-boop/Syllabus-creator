@@ -51,6 +51,28 @@ public class Course {
 	public ArrayList<Goal> getGoals() {
 		return goal;
 	}
+	
+	// Setters
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setCredits(double credits) {
+		this.credits = credits;
+	}
+	
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	public void setDistance(boolean distance) {
+		this.distance = distance;
+	}
+	
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 }
 
 class CoursePart {
@@ -63,29 +85,6 @@ class CoursePart {
 	public CoursePart() {
 		
 	}
-}
-
-class GradingScale {
-	HashMap<Integer,ArrayList<String>> gradingScaleMap;
-	
-	// Insert grading scales into gradingScaleMap here?
-	
-	
-	// Constructor
-	public GradingScale() {
-		
-	}
-	
-//	public Map.Entry<Integer,ArrayList<String>> getGradingSet(int x) {
-//		return null;
-//	}
-//	// Return type is a placeholder likewise
-	
-	public ArrayList<String> getGradingScale(int x) {
-		return gradingScaleMap.get(x);
-	}
-	
-	// Fixed getGradingScale just so the program will compile. (Not normally my task)
 }
 
 class Goal {
