@@ -14,6 +14,13 @@ public class CourseContentPanel implements CoursePanel {
 
     private JTextField nPartsField;
     private JButton button1;
+    private JPanel part1Panel;
+    private JPanel part2Panel;
+    private JPanel part3Panel;
+    private JPanel part4Panel;
+    private JPanel part5Panel;
+    private JPanel part6Panel;
+
 
     private boolean consistsOfParts = false;
 
@@ -63,13 +70,17 @@ public class CourseContentPanel implements CoursePanel {
         return Integer.parseInt(nPartsField.getText());
     }
 
-    public JPanel getPartsPanel() {
-        return partsPanel;
+    public JPanel[] getPartPanels() {
+        return new JPanel[]{
+                part1Panel,
+                part2Panel,
+                part3Panel,
+                part4Panel,
+                part5Panel,
+                part6Panel
+        };
     }
 
-//    public String[] getParts() {
-//
-//    }
 
 
     public void printOut(Course course) {
