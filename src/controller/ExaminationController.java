@@ -7,7 +7,7 @@ public class ExaminationController implements CourseController {
     private Course course;
     private ExaminationPanel examinationPanel;
 
-    ExaminationController(Course course, ExaminationPanel examinationPanel) {
+    public ExaminationController(Course course, ExaminationPanel examinationPanel) {
         this.course = course;
         this.examinationPanel = examinationPanel;
     }

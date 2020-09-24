@@ -7,7 +7,7 @@ public class TeachingController implements CourseController {
     private Course course;
     private TeachingPanel teachingPanel;
 
-    TeachingController(Course course, TeachingPanel teachingPanel) {
+    public TeachingController(Course course, TeachingPanel teachingPanel) {
         this.course = course;
         this.teachingPanel = teachingPanel;
     }

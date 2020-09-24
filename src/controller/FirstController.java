@@ -7,7 +7,7 @@ public class FirstController implements CourseController {
     private Course course;
     private FirstPanel firstPanel;
 
-    FirstController(Course course, FirstPanel firstPanel) {
+    public FirstController(Course course, FirstPanel firstPanel) {
         this.course = course;
         this.firstPanel = firstPanel;
     }
