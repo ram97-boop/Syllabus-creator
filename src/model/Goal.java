@@ -1,6 +1,6 @@
 package model;
 
-import java.util.*;
+import java.util.*; 
 
 public class Goal {
 	String name;
