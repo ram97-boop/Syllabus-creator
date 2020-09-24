@@ -20,13 +20,10 @@ public class TeachingController implements CourseController {
         this.course = course;
     }
 
-    public TeachingPanel getTeachingPanel() {
+    public TeachingPanel getPanel() {
         return teachingPanel;
     }
 
-    public void setTeachingPanel(TeachingPanel teachingPanel) {
-        this.teachingPanel = teachingPanel;
-    }
 
     public void updateModel() {}
 

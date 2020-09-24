@@ -20,13 +20,10 @@ public class ExaminationController implements CourseController {
         this.course = course;
     }
 
-    public ExaminationPanel getExaminationPanel() {
+    public ExaminationPanel getPanel() {
         return examinationPanel;
     }
 
-    public void setExaminationPanel(ExaminationPanel examinationPanel) {
-        this.examinationPanel = examinationPanel;
-    }
 
     public void updateModel() {}
     

@@ -21,13 +21,10 @@ public class CourseLiteratureController implements CourseController {
     }
 
 
-    public LiteraturePanel getCourseLiteraturePanel() {
+    public LiteraturePanel getPanel() {
         return courseLiteraturePanel;
     }
 
-    public void setCourseLiteraturePanel(LiteraturePanel courseLiteraturePanel) {
-        this.courseLiteraturePanel = courseLiteraturePanel;
-    }
 
     public void updateModel() {}
 }
