@@ -40,6 +40,10 @@ public class Course {
 		return courseParts;
 	}
 	
+	public ArrayList<String> getGradingScale() {
+		return gradingScale;
+	}
+	
 	public boolean isDistance() {
 		return distance;
 	}
@@ -52,7 +56,7 @@ public class Course {
 		return goal;
 	}
 	
-	// Setters
+	// Basic setters
 	
 	public void setName(String name) {
 		this.name = name;
@@ -72,6 +76,28 @@ public class Course {
 	
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	
+	// Container setters
+	
+	public void addCoursePart(CoursePart part) {
+		courseParts.add(part);
+	}
+	
+	public boolean removeCoursePart(CoursePart part) {
+		return courseParts.remove(part);
+	}
+	
+	public void setGradingScale(ArrayList<String> gradingScale) {
+		this.gradingScale = gradingScale;
+	}
+	
+	public void addGoal(Goal goal) {
+		this.goal.add(goal);
+	}
+	
+	public boolean removeGoal(Goal goal) {
+		return this.goal.remove(goal);
 	}
 }
 
