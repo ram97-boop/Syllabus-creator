@@ -31,4 +31,22 @@ public class CoursePart {
 	public ArrayList<String> getGradingScale() {
 		return gradingScale;
 	}
+	
+	// Setters
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setCredits(double credits) {
+		this.credits = credits;
+	}
+	
+	public void setExamination(String examination) {
+		this.examination = examination;
+	}
+	
+	public void setGradingScale(ArrayList<String> gradingScale) {
+		this.gradingScale = gradingScale;
+	}
 }
