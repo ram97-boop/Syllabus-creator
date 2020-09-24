@@ -7,14 +7,49 @@ public class Course {
 	double credits;
 	String code;
 	ArrayList<CoursePart> courseParts;
-	Map.Entry<Integer,ArrayList<String>> gradingScale;
-		// Placeholder, will need to be changed since Map.Entry cannot be extracted from a HashMap
+	ArrayList<String> gradingScale;
 	boolean distance;
 	String language;
 	ArrayList<Goal> goal;
 	
 	public Course() {
 		
+	}
+	
+	public Course(String name,double credits,String code) {
+		this.name = name;
+		this.credits = credits;
+		this.code = code;
+	}
+	
+	// Getters
+	
+	public String getName() {
+		return name;
+	}
+	
+	public double getCredits() {
+		return credits;
+	}
+	
+	public String getCode() {
+		return code;
+	}
+	
+	public ArrayList<CoursePart> getCourseParts() {
+		return courseParts;
+	}
+	
+	public boolean isDistance() {
+		return distance;
+	}
+	
+	public String getLanguage() {
+		return language;
+	}
+	
+	public ArrayList<Goal> getGoals() {
+		return goal;
 	}
 }
 
@@ -24,6 +59,10 @@ class CoursePart {
 	String examination;
 	Map.Entry<Integer,ArrayList<String>> gradingScale;
 		// Placeholder, will need to be changed since Map.Entry cannot be extracted from a HashMap
+	
+	public CoursePart() {
+		
+	}
 }
 
 class GradingScale {
@@ -42,9 +81,11 @@ class GradingScale {
 //	}
 //	// Return type is a placeholder likewise
 	
-	public String getGradingScale(int x) {
-		String scale = gradingScaleMap.get(x);
+	public ArrayList<String> getGradingScale(int x) {
+		return gradingScaleMap.get(x);
 	}
+	
+	// Fixed getGradingScale just so the program will compile. (Not normally my task)
 }
 
 class Goal {
