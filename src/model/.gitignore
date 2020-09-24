@@ -1,0 +1,8 @@
+*.iml
+*.iws
+*.ipr
+.idea/
+.settings/
+.classpath
+.project
+GradingScaleAndGoal/src/GradingScaleAndGoal/
