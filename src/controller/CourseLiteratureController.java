@@ -3,7 +3,7 @@ package controller;
 import View.LiteraturePanel;
 import model.Course;
 
-public class CourseLiteratureController {
+public class CourseLiteratureController implements CourseController {
     private Course course;
     private LiteraturePanel courseLiteraturePanel;
 

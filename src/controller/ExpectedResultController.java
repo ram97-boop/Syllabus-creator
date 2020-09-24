@@ -3,7 +3,7 @@ package controller;
 import View.ExpectedResultPanel;
 import model.Course;
 
-public class ExpectedResultController {
+public class ExpectedResultController implements CourseController {
     private Course course;
     private ExpectedResultPanel expectedResultPanel;
 
