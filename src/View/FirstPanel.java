@@ -12,6 +12,9 @@ public class FirstPanel implements CoursePanel {
     private JTextField courseCode;
     private JTextField coursePoints;
 
+    private FirstPanel() {
+        previousPanelButton.setEnabled(false);
+    }
     private static final FirstPanel INSTANCE = new FirstPanel();
     public static FirstPanel getInstance() {return INSTANCE;}
 
