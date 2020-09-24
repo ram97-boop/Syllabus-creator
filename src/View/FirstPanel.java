@@ -11,9 +11,13 @@ public class FirstPanel implements CoursePanel {
     private JTextField courseName;
     private JTextField courseCode;
     private JTextField coursePoints;
+    private JCheckBox isDistanceCheckBox;
+
+    private boolean isDistance = false;
 
     private FirstPanel() {
         previousPanelButton.setEnabled(false);
+        isDistanceCheckBox.addActionListener(e -> updateIsDistance());
     }
     private static final FirstPanel INSTANCE = new FirstPanel();
     public static FirstPanel getInstance() {return INSTANCE;}
@@ -32,6 +36,10 @@ public class FirstPanel implements CoursePanel {
 
     public void updateView() {     }
 
+    private void updateIsDistance() {
+        isDistance = isDistanceCheckBox.isSelected();
+    }
+
     public String getCourseName() {
         return courseName.getText();
     }
@@ -42,6 +50,10 @@ public class FirstPanel implements CoursePanel {
 
     public float getCoursePoints() {
         return Float.parseFloat(coursePoints.getText());
+    }
+
+    public boolean getIsDistance() {
+        return isDistance;
     }
 
     public void printOut(Course course) {
