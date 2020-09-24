@@ -9,6 +9,9 @@ public class LiteraturePanel implements CoursePanel {
     private JButton nextPanelButton;
     private JButton previousPanelButton;
 
+    private LiteraturePanel() {
+        nextPanelButton.setEnabled(false);
+    }
     private static final LiteraturePanel INSTANCE = new LiteraturePanel();
     public static LiteraturePanel getInstance() {return INSTANCE;}
 

@@ -27,13 +27,18 @@ public class MainFrame extends JFrame {
                     controllers[0].updateModel();
                     changePanel(1);
                 });
-        controllers[0].getPanel().getPreviousPanelButton().addActionListener(e -> changePanel(0));
     }
 
     public void changePanel(int nextIndex) {
         controllers[nextIndex].getPanel().updateView();
-        controllers[nextIndex].getPanel().getNextPanelButton().addActionListener(e -> changePanel(nextIndex + 1));
-        controllers[nextIndex].getPanel().getPreviousPanelButton().addActionListener(e -> changePanel(nextIndex - 1));
+        controllers[nextIndex].getPanel().getNextPanelButton().addActionListener(e -> {
+            controllers[nextIndex].updateModel();
+            changePanel(nextIndex + 1);
+        });
+        controllers[nextIndex].getPanel().getPreviousPanelButton().addActionListener(e -> {
+            controllers[nextIndex].updateModel();
+            changePanel(nextIndex - 1);
+        });
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.pack();
     }
