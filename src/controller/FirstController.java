@@ -20,13 +20,10 @@ public class FirstController implements CourseController {
         this.course = course;
     }
 
-    public FirstPanel getFirstPanel() {
+    public FirstPanel getPanel() {
         return firstPanel;
     }
 
-    public void setFirstPanel(FirstPanel firstPanel) {
-        this.firstPanel = firstPanel;
-    }
 
     public void updateModel() {}
 

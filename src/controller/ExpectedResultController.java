@@ -20,13 +20,10 @@ public class ExpectedResultController implements CourseController {
         this.course = course;
     }
 
-    public ExpectedResultPanel getExpectedResultPanel() {
+    public ExpectedResultPanel getPanel() {
         return expectedResultPanel;
     }
 
-    public void setExpectedResultPanel(ExpectedResultPanel expectedResultPanel) {
-        this.expectedResultPanel = expectedResultPanel;
-    }
 
     public void updateModel() {}
 }

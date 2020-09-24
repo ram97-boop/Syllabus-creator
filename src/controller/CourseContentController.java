@@ -20,12 +20,8 @@ public class CourseContentController implements CourseController {
         this.course = course;
     }
 
-    public CourseContentPanel getCourseContentPanel() {
+    public CourseContentPanel getPanel() {
         return courseContentPanel;
-    }
-
-    public void setCourseContentPanel(CourseContentPanel courseContentPanel) {
-        this.courseContentPanel = courseContentPanel;
     }
 
     public void updateModel() {}

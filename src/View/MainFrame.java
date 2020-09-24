@@ -1,40 +1,41 @@
 package View;
 
+import controller.*;
+import model.Course;
+
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
+    private Course course;
 
-
-    private final CoursePanel[] panels = {
-        FirstPanel.getInstance(),
-        CourseContentPanel.getInstance(),
-        ExpectedResultPanel.getInstance(),
-        TeachingPanel.getInstance(),
-        ExaminationPanel.getInstance(),
-        LiteraturePanel.getInstance()
+    private final CourseController[] controllers = {
+            new FirstController(course, FirstPanel.getInstance()),
+            new CourseContentController(course, CourseContentPanel.getInstance()),
+            new ExpectedResultController(course, ExpectedResultPanel.getInstance()),
+            new TeachingController(course, TeachingPanel.getInstance()),
+            new ExaminationController(course, ExaminationPanel.getInstance()),
+            new CourseLiteratureController(course, LiteraturePanel.getInstance())
     };
 
     public MainFrame(String title) {
         super(title);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        this.setContentPane(panels[0].getPanel());
+        this.setContentPane(controllers[0].getPanel().getPanel());
         this.pack();
-        panels[0].getNextPanelButton().addActionListener(e -> changePanel(1));
-        panels[0].getPreviousPanelButton().addActionListener(e -> changePanel(0));
+        controllers[0].getPanel().getNextPanelButton().addActionListener(e -> {
+                    controllers[0].updateModel();
+                    changePanel(1);
+                });
+        controllers[0].getPanel().getPreviousPanelButton().addActionListener(e -> changePanel(0));
     }
 
     public void changePanel(int nextIndex) {
-        panels[nextIndex].updateView();
-        panels[nextIndex].getNextPanelButton().addActionListener(e -> changePanel(nextIndex + 1));
-        panels[nextIndex].getPreviousPanelButton().addActionListener(e -> changePanel(nextIndex - 1));
-        this.setContentPane(panels[nextIndex].getPanel());
+        controllers[nextIndex].getPanel().updateView();
+        controllers[nextIndex].getPanel().getNextPanelButton().addActionListener(e -> changePanel(nextIndex + 1));
+        controllers[nextIndex].getPanel().getPreviousPanelButton().addActionListener(e -> changePanel(nextIndex - 1));
+        this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.pack();
-
-    }
-
-    public CoursePanel[] getPanels() {
-        return panels;
     }
 
     public static void main(String[] args) {
