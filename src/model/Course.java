@@ -22,6 +22,8 @@ public class Course {
 		this.code = code;
 	}
 	
+	
+	
 	// Getters
 	
 	public String getName() {
@@ -40,6 +42,10 @@ public class Course {
 		return courseParts;
 	}
 	
+	public ArrayList<String> getGradingScale() {
+		return gradingScale;
+	}
+	
 	public boolean isDistance() {
 		return distance;
 	}
@@ -51,44 +57,48 @@ public class Course {
 	public ArrayList<Goal> getGoals() {
 		return goal;
 	}
-}
-
-class CoursePart {
-	String name;
-	double credits;
-	String examination;
-	Map.Entry<Integer,ArrayList<String>> gradingScale;
-		// Placeholder, will need to be changed since Map.Entry cannot be extracted from a HashMap
 	
-	public CoursePart() {
-		
-	}
-}
-
-class GradingScale {
-	HashMap<Integer,ArrayList<String>> gradingScaleMap;
+	// Basic setters
 	
-	// Insert grading scales into gradingScaleMap here?
-	
-	
-	// Constructor
-	public GradingScale() {
-		
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-//	public Map.Entry<Integer,ArrayList<String>> getGradingSet(int x) {
-//		return null;
-//	}
-//	// Return type is a placeholder likewise
-	
-	public ArrayList<String> getGradingScale(int x) {
-		return gradingScaleMap.get(x);
+	public void setCredits(double credits) {
+		this.credits = credits;
 	}
 	
-	// Fixed getGradingScale just so the program will compile. (Not normally my task)
-}
-
-class Goal {
-	String name;
-	ArrayList<CoursePart> parts;
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	public void setDistance(boolean distance) {
+		this.distance = distance;
+	}
+	
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
+	// Container setters
+	
+	public void addCoursePart(CoursePart part) {
+		courseParts.add(part);
+	}
+	
+	public boolean removeCoursePart(CoursePart part) {
+		return courseParts.remove(part);
+	}
+	
+	public void setGradingScale(ArrayList<String> gradingScale) {
+		this.gradingScale = gradingScale;
+	}
+	
+	public void addGoal(Goal goal) {
+		this.goal.add(goal);
+	}
+	
+	public boolean removeGoal(Goal goal) {
+		return this.goal.remove(goal);
+	}
 }
