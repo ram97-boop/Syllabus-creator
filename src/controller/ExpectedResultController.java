@@ -7,7 +7,7 @@ public class ExpectedResultController implements CourseController {
     private Course course;
     private ExpectedResultPanel expectedResultPanel;
 
-    ExpectedResultController(Course course, ExpectedResultPanel expectedResultPanel) {
+    public ExpectedResultController(Course course, ExpectedResultPanel expectedResultPanel) {
         this.course = course;
         this.expectedResultPanel = expectedResultPanel;
     }

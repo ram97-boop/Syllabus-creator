@@ -7,7 +7,7 @@ public class CourseLiteratureController implements CourseController {
     private Course course;
     private LiteraturePanel courseLiteraturePanel;
 
-    CourseLiteratureController(Course course, LiteraturePanel courseLiteraturePanel) {
+    public CourseLiteratureController(Course course, LiteraturePanel courseLiteraturePanel) {
         this.course = course;
         this.courseLiteraturePanel = courseLiteraturePanel;
     }

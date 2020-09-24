@@ -7,7 +7,7 @@ public class CourseContentController implements CourseController {
     private Course course;
     private CourseContentPanel courseContentPanel;
 
-    CourseContentController(Course course, CourseContentPanel courseContentPanel) {
+    public CourseContentController(Course course, CourseContentPanel courseContentPanel) {
         this.course = course;
         this.courseContentPanel = courseContentPanel;
     }
