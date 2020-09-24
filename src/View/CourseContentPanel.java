@@ -3,6 +3,7 @@ package View;
 import model.Course;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class CourseContentPanel implements CoursePanel {
     private JButton nextPanelButton;
@@ -10,43 +11,14 @@ public class CourseContentPanel implements CoursePanel {
     private JPanel mainPanel;
     private JPanel partsPanel;
     private JTextArea textArea1;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private final JTextField[] partFields = {
-        textField1,
-        textField2,
-        textField3,
-        textField4,
-        textField5
-    };
+
     private JTextField nPartsField;
     private JButton button1;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JTextField textField8;
-    private JTextField textField9;
-    private JTextField textField10;
-    private final JTextField[] pointFields = {
-            textField6,
-            textField7,
-            textField8,
-            textField9,
-            textField10
-    };
 
     private boolean consistsOfParts = false;
 
     private CourseContentPanel() {
-        for (JTextField partField : partFields) {
-            partField.setEditable(false);
-        }
-        for (JTextField pointField : pointFields) {
-            pointField.setEditable(false);
-        }
-        button1.addActionListener(e -> showPartFields());
+        button1.addActionListener(e -> updatePartFields());
     }
 
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
@@ -64,14 +36,22 @@ public class CourseContentPanel implements CoursePanel {
         return previousPanelButton;
     }
 
+    public void updateView() {
+        for (Component component : partsPanel.getComponents()) {
+            component.setVisible(false);
+        }
+    }
 
-    private void showPartFields() {
-        consistsOfParts = getNParts() != 0;
-        int nParts = Integer.parseInt(nPartsField.getText());
-
-        for (int i = 0; i < nParts; i++) {
-            partFields[i].setEditable(true);
-            pointFields[i].setEditable(true);
+    private void updatePartFields() {
+        updateView();
+        int nParts = getNParts();
+        consistsOfParts = nParts != 0;
+        int i = 0;
+        for (Component component : partsPanel.getComponents()) {
+            if (i < nParts) {
+                component.setVisible(true);
+            }
+            i++;
         }
     }
 
@@ -83,14 +63,9 @@ public class CourseContentPanel implements CoursePanel {
         return Integer.parseInt(nPartsField.getText());
     }
 
-    public String[] getParts() {
-        int nParts = getNParts();
-        String[] parts = new String[nParts];
-        for (int i = 0; i < nParts; i++) {
-            parts[i] = partFields[i].getText();
-        }
-        return parts;
-    }
+//    public String[] getParts() {
+//
+//    }
 
 
     public void printOut(Course course) {

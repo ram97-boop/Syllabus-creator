@@ -24,6 +24,8 @@ public class LiteraturePanel implements CoursePanel {
         return previousPanelButton;
     }
 
+    public void updateView() {     }
+
     public void printOut(Course course) {
 
     }

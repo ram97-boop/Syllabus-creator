@@ -24,10 +24,12 @@ public class MainFrame extends JFrame {
     }
 
     public void changePanel(int nextIndex) {
-        this.setContentPane(panels[nextIndex].getPanel());
-        this.pack();
+        panels[nextIndex].updateView();
         panels[nextIndex].getNextPanelButton().addActionListener(e -> changePanel(nextIndex + 1));
         panels[nextIndex].getPreviousPanelButton().addActionListener(e -> changePanel(nextIndex - 1));
+        this.setContentPane(panels[nextIndex].getPanel());
+        this.pack();
+
     }
 
     public CoursePanel[] getPanels() {
