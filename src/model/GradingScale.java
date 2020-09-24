@@ -1,4 +1,4 @@
-package GradingScaleAndGoal;
+package model;
 
 import java.util.*;
 
