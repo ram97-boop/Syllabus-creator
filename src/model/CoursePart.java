@@ -6,10 +6,29 @@ public class CoursePart {
 	String name;
 	double credits;
 	String examination;
-	Map.Entry<Integer,ArrayList<String>> gradingScale;
-		// Placeholder, will need to be changed since Map.Entry cannot be extracted from a HashMap
+	ArrayList<String> gradingScale;
 	
 	public CoursePart() {
 		
+	}
+	
+	
+	
+	// Getters
+	
+	public String getName() {
+		return name;
+	}
+	
+	public double getCredits() {
+		return credits;
+	}
+	
+	public String getExamination() {
+		return examination;
+	}
+	
+	public ArrayList<String> getGradingScale() {
+		return gradingScale;
 	}
 }
