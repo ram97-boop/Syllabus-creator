@@ -6,7 +6,7 @@ import model.Course;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    private Course course;
+    private final Course course = new Course();
 
     private final CourseController[] controllers = {
             new FirstController(course, FirstPanel.getInstance()),
