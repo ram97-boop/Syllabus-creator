@@ -23,6 +23,7 @@ public class Course {
 	}
 	
 	
+	
 	// Getters
 	
 	public String getName() {
@@ -81,10 +82,8 @@ public class Course {
 	
 	// Container setters
 	
-	public CoursePart addCoursePart() {
-		CoursePart part = new CoursePart();
+	public void addCoursePart(CoursePart part) {
 		courseParts.add(part);
-		return part;
 	}
 	
 	public boolean removeCoursePart(CoursePart part) {
@@ -95,10 +94,8 @@ public class Course {
 		this.gradingScale = gradingScale;
 	}
 	
-	public Goal addGoal() {
-		Goal newGoal = new Goal();
-		goal.add(newGoal);
-		return newGoal;
+	public void addGoal(Goal goal) {
+		this.goal.add(goal);
 	}
 	
 	public boolean removeGoal(Goal goal) {
