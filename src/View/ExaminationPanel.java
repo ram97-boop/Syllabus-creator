@@ -12,16 +12,19 @@ public class ExaminationPanel implements CoursePanel {
     private JPanel noPartsExaminationPanel;
     private JPanel partsExaminationPanel;
     private JCheckBox homeExamCheckBox;
+    private JPanel homeExamPanel;
     private JCheckBox examinationOnEnglishCheckBox;
+
     private JPanel notDistanceAttendancePanel;
     private JPanel distanceAttendancePanel;
     private JCheckBox hasAttendanceCheckBox;
     private JPanel attendancePanel;
     private JCheckBox hasAttendanceDistanceCheckBox;
-    private JPanel homeExamPanel;
+
     private JPanel englishExaminationPanel;
     private JPanel distanceHasAttendancePanel;
 
+    // Constructors
     private ExaminationPanel() {
         for (Component component : homeExamPanel.getComponents()) {
             component.setEnabled(false);
@@ -40,26 +43,29 @@ public class ExaminationPanel implements CoursePanel {
         hasAttendanceCheckBox.addActionListener(e -> updateAttendancePanel());
         hasAttendanceDistanceCheckBox.addActionListener(e -> updateDistanceHasAttendancePanel());
     }
-
-
-
     private static final ExaminationPanel INSTANCE = new ExaminationPanel();
     public static ExaminationPanel getInstance() {return INSTANCE;}
 
+    // Interface methods
     public JPanel getPanel() {
         return mainPanel;
     }
-
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
-
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public void updateView(Course course) {
 
-    public void updateView() {     }
+        distanceAttendancePanel.setVisible(false);
+        notDistanceAttendancePanel.setVisible(true);
 
+        partsExaminationPanel.setVisible(course.getCourseParts() != null);
+        noPartsExaminationPanel.setVisible(course.getCourseParts() == null);
+    }
+
+    // Action listeners methods
     private void updateHomeExamPanel() {
         for (Component component : homeExamPanel.getComponents()) {
             component.setEnabled(homeExamCheckBox.isSelected());

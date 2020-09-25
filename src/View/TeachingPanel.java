@@ -42,7 +42,7 @@ public class TeachingPanel implements CoursePanel {
         return previousPanelButton;
     }
 
-    public void updateView() {
+    public void updateView(Course course) {
 
     }
 

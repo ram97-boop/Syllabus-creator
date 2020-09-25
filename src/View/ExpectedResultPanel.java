@@ -32,7 +32,7 @@ public class ExpectedResultPanel implements CoursePanel {
     private JPanel goalPanel6;
     private JPanel goalPanel7;
     private JPanel goalPanel8;
-    private JPanel[] radioPanels = {
+    private final JPanel[] radioPanels = {
             partsRadios1,
             partsRadios2,
             partsRadios3,
@@ -60,7 +60,7 @@ public class ExpectedResultPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-    public void updateView() {
+    public void updateView(Course course) {
         int i = 0;
         for (Component component : partsLabels.getComponents()) {
             component.setVisible(i < 3);
@@ -88,7 +88,7 @@ public class ExpectedResultPanel implements CoursePanel {
                 }
             }
         } else {
-            updateView();
+//            updateView();
         }
     }
 

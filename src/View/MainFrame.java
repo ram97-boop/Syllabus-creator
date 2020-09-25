@@ -6,7 +6,7 @@ import model.Course;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    private Course course;
+    private final Course course = new Course();
 
     private final CourseController[] controllers = {
             new FirstController(course, FirstPanel.getInstance()),
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
     }
 
     public void changePanel(int nextIndex) {
-        controllers[nextIndex].getPanel().updateView();
+        controllers[nextIndex].getPanel().updateView(course);
         controllers[nextIndex].getPanel().getNextPanelButton().addActionListener(e -> {
             controllers[nextIndex].updateModel();
             changePanel(nextIndex + 1);

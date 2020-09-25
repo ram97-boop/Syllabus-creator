@@ -15,6 +15,7 @@ public class FirstPanel implements CoursePanel {
 
     private boolean isDistance = false;
 
+    // Constructors
     private FirstPanel() {
         previousPanelButton.setEnabled(false);
         isDistanceCheckBox.addActionListener(e -> updateIsDistance());
@@ -36,9 +37,9 @@ public class FirstPanel implements CoursePanel {
         return previousPanelButton;
     }
 
-    public void updateView() {     }
+    public void updateView(Course course) {     }
 
-    // Actions listener methods
+    // Action listeners methods
 
     private void updateIsDistance() {
         isDistance = isDistanceCheckBox.isSelected();
