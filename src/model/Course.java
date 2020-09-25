@@ -82,6 +82,10 @@ public class Course {
 	
 	// Container setters
 	
+	public void setCourseParts(ArrayList<CoursePart> parts) {
+		courseParts = parts;
+	}
+	
 	public void addCoursePart(CoursePart part) {
 		courseParts.add(part);
 	}
@@ -92,6 +96,10 @@ public class Course {
 	
 	public void setGradingScale(ArrayList<String> gradingScale) {
 		this.gradingScale = gradingScale;
+	}
+	
+	public void setGoals(ArrayList<Goal> goals) {
+		goal = goals;
 	}
 	
 	public void addGoal(Goal goal) {
