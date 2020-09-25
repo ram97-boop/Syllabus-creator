@@ -6,7 +6,7 @@ import model.Course;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    private Course course;
+    private final Course course = new Course();
 
     private final CourseController[] controllers = {
             new FirstController(course, FirstPanel.getInstance()),
@@ -24,20 +24,33 @@ public class MainFrame extends JFrame {
         this.setContentPane(controllers[0].getPanel().getPanel());
         this.pack();
         controllers[0].getPanel().getNextPanelButton().addActionListener(e -> {
-                    controllers[0].updateModel();
-                    changePanel(1);
-                });
+            try{
+                controllers[0].updateModel();
+                changePanel(1);
+            } catch (RuntimeException exception) {
+                // do something meaningful
+            }
+        });
     }
 
     public void changePanel(int nextIndex) {
         controllers[nextIndex].getPanel().updateView();
         controllers[nextIndex].getPanel().getNextPanelButton().addActionListener(e -> {
-            controllers[nextIndex].updateModel();
-            changePanel(nextIndex + 1);
+            try{
+                controllers[nextIndex].updateModel();
+                changePanel(nextIndex + 1);
+            } catch (RuntimeException exception) {
+                // do something meaningful
+            }
+
         });
         controllers[nextIndex].getPanel().getPreviousPanelButton().addActionListener(e -> {
-            controllers[nextIndex].updateModel();
-            changePanel(nextIndex - 1);
+            try{
+                changePanel(nextIndex - 1);
+            } catch (RuntimeException exception) {
+                // do something meaningful
+            }
+
         });
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.pack();
