@@ -24,6 +24,14 @@ public class ExpectedResultPanel implements CoursePanel {
     private JPanel partsRadios7;
     private JPanel partsRadios8;
     private JPanel goalsWithParts;
+    private JPanel goalPanel1;
+    private JPanel goalPanel2;
+    private JPanel goalPanel3;
+    private JPanel goalPanel4;
+    private JPanel goalPanel5;
+    private JPanel goalPanel6;
+    private JPanel goalPanel7;
+    private JPanel goalPanel8;
     private JPanel[] radioPanels = {
             partsRadios1,
             partsRadios2,
@@ -35,24 +43,23 @@ public class ExpectedResultPanel implements CoursePanel {
             partsRadios8
     };
 
+    //Constructors
     private ExpectedResultPanel() {
         isConnectedToAll.addActionListener(e -> updateRadioButtons());
     }
     private static final ExpectedResultPanel INSTANCE = new ExpectedResultPanel();
     public static ExpectedResultPanel getInstance() {return INSTANCE;}
 
+    // Interface methods
     public JPanel getPanel() {
         return mainPanel;
     }
-
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
-
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-
     public void updateView() {
         int i = 0;
         for (Component component : partsLabels.getComponents()) {
@@ -68,6 +75,7 @@ public class ExpectedResultPanel implements CoursePanel {
         }
     }
 
+    // Action listener methods
     private void updateRadioButtons() {
         if (isConnectedToAll.isSelected()) {
             for (Component component : partsLabels.getComponents()) {
@@ -84,14 +92,22 @@ public class ExpectedResultPanel implements CoursePanel {
         }
     }
 
-    public JPanel getGoalsWithPartsPanel() {
-        return goalsWithParts;
+    // Getters to Controller
+    public JPanel[] getPartPanels() {
+        return new JPanel[]{
+                goalPanel1,
+                goalPanel2,
+                goalPanel3,
+                goalPanel4,
+                goalPanel5,
+                goalPanel6,
+                goalPanel7,
+                goalPanel8
+        };
     }
 
-    public HashMap<String, Set<Integer>> getGoals() {
-        return null;
-    }
 
+    // Print out
     public void printOut(Course course) {
 
     }
