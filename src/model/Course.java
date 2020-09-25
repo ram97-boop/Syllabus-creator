@@ -22,16 +22,6 @@ public class Course {
 		setCode(code);
 	}
 	
-	public double sumCourseParts() {
-		double totalCredits = 0;
-		
-		for (CoursePart part: courseParts) {
-			totalCredits += part.getCredits();
-		}
-		
-		return totalCredits;
-	}
-	
 	
 	// Getters
 	
@@ -91,8 +81,10 @@ public class Course {
 	
 	// Container setters
 	
-	public void addCoursePart(CoursePart part) {
+	public CoursePart addCoursePart() {
+		CoursePart part = new CoursePart();
 		courseParts.add(part);
+		return part;
 	}
 	
 	public boolean removeCoursePart(CoursePart part) {
@@ -103,8 +95,10 @@ public class Course {
 		this.gradingScale = gradingScale;
 	}
 	
-	public void addGoal(Goal goal) {
-		this.goal.add(goal);
+	public Goal addGoal() {
+		Goal newGoal = new Goal();
+		goal.add(newGoal);
+		return newGoal;
 	}
 	
 	public boolean removeGoal(Goal goal) {
