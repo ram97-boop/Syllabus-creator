@@ -58,8 +58,8 @@ public class ExaminationPanel implements CoursePanel {
     }
     public void updateView(Course course) {
 
-        distanceAttendancePanel.setVisible(false);
-        notDistanceAttendancePanel.setVisible(true);
+        distanceAttendancePanel.setVisible(course.isDistance());
+        notDistanceAttendancePanel.setVisible(!course.isDistance());
 
         partsExaminationPanel.setVisible(course.getCourseParts() != null);
         noPartsExaminationPanel.setVisible(course.getCourseParts() == null);

@@ -62,13 +62,8 @@ public class CourseContentPanel implements CoursePanel {
         int i = 0;
         for (Component component : partsPanel.getComponents()) {
             component.setVisible(i < nParts);
-//            component.setVisible(i >= nParts);
             i++;
         }
-    }
-
-    public boolean consistsOfParts() {
-        return consistsOfParts;
     }
 
     public int getNParts() {
