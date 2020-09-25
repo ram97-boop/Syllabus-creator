@@ -25,9 +25,9 @@ public class FirstController implements CourseController {
     }
 
     public void updateModel() {
+        course.setCredits(firstPanel.getCoursePoints());
         course.setName(firstPanel.getCourseName());
         course.setCode(firstPanel.getCourseCode());
-        course.setCredits(firstPanel.getCoursePoints());
         course.setDistance(firstPanel.getIsDistance());
     }
 
