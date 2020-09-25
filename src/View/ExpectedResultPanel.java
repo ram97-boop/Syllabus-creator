@@ -13,7 +13,6 @@ public class ExpectedResultPanel implements CoursePanel {
     private JButton nextPanelButton;
     private JButton previousPanelButton;
     private JCheckBox isConnectedToAll;
-    private JTextField textField2;
     private JPanel partsLabels;
     private JPanel partsRadios1;
     private JPanel partsRadios2;
@@ -77,18 +76,17 @@ public class ExpectedResultPanel implements CoursePanel {
 
     // Action listener methods
     private void updateRadioButtons() {
-        if (isConnectedToAll.isSelected()) {
-            for (Component component : partsLabels.getComponents()) {
-                component.setVisible(false);
-
+        int i = 0;
+        for (Component component : partsLabels.getComponents()) {
+            component.setVisible(!isConnectedToAll.isSelected() && i < 3);
+            i++;
+        }
+        for (JPanel radioPanel : radioPanels) {
+            i = 0;
+            for (Component component : radioPanel.getComponents()) {
+                component.setVisible(!isConnectedToAll.isSelected() && i < 3);
+                i++;
             }
-            for (JPanel radioPanel : radioPanels) {
-                for (Component component : radioPanel.getComponents()) {
-                    component.setVisible(false);
-                }
-            }
-        } else {
-//            updateView();
         }
     }
 
