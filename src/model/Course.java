@@ -6,11 +6,11 @@ public class Course {
 	String name;
 	double credits;
 	String code;
-	ArrayList<CoursePart> courseParts;
+	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>();
 	ArrayList<String> gradingScale;
 	boolean distance;
 	String language;
-	ArrayList<Goal> goal;
+	ArrayList<Goal> goal = new ArrayList<Goal>();
 	
 	public Course() {
 		
@@ -23,7 +23,6 @@ public class Course {
 	}
 	
 	public double sumCourseParts() {
-		
 		double totalCredits = 0;
 		
 		for (CoursePart part: courseParts) {
