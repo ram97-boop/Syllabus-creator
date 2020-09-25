@@ -6,20 +6,20 @@ public class Course {
 	String name;
 	double credits;
 	String code;
-	ArrayList<CoursePart> courseParts;
+	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>();
 	ArrayList<String> gradingScale;
 	boolean distance;
 	String language;
-	ArrayList<Goal> goal;
+	ArrayList<Goal> goal = new ArrayList<Goal>();
 	
 	public Course() {
 		
 	}
 	
 	public Course(String name,double credits,String code) {
-		this.name = name;
-		this.credits = credits;
-		this.code = code;
+		setName(name);
+		setCredits(credits);
+		setCode(code);
 	}
 	
 	
