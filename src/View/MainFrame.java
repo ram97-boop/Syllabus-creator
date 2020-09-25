@@ -41,6 +41,7 @@ public class MainFrame extends JFrame {
         });
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.pack();
+        this.setSize(800, 600);
     }
 
     public static void main(String[] args) {

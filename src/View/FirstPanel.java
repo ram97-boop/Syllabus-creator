@@ -59,4 +59,5 @@ public class FirstPanel implements CoursePanel {
     public void printOut(Course course) {
 
     }
+
 }
