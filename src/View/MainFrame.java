@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
     }
 
     public void changePanel(int nextIndex) {
-        controllers[nextIndex].getPanel().updateView();
+        controllers[nextIndex].getPanel().updateView(course);
         controllers[nextIndex].getPanel().getNextPanelButton().addActionListener(e -> {
             try{
                 controllers[nextIndex].updateModel();

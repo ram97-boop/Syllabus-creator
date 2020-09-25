@@ -41,7 +41,8 @@ public class CourseContentPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-    public void updateView() {
+
+    public void updateView(Course course) {
         for (Component component : partsPanel.getComponents()) {
             component.setVisible(false);
         }
@@ -49,7 +50,6 @@ public class CourseContentPanel implements CoursePanel {
 
     // Action listener methods
     private void updatePartFields() {
-        updateView();
         int nParts = getNParts();
         consistsOfParts = nParts != 0;
         int i = 0;
