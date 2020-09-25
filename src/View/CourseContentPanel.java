@@ -24,31 +24,30 @@ public class CourseContentPanel implements CoursePanel {
 
     private boolean consistsOfParts = false;
 
+    // Constructors
     private CourseContentPanel() {
         button1.addActionListener(e -> updatePartFields());
     }
-
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
     public static CourseContentPanel getInstance() {return INSTANCE;}
 
+    // Interface methods
     public JPanel getPanel() {
         return mainPanel;
     }
-
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
-
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-
     public void updateView() {
         for (Component component : partsPanel.getComponents()) {
             component.setVisible(false);
         }
     }
 
+    // Action listener methods
     private void updatePartFields() {
         updateView();
         int nParts = getNParts();
@@ -70,6 +69,8 @@ public class CourseContentPanel implements CoursePanel {
         return Integer.parseInt(nPartsField.getText());
     }
 
+    // Getters to Controller
+
     public JPanel[] getPartPanels() {
         return new JPanel[]{
                 part1Panel,
@@ -81,7 +82,7 @@ public class CourseContentPanel implements CoursePanel {
         };
     }
 
-
+    // Print out
 
     public void printOut(Course course) {
 
