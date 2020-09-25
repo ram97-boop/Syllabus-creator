@@ -24,7 +24,11 @@ public class FirstController implements CourseController {
         return firstPanel;
     }
 
-
-    public void updateModel() {}
+    public void updateModel() {
+        course.setCredits(Float.parseFloat(firstPanel.getCoursePoints().getText()));
+        course.setName(firstPanel.getCourseName().getText());
+        course.setCode(firstPanel.getCourseCode().getText());
+        course.setDistance(firstPanel.getIsDistance());
+    }
 
 }
