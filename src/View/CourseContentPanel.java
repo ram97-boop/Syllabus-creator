@@ -20,13 +20,19 @@ public class CourseContentPanel implements CoursePanel {
     private JPanel part4Panel;
     private JPanel part5Panel;
     private JPanel part6Panel;
+    private JComboBox<Integer> nPartsComboBox;
 
-
+    private final int[] possibleNParts = {1, 2, 3, 4, 5 ,6, 7, 8};
+    private int nParts = 0;
     private boolean consistsOfParts = false;
 
     // Constructors
     private CourseContentPanel() {
-        button1.addActionListener(e -> updatePartFields());
+        for (int possibleNPart : possibleNParts) {
+//            nPartsComboBox.addItem(possibleNPart);
+        }
+//        nPartsComboBox.setEditable(false);
+//        nPartsComboBox.addActionListener(e -> updatePartFields());
     }
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
     public static CourseContentPanel getInstance() {return INSTANCE;}
@@ -44,19 +50,21 @@ public class CourseContentPanel implements CoursePanel {
 
     public void updateView(Course course) {
         for (Component component : partsPanel.getComponents()) {
-            component.setVisible(false);
+//            component.setVisible(false);
         }
     }
 
     // Action listener methods
     private void updatePartFields() {
-        int nParts = getNParts();
+        Object nPartsObject;
+        if ((nPartsObject = nPartsComboBox.getSelectedItem()) != null) {
+            nParts = (int) nPartsObject;
+        }
         consistsOfParts = nParts != 0;
         int i = 0;
         for (Component component : partsPanel.getComponents()) {
-            if (i < nParts) {
-                component.setVisible(true);
-            }
+            component.setVisible(i < nParts);
+            component.setVisible(i >= nParts);
             i++;
         }
     }
@@ -66,7 +74,7 @@ public class CourseContentPanel implements CoursePanel {
     }
 
     public int getNParts() {
-        return Integer.parseInt(nPartsField.getText());
+        return nParts;
     }
 
     // Getters to Controller
