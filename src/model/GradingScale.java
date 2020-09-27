@@ -15,7 +15,7 @@ public class GradingScale {
 		seven.add("D = Tillfredsställande");
 		seven.add("E = Tillräckligt");
 		seven.add("Fx = Underkänd, något mer arbete krävs");
-		seven.add("F = Underkänd, mycker mer arbete krävs");
+		seven.add("F = Underkänd, mycket mer arbete krävs");
 	
 		// ArrayList of VG-G-U
 		ArrayList<String> three = new ArrayList<String>();
@@ -41,7 +41,7 @@ public class GradingScale {
 	
 	/**
 	 * Returns one of the three grading scales
-	 * depending on the input x.
+	 * depending on the input x (int).
 	 * 
 	 * x has to be either 7, 3 or 2.
 	 */
