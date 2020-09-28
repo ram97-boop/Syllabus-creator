@@ -22,7 +22,6 @@ public class CourseContentPanel implements CoursePanel {
 
     private final int[] possibleNParts = {0, 1, 2, 3, 4, 5 ,6, 7, 8};
     private int nParts = 0;
-    private boolean consistsOfParts = false;
 
     // Constructors
     private CourseContentPanel() {
@@ -47,8 +46,10 @@ public class CourseContentPanel implements CoursePanel {
         for (int possibleNPart : possibleNParts) {
             nPartsComboBox.addItem(possibleNPart);
         }
+        int i = 0;
         for (Component component : partsPanel.getComponents()) {
-            component.setVisible(false);
+            component.setVisible(i < nParts);
+            i++;
         }
     }
 
@@ -58,7 +59,6 @@ public class CourseContentPanel implements CoursePanel {
         if ((nPartsObject = nPartsComboBox.getSelectedItem()) != null) {
             nParts = (int) nPartsObject;
         }
-        consistsOfParts = nParts != 0;
         int i = 0;
         for (Component component : partsPanel.getComponents()) {
             component.setVisible(i < nParts);

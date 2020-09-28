@@ -19,29 +19,17 @@ public class ExaminationPanel implements CoursePanel {
     private JPanel distanceAttendancePanel;
     private JCheckBox hasAttendanceCheckBox;
     private JPanel attendancePanel;
-    private JCheckBox hasAttendanceDistanceCheckBox;
 
     private JPanel englishExaminationPanel;
-    private JPanel distanceHasAttendancePanel;
+    private JPanel gradingPanel;
+    private JPanel partsGradingScalePanel;
+    private JComboBox comboBox1;
 
     // Constructors
     private ExaminationPanel() {
-        for (Component component : homeExamPanel.getComponents()) {
-            component.setEnabled(false);
-        }
-        for (Component component : englishExaminationPanel.getComponents()) {
-            component.setEnabled(false);
-        }
-        for (Component component : attendancePanel.getComponents()) {
-            component.setEnabled(false);
-        }
-        for (Component component : distanceAttendancePanel.getComponents()) {
-            component.setEnabled(false);
-        }
         homeExamCheckBox.addActionListener(e -> updateHomeExamPanel());
         examinationOnEnglishCheckBox.addActionListener(e -> updateEnglishExaminationPanel());
         hasAttendanceCheckBox.addActionListener(e -> updateAttendancePanel());
-        hasAttendanceDistanceCheckBox.addActionListener(e -> updateDistanceHasAttendancePanel());
     }
     private static final ExaminationPanel INSTANCE = new ExaminationPanel();
     public static ExaminationPanel getInstance() {return INSTANCE;}
@@ -57,7 +45,14 @@ public class ExaminationPanel implements CoursePanel {
         return previousPanelButton;
     }
     public void updateView(Course course) {
+        for (Component component : homeExamPanel.getComponents()) {
+            component.setEnabled(homeExamCheckBox.isSelected());
+        }
+        for (Component component : englishExaminationPanel.getComponents()) {
+            component.setEnabled(examinationOnEnglishCheckBox.isSelected());
+        }
 
+        attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
         distanceAttendancePanel.setVisible(course.isDistance());
         notDistanceAttendancePanel.setVisible(!course.isDistance());
 
@@ -79,16 +74,9 @@ public class ExaminationPanel implements CoursePanel {
     }
 
     private void updateAttendancePanel() {
-        for (Component component : attendancePanel.getComponents()) {
-            component.setEnabled(hasAttendanceCheckBox.isSelected());
-        }
+        attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
     }
 
-    private void updateDistanceHasAttendancePanel() {
-        for (Component component : distanceAttendancePanel.getComponents()) {
-            component.setEnabled(hasAttendanceCheckBox.isSelected());
-        }
-    }
 
     public void printOut(Course course) {
 
