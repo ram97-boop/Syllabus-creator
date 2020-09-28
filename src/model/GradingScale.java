@@ -55,8 +55,7 @@ public class GradingScale {
 	 * x has to be either 7, 3 or 2.
 	 */
 	public ArrayList<String> getGradingScale(int x) {
-		ArrayList<String> scale = gradingScaleMap.get(x);
-		return scale;
+		return gradingScaleMap.get(x);
 	}
 	
 	

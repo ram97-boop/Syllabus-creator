@@ -44,7 +44,7 @@ public class Goal {
 	
 	/**
 	 * Adds a course part that has this goal
-	 * into an ArrayList.
+	 * into the ArrayList parts.
 	 * @param p
 	 */
 	public void addCoursePart(CoursePart p) {
