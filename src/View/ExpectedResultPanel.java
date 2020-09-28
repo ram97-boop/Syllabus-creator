@@ -1,6 +1,7 @@
 package View;
 
 import model.Course;
+import model.CoursePart;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,6 @@ public class ExpectedResultPanel implements CoursePanel {
     private JButton nextPanelButton;
     private JButton previousPanelButton;
     private JCheckBox isConnectedToAll;
-    private JPanel partsLabels;
     private JPanel partsRadios1;
     private JPanel partsRadios2;
     private JPanel partsRadios3;
@@ -31,6 +31,15 @@ public class ExpectedResultPanel implements CoursePanel {
     private JPanel goalPanel6;
     private JPanel goalPanel7;
     private JPanel goalPanel8;
+    private JLabel partLabel1;
+    private JLabel partLabel2;
+    private JLabel partLabel3;
+    private JLabel partLabel4;
+    private JLabel partLabel5;
+    private JLabel partLabel6;
+    private JLabel partLabel7;
+    private JLabel partLabel8;
+    private JPanel partLabelsPanel;
     private final JPanel[] radioPanels = {
             partsRadios1,
             partsRadios2,
@@ -40,6 +49,16 @@ public class ExpectedResultPanel implements CoursePanel {
             partsRadios6,
             partsRadios7,
             partsRadios8
+    };
+    private final JLabel[] partLabels = {
+        partLabel1,
+        partLabel2,
+        partLabel3,
+        partLabel4,
+        partLabel5,
+        partLabel6,
+        partLabel7,
+        partLabel8
     };
 
     //Constructors
@@ -60,15 +79,19 @@ public class ExpectedResultPanel implements CoursePanel {
         return previousPanelButton;
     }
     public void updateView(Course course) {
+        ArrayList<CoursePart> courseParts = course.getCourseParts();
+        int nParts = courseParts.size();
         int i = 0;
-        for (Component component : partsLabels.getComponents()) {
-            component.setVisible(i < 3);
+        for (JLabel partLabel : partLabels) {
+            partLabel.setVisible(i < nParts);
+            String labelName = i < nParts ? courseParts.get(i).getName() : null;
+            partLabel.setText(labelName);
             i++;
         }
         for (JPanel radioPanel : radioPanels) {
             i = 0;
             for (Component component : radioPanel.getComponents()) {
-                component.setVisible(i < 3);
+                component.setVisible(i < nParts);
                 i++;
             }
         }
@@ -76,22 +99,14 @@ public class ExpectedResultPanel implements CoursePanel {
 
     // Action listener methods
     private void updateRadioButtons() {
-        int i = 0;
-        for (Component component : partsLabels.getComponents()) {
-            component.setVisible(!isConnectedToAll.isSelected() && i < 3);
-            i++;
-        }
+        partLabelsPanel.setVisible(!isConnectedToAll.isSelected());
         for (JPanel radioPanel : radioPanels) {
-            i = 0;
-            for (Component component : radioPanel.getComponents()) {
-                component.setVisible(!isConnectedToAll.isSelected() && i < 3);
-                i++;
-            }
+            radioPanel.setVisible(!isConnectedToAll.isSelected());
         }
     }
 
     // Getters to Controller
-    public JPanel[] getPartPanels() {
+    public JPanel[] getGoalPanels() {
         return new JPanel[]{
                 goalPanel1,
                 goalPanel2,
