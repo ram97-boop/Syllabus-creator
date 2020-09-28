@@ -14,6 +14,7 @@ public class FirstPanel implements CoursePanel {
     private JTextField coursePoints;
     private JCheckBox isDistanceCheckBox;
     private JComboBox<String> gradingScaleComboBox;
+    private JCheckBox thesisCheckBox;
     private final String[] gradingScaleStrings = {
             "7-gradig (A-F)",
             "3-gradig (VG-U)",
@@ -23,6 +24,7 @@ public class FirstPanel implements CoursePanel {
 
     private boolean isDistance = false;
     private int gradingScale;
+    private boolean thesis;
 
     // Constructors
     private FirstPanel() {
@@ -35,9 +37,9 @@ public class FirstPanel implements CoursePanel {
 
         gradingScale = gradingScaleMap.get(gradingScaleStrings[0]);
 
-        isDistanceCheckBox.addActionListener(e -> updateIsDistance());
         gradingScaleComboBox.addActionListener(e -> updateGradingScale());
-
+        thesisCheckBox.addActionListener(e -> updateThesis());
+        isDistanceCheckBox.addActionListener(e -> updateIsDistance());
     }
     private static final FirstPanel INSTANCE = new FirstPanel();
     public static FirstPanel getInstance() {return INSTANCE;}
@@ -64,12 +66,17 @@ public class FirstPanel implements CoursePanel {
 
     // Action listeners methods
 
-    private void updateIsDistance() {
-        isDistance = isDistanceCheckBox.isSelected();
-    }
 
     private void updateGradingScale() {
         gradingScale = gradingScaleMap.get(gradingScaleComboBox.getSelectedItem());
+    }
+
+    private void updateThesis() {
+        thesis = thesisCheckBox.isSelected();
+    }
+
+    private void updateIsDistance() {
+        isDistance = isDistanceCheckBox.isSelected();
     }
 
     // Getters to Controller
@@ -86,12 +93,16 @@ public class FirstPanel implements CoursePanel {
         return coursePoints;
     }
 
-    public boolean getIsDistance() {
-        return isDistance;
-    }
-
     public int getGradingScale() {
         return gradingScale;
+    }
+
+    public boolean getThesis() {
+        return thesis;
+    }
+
+    public boolean getIsDistance() {
+        return isDistance;
     }
 
     // Print Out
