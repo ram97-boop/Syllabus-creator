@@ -84,8 +84,8 @@ public class ExpectedResultPanel implements CoursePanel {
         int i = 0;
         for (JLabel partLabel : partLabels) {
             partLabel.setVisible(i < nParts);
-            String labelName = i < nParts ? courseParts.get(i).getName() : null;
-            partLabel.setText(labelName);
+            String courseName = i < nParts ? courseParts.get(i).getName() : null;
+            partLabel.setText(courseName);
             i++;
         }
         for (JPanel radioPanel : radioPanels) {
