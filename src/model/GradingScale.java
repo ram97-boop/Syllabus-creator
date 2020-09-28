@@ -4,11 +4,11 @@ import java.util.*;
 
 public class GradingScale {
 	
-	HashMap<Integer,ArrayList<String>> gradingScaleMap = new HashMap<Integer, ArrayList<String>>();
+	private HashMap<Integer,ArrayList<String>> gradingScaleMap = new HashMap<Integer, ArrayList<String>>();
 	
 	// An array of strings that the user will see
 	// when choosing a grading scale.
-	String[] gradingScaleStrings = {
+	private String[] gradingScaleStrings = {
 			"7-gradig (A-F)",
 			"3-gradig (VG-U)",
 			"2-gradig (G-U)"
@@ -43,7 +43,7 @@ public class GradingScale {
 	}
 	
 	// Constructor
-	public GradingScale() {
+	private GradingScale() {
 		createGradingScales();
 	}
 	

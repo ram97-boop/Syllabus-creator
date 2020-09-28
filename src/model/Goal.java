@@ -4,13 +4,13 @@ import java.util.*;
 
 public class Goal {
 	// Description of this goal.
-	String description;
+	private String description;
 	
 	// The course parts which this goal belongs to.
-	ArrayList<CoursePart> parts = new ArrayList<CoursePart>();
+	private ArrayList<CoursePart> parts = new ArrayList<CoursePart>();
 	
 	// Constructor
-	public Goal() {
+	private Goal() {
 	}
 	
 	
