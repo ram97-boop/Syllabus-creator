@@ -23,6 +23,7 @@ public class MainFrame extends JFrame {
 
         this.setContentPane(controllers[0].getPanel().getPanel());
         this.pack();
+        controllers[0].getPanel().updateView(course);
         controllers[0].getPanel().getNextPanelButton().addActionListener(e -> {
             try{
                 controllers[0].updateModel();
