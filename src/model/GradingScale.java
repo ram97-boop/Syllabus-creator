@@ -60,6 +60,11 @@ public class GradingScale {
 	}
 	
 	
+	public String[] getGradingScaleStrings() {
+		return gradingScaleStrings;
+	}
+	
+	
 	/**
 	 * A second method for getting a grading scale,
 	 * but this one uses the strings in gradingScaleStrings
@@ -78,5 +83,6 @@ public class GradingScale {
 		else if (choice.equals(gradingScaleStrings[2])) {
 			return gradingScaleMap.get(2);
 		}
+		else return null;
 	}
 }
