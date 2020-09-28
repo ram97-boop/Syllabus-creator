@@ -11,53 +11,54 @@ public class TeachingPanel implements CoursePanel {
     private JButton previousPanelButton;
     private JTextArea textArea1;
     private JCheckBox otherThanSwedishCheckBox;
-    private JCheckBox isThesisCheckBox;
     private JTextField textField1;
     private JCheckBox canChangeSupervisorCheckBox;
     private JPanel languagePanel;
-    private JPanel supervisedTimePanel;
+    private JPanel thesisPanel;
+    private JPanel notDistancePanel;
+    private JPanel distancePanel;
+    private JRadioButton radio1;
+    private JRadioButton radio2;
+
+    // Constructors
 
     private TeachingPanel() {
-        for (Component component : supervisedTimePanel.getComponents()) {
-            component.setEnabled(false);
-        }
-        for (Component component : languagePanel.getComponents()) {
-            component.setEnabled(false);
-        }
-        otherThanSwedishCheckBox.addActionListener(e -> upgradeLanguagePanel());
-        isThesisCheckBox.addActionListener(e -> upgradeSupervisedTimePanel());
+        languagePanel.setVisible(false);
+        otherThanSwedishCheckBox.addActionListener(e -> updateLanguagePanel());
+        radio1.addActionListener(e -> updateRadios(radio2));
+        radio2.addActionListener(e -> updateRadios(radio1));
     }
     private static final TeachingPanel INSTANCE = new TeachingPanel();
     public static TeachingPanel getInstance() {return INSTANCE;}
 
+    // Interface methods
+
     public JPanel getPanel() {
         return mainPanel;
     }
-
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
-
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-
     public void updateView(Course course) {
-
+        distancePanel.setVisible(course.isDistance());
+        notDistancePanel.setVisible(!course.isDistance());
+        thesisPanel.setVisible(course.hasThesis());
     }
 
-    private void upgradeLanguagePanel() {
-        for (Component component : languagePanel.getComponents()) {
-            component.setEnabled(otherThanSwedishCheckBox.isSelected());
-        }
+    // Action listeners methods
+    private void updateLanguagePanel() {
+        languagePanel.setVisible(otherThanSwedishCheckBox.isSelected());
+        radio1.setSelected(true);
     }
 
-    private void upgradeSupervisedTimePanel() {
-        for (Component component : supervisedTimePanel.getComponents()) {
-            component.setEnabled(isThesisCheckBox.isSelected());
-        }
+    private void updateRadios(JRadioButton radio) {
+        radio.setSelected(false);
     }
 
+    // PrintOut method
     public void printOut(Course course) {
 
     }

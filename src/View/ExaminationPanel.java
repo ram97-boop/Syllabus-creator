@@ -49,6 +49,56 @@ public class ExaminationPanel implements CoursePanel {
     private JComboBox<String> gradingScale6;
     private JComboBox<String> gradingScale7;
     private JComboBox<String> gradingScale8;
+    private JTextArea textArea1;
+    private JTextField textField1;
+    private JLabel examinationLabel1;
+    private JLabel examinationLabel2;
+    private JLabel examinationLabel3;
+    private JLabel examinationLabel4;
+    private JLabel examinationLabel5;
+    private JLabel examinationLabel6;
+    private JLabel examinationLabel7;
+    private JLabel examinationLabel8;
+    private JPanel examinationPanel1;
+    private JPanel examinationPanel2;
+    private JPanel examinationPanel3;
+    private JPanel examinationPanel4;
+    private JPanel examinationPanel5;
+    private JPanel examinationPanel6;
+    private JPanel examinationPanel7;
+    private JPanel examinationPanel8;
+    private JRadioButton homeExamRadio1;
+    private JRadioButton homeExamRadio2;
+    private JRadioButton englishRadio1;
+    private JRadioButton englishRadio2;
+    private JRadioButton totalGradeRadio1;
+    private JRadioButton totalGradeRadio2;
+    private JRadioButton totalGradeRadio3;
+    private JCheckBox otherActivitiesCheckBox;
+    private JTextArea textArea2;
+    private JPanel otherAcitivitiesGradePanel;
+
+    private final JLabel[] examinationLabels = {
+        examinationLabel1,
+        examinationLabel2,
+        examinationLabel3,
+        examinationLabel4,
+        examinationLabel5,
+        examinationLabel6,
+        examinationLabel7,
+        examinationLabel8
+    };
+
+    private final JPanel[] examinationPanels = {
+            examinationPanel1,
+            examinationPanel2,
+            examinationPanel3,
+            examinationPanel4,
+            examinationPanel5,
+            examinationPanel6,
+            examinationPanel7,
+            examinationPanel8
+    };
 
 
     private final JPanel[] partPanels = {
@@ -73,6 +123,14 @@ public class ExaminationPanel implements CoursePanel {
         homeExamCheckBox.addActionListener(e -> updateHomeExamPanel());
         examinationOnEnglishCheckBox.addActionListener(e -> updateEnglishExaminationPanel());
         hasAttendanceCheckBox.addActionListener(e -> updateAttendancePanel());
+        homeExamRadio1.addActionListener(e -> updateHomeExamRadios(homeExamRadio2));
+        homeExamRadio2.addActionListener(e -> updateHomeExamRadios(homeExamRadio1));
+        englishRadio1.addActionListener(e -> updateEnglishRadios(englishRadio2));
+        englishRadio2.addActionListener(e -> updateEnglishRadios(englishRadio1));
+        totalGradeRadio1.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio2, totalGradeRadio3));
+        totalGradeRadio2.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio3, totalGradeRadio1));
+        totalGradeRadio3.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio1, totalGradeRadio2));
+        otherActivitiesCheckBox.addActionListener(e -> updateOtherActivitiesGradePanel());
     }
     private static final ExaminationPanel INSTANCE = new ExaminationPanel();
     public static ExaminationPanel getInstance() {return INSTANCE;}
@@ -88,34 +146,46 @@ public class ExaminationPanel implements CoursePanel {
         return previousPanelButton;
     }
     public void updateView(Course course) {
-        for (Component component : homeExamPanel.getComponents()) {
-            component.setEnabled(homeExamCheckBox.isSelected());
-        }
-        for (Component component : englishExaminationPanel.getComponents()) {
-            component.setEnabled(examinationOnEnglishCheckBox.isSelected());
-        }
+        homeExamPanel.setVisible(false);
+        englishExaminationPanel.setVisible(false);
 
         attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
         distanceAttendancePanel.setVisible(course.isDistance());
         notDistanceAttendancePanel.setVisible(!course.isDistance());
 
-        partsExaminationPanel.setVisible(course.getCourseParts() != null);
-        noPartsExaminationPanel.setVisible(course.getCourseParts() == null);
+
 
         ArrayList<CoursePart> courseParts = course.getCourseParts();
         int nParts = courseParts.size();
-        int i = 0;
+        boolean hasParts = nParts > 0;
 
-        for (JPanel partPanel : partPanels) {
-            partPanel.setVisible(i < nParts);
-
-            if (i < nParts) {
-                JLabel label = (JLabel) partPanel.getComponent(0);
-                String courseName = courseParts.get(i).getName();
-                label.setText(courseName);
+        partsExaminationPanel.setVisible(hasParts);
+        noPartsExaminationPanel.setVisible(!hasParts);
+        partsGradingScalePanel.setVisible(hasParts);
+        if(hasParts) {
+            int i = 0;
+            for (JPanel examinationPanel : examinationPanels) {
+                examinationPanel.setVisible(i < nParts);
+                if (i < nParts) {
+                    JLabel label = (JLabel) examinationPanel.getComponent(1);
+                    label.setText(courseParts.get(i).getName());
+                }
+                i++;
             }
-            i++;
+            i = 0;
+            for (JPanel partPanel : partPanels) {
+                partPanel.setVisible(i < nParts);
+
+                if (i < nParts) {
+                    JLabel label = (JLabel) partPanel.getComponent(0);
+                    String courseName = courseParts.get(i).getName();
+                    label.setText(courseName);
+                }
+                i++;
+            }
         }
+
+
 
         for (String gradingScaleString : gradingScaleStrings) {
             gradingScale1.addItem(gradingScaleString);
@@ -130,27 +200,47 @@ public class ExaminationPanel implements CoursePanel {
 
         }
 
+        totalGradeRadio1.setSelected(true);
+
+        otherAcitivitiesGradePanel.setVisible(false);
     }
 
     // Action listeners methods
     private void updateHomeExamPanel() {
-        for (Component component : homeExamPanel.getComponents()) {
-            component.setEnabled(homeExamCheckBox.isSelected());
-        }
+        homeExamPanel.setVisible(homeExamCheckBox.isSelected());
+        homeExamRadio1.setSelected(true);
+    }
+
+    private void updateHomeExamRadios(JRadioButton radio) {
+        radio.setSelected(false);
     }
 
     private void updateEnglishExaminationPanel() {
-        for (Component component : englishExaminationPanel.getComponents()) {
-            component.setEnabled(examinationOnEnglishCheckBox.isSelected());
-        }
+        englishExaminationPanel.setVisible(examinationOnEnglishCheckBox.isSelected());
+        englishRadio1.setSelected(true);
+    }
+
+    private void updateEnglishRadios(JRadioButton radio) {
+        radio.setSelected(false);
     }
 
     private void updateAttendancePanel() {
         attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
     }
 
+    private void updateTotalGradeRadios(JRadioButton radio1, JRadioButton radio2) {
+        radio1.setSelected(false);
+        radio2.setSelected(false);
+    }
+
+    private void updateOtherActivitiesGradePanel() {
+        otherAcitivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
+    }
+
+    // PrintOut method
 
     public void printOut(Course course) {
 
     }
+
 }
