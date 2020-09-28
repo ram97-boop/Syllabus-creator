@@ -7,7 +7,7 @@ public class Goal {
 	String description;
 	
 	// The course parts which this goal belongs to.
-	ArrayList<CoursePart> parts;
+	ArrayList<CoursePart> parts = new ArrayList<CoursePart>();
 	
 	// Constructor
 	public Goal() {

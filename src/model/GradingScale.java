@@ -4,7 +4,7 @@ import java.util.*;
 
 public class GradingScale {
 	
-	HashMap<Integer,ArrayList<String>> gradingScaleMap;
+	HashMap<Integer,ArrayList<String>> gradingScaleMap = new HashMap<Integer, ArrayList<String>>();
 	
 	private void createGradingScales() {
 		// ArrayList of A-F grading scale.
