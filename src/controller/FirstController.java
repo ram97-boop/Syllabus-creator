@@ -2,6 +2,9 @@ package controller;
 
 import View.FirstPanel;
 import model.Course;
+import model.GradingScale;
+
+import java.util.ArrayList;
 
 public class FirstController implements CourseController {
     private Course course;
@@ -29,6 +32,12 @@ public class FirstController implements CourseController {
         course.setName(firstPanel.getCourseName().getText());
         course.setCode(firstPanel.getCourseCode().getText());
         course.setDistance(firstPanel.getIsDistance());
+        course.setThesis(firstPanel.getThesis());
+
+        GradingScale gradingScale = new GradingScale();
+        ArrayList<String> gradingScaleList = gradingScale.getGradingScale(firstPanel.getGradingScale());
+
+        course.setGradingScale(gradingScaleList);
     }
 
 }

@@ -39,12 +39,22 @@ public class FirstControllerTest {
         assertEquals(panel.getCourseCode().getText(), course.getCode());
         assertTrue(Math.abs(Float.parseFloat(panel.getCoursePoints().getText())-course.getCredits())<1e-8);
         assertFalse(course.isDistance());
+        assertFalse(course.hasThesis());
+
+        assertEquals(7, course.getGradingScale().size());
+        assertEquals("A", course.getGradingScale().get(0).substring(0,1));
+        assertEquals("B", course.getGradingScale().get(1).substring(0,1));
+        assertEquals("C", course.getGradingScale().get(2).substring(0,1));
+        assertEquals("D", course.getGradingScale().get(3).substring(0,1));
+        assertEquals("E", course.getGradingScale().get(4).substring(0,1));
+        assertEquals("Fx", course.getGradingScale().get(5).substring(0,2));
+        assertEquals("F", course.getGradingScale().get(6).substring(0,1));
 
         // assert have not been set
         assertTrue(course.getCourseParts().isEmpty());
         assertTrue(course.getGoals().isEmpty());
         assertNull(course.getLanguage());
-        assertNull(course.getGradingScale());
+
     }
 
     @Test (expected = NumberFormatException.class)
