@@ -11,6 +11,7 @@ public class Course {
 	boolean distance;
 	String language;
 	ArrayList<Goal> goal = new ArrayList<Goal>();
+	boolean thesis;
 	
 	public Course() {
 		
@@ -58,6 +59,10 @@ public class Course {
 		return goal;
 	}
 	
+	public boolean hasThesis() {
+		return thesis;
+	}
+	
 	// Basic setters
 	
 	public void setName(String name) {
@@ -78,6 +83,10 @@ public class Course {
 	
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	
+	public void setThesis(boolean thesis) {
+		this.thesis = thesis;
 	}
 	
 	// Container setters
