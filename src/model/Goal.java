@@ -4,13 +4,13 @@ import java.util.*;
 
 public class Goal {
 	// Description of this goal.
-	String description;
+	private String description;
 	
 	// The course parts which this goal belongs to.
-	ArrayList<CoursePart> parts = new ArrayList<CoursePart>();
+	private ArrayList<CoursePart> parts = new ArrayList<CoursePart>();
 	
 	// Constructor
-	public Goal() {
+	private Goal() {
 	}
 	
 	
@@ -42,6 +42,7 @@ public class Goal {
 		this.description = g;
 	}
 	
+	
 	/**
 	 * Adds a course part that has this goal
 	 * into the ArrayList parts.
@@ -49,6 +50,16 @@ public class Goal {
 	 */
 	public void addCoursePart(CoursePart p) {
 		this.parts.add(p);
+	}
+	
+	
+	/**
+	 * Assigns an ArrayList of course parts to
+	 * the attribute parts.
+	 * @param p
+	 */
+	public void setCourseParts(ArrayList<CoursePart> p) {
+		this.parts = p;
 	}
 	
 }
