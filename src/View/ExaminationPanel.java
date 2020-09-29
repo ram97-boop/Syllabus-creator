@@ -131,6 +131,17 @@ public class ExaminationPanel implements CoursePanel {
         totalGradeRadio2.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio3, totalGradeRadio1));
         totalGradeRadio3.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio1, totalGradeRadio2));
         otherActivitiesCheckBox.addActionListener(e -> updateOtherActivitiesGradePanel());
+
+        for (String gradingScaleString : gradingScaleStrings) {
+            gradingScale1.addItem(gradingScaleString);
+            gradingScale2.addItem(gradingScaleString);
+            gradingScale3.addItem(gradingScaleString);
+            gradingScale4.addItem(gradingScaleString);
+            gradingScale5.addItem(gradingScaleString);
+            gradingScale6.addItem(gradingScaleString);
+            gradingScale7.addItem(gradingScaleString);
+            gradingScale8.addItem(gradingScaleString);
+        }
     }
     private static final ExaminationPanel INSTANCE = new ExaminationPanel();
     public static ExaminationPanel getInstance() {return INSTANCE;}
@@ -175,33 +186,14 @@ public class ExaminationPanel implements CoursePanel {
             i = 0;
             for (JPanel partPanel : partPanels) {
                 partPanel.setVisible(i < nParts);
-
                 if (i < nParts) {
                     JLabel label = (JLabel) partPanel.getComponent(0);
-                    String courseName = courseParts.get(i).getName();
-                    label.setText(courseName);
+                    label.setText(courseParts.get(i).getName());
                 }
                 i++;
             }
         }
-
-
-
-        for (String gradingScaleString : gradingScaleStrings) {
-            gradingScale1.addItem(gradingScaleString);
-            gradingScale2.addItem(gradingScaleString);
-            gradingScale3.addItem(gradingScaleString);
-            gradingScale4.addItem(gradingScaleString);
-            gradingScale5.addItem(gradingScaleString);
-            gradingScale6.addItem(gradingScaleString);
-            gradingScale7.addItem(gradingScaleString);
-            gradingScale8.addItem(gradingScaleString);
-
-
-        }
-
         totalGradeRadio1.setSelected(true);
-
         otherAcitivitiesGradePanel.setVisible(false);
     }
 

@@ -23,36 +23,30 @@ public class MainFrame extends JFrame {
 
         this.setContentPane(controllers[0].getPanel().getPanel());
         this.pack();
-        controllers[0].getPanel().updateView(course);
-        controllers[0].getPanel().getNextPanelButton().addActionListener(e -> {
-            try{
-                controllers[0].updateModel();
-                changePanel(1);
-            } catch (RuntimeException exception) {
-                // do something meaningful
-            }
-        });
+        this.setSize(800, 600);
+
+        for (int i = 0; i < controllers.length; i++) {
+            int finalI = i;
+            controllers[i].getPanel().getNextPanelButton().addActionListener(e -> {
+                try{
+                    controllers[finalI].updateModel();
+                    changePanel(finalI + 1);
+                } catch (RuntimeException exception) {
+                    // do something meaningful
+                }
+            });
+            controllers[i].getPanel().getPreviousPanelButton().addActionListener(e -> {
+                try {
+                    changePanel(finalI - 1);
+                } catch (RuntimeException exception) {
+                    // do something meaningful
+                }
+            });
+        }
     }
 
     public void changePanel(int nextIndex) {
         controllers[nextIndex].getPanel().updateView(course);
-        controllers[nextIndex].getPanel().getNextPanelButton().addActionListener(e -> {
-            try{
-                controllers[nextIndex].updateModel();
-                changePanel(nextIndex + 1);
-            } catch (RuntimeException exception) {
-                // do something meaningful
-            }
-
-        });
-        controllers[nextIndex].getPanel().getPreviousPanelButton().addActionListener(e -> {
-            try{
-                changePanel(nextIndex - 1);
-            } catch (RuntimeException exception) {
-                // do something meaningful
-            }
-
-        });
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.pack();
         this.setSize(800, 600);
@@ -61,6 +55,5 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
         JFrame frame = new MainFrame("Syllabus Creator");
         frame.setVisible(true);
-        frame.setSize(800, 600);
     }
 }

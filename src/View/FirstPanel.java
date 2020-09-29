@@ -40,6 +40,10 @@ public class FirstPanel implements CoursePanel {
         gradingScaleComboBox.addActionListener(e -> updateGradingScale());
         thesisCheckBox.addActionListener(e -> updateThesis());
         isDistanceCheckBox.addActionListener(e -> updateIsDistance());
+
+        for (String gradingScaleString : gradingScaleStrings) {
+            gradingScaleComboBox.addItem(gradingScaleString);
+        }
     }
     private static final FirstPanel INSTANCE = new FirstPanel();
     public static FirstPanel getInstance() {return INSTANCE;}
@@ -59,9 +63,7 @@ public class FirstPanel implements CoursePanel {
     }
 
     public void updateView(Course course) {
-        for (String gradingScaleString : gradingScaleStrings) {
-            gradingScaleComboBox.addItem(gradingScaleString);
-        }
+
     }
 
     // Action listeners methods

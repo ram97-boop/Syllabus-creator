@@ -20,13 +20,17 @@ public class CourseContentPanel implements CoursePanel {
     private JPanel part6Panel;
     private JComboBox<Integer> nPartsComboBox;
 
-    private final int[] possibleNParts = {0, 1, 2, 3, 4, 5 ,6, 7, 8};
     private int nParts = 0;
 
     // Constructors
     private CourseContentPanel() {
         nPartsComboBox.setEditable(false);
         nPartsComboBox.addActionListener(e -> updatePartFields());
+
+        int[] possibleNParts = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+        for (int possibleNPart : possibleNParts) {
+            nPartsComboBox.addItem(possibleNPart);
+        }
     }
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
     public static CourseContentPanel getInstance() {return INSTANCE;}
@@ -43,9 +47,7 @@ public class CourseContentPanel implements CoursePanel {
     }
 
     public void updateView(Course course) {
-        for (int possibleNPart : possibleNParts) {
-            nPartsComboBox.addItem(possibleNPart);
-        }
+
         int i = 0;
         for (Component component : partsPanel.getComponents()) {
             component.setVisible(i < nParts);
