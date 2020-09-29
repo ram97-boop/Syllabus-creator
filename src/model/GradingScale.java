@@ -43,7 +43,7 @@ public class GradingScale {
 	}
 	
 	// Constructor
-	private GradingScale() {
+	public GradingScale() {
 		createGradingScales();
 	}
 	
