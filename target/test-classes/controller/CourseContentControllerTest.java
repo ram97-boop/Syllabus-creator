@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +33,10 @@ public class CourseContentControllerTest {
         panel = courseContentController.getPanel();
         courseParts = new ArrayList<>();
 
-        Arrays.stream(panel.getPartPanels()).forEach(jPanel -> jPanel.setVisible(false));
+        JTextField[][] partFields = panel.getPartFields();
+        for (JTextField[] row : partFields) {
+            row[0].setVisible(false);
+        }
 
         firstPart.setCredits(1.5);
         firstPart.setName("Teori");
@@ -87,17 +89,16 @@ public class CourseContentControllerTest {
     @Test (expected = RuntimeException.class)
     public void enteredCoursePartsWithWrongSumShouldResultInException() {
 
-        JPanel[] partPanels = panel.getPartPanels();
+        JTextField[][] partFields = panel.getPartFields();
 
-        // set first three panels visible
-        partPanels[0].setVisible(true);
-        partPanels[1].setVisible(true);
+        partFields[0][0].setVisible(true);
+        partFields[1][0].setVisible(true);
 
-        // set text fields
-        ((JTextField)partPanels[0].getComponent(0)).setText(firstPart.getName());
-        ((JTextField)partPanels[0].getComponent(2)).setText(Double.toString(firstPart.getCredits()));
-        ((JTextField)partPanels[1].getComponent(0)).setText(secondPart.getName());
-        ((JTextField)partPanels[1].getComponent(2)).setText(Double.toString(secondPart.getCredits()));
+        partFields[0][0].setText(firstPart.getName());
+        partFields[0][2].setText(Double.toString(firstPart.getCredits()));
+
+        partFields[1][0].setText(secondPart.getName());
+        partFields[1][2].setText(Double.toString(secondPart.getCredits()));
 
         courseContentController.updateModel();
 
@@ -120,21 +121,21 @@ public class CourseContentControllerTest {
     }
 
     private void setUpTextFields() {
-        JPanel[] partPanels = panel.getPartPanels();
+        JTextField[][] partFields = panel.getPartFields();
 
-        // set first three panels visible
-        partPanels[0].setVisible(true);
-        partPanels[1].setVisible(true);
-        partPanels[2].setVisible(true);
+        partFields[0][0].setVisible(true);
+        partFields[1][0].setVisible(true);
+        partFields[2][0].setVisible(true);
 
-        // set text fields
-        ((JTextField)partPanels[0].getComponent(0)).setText(firstPart.getName());
-        ((JTextField)partPanels[0].getComponent(2)).setText(Double.toString(firstPart.getCredits()));
-        ((JTextField)partPanels[1].getComponent(0)).setText(secondPart.getName());
-        ((JTextField)partPanels[1].getComponent(2)).setText(Double.toString(secondPart.getCredits()));
-        ((JTextField)partPanels[2].getComponent(0)).setText(thirdPart.getName());
-        ((JTextField)partPanels[2].getComponent(2)).setText(Double.toString(thirdPart.getCredits()));
+        partFields[0][0].setText(firstPart.getName());
+        partFields[0][2].setText(Double.toString(firstPart.getCredits()));
+
+        partFields[1][0].setText(secondPart.getName());
+        partFields[1][2].setText(Double.toString(secondPart.getCredits()));
+
+        partFields[2][0].setText(thirdPart.getName());
+        partFields[2][2].setText(Double.toString(thirdPart.getCredits()));
+
     }
-
 
 }

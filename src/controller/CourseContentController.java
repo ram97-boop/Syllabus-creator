@@ -27,21 +27,6 @@ public class CourseContentController implements CourseController {
     public void updateModel() {
         ArrayList<CoursePart> courseParts = new ArrayList<>();
 
-//        JPanel[] panels = courseContentPanel.getPartPanels();
-//
-//        for (JPanel panel: panels) {
-//            if (panel.isVisible()) {
-//                JTextField name = (JTextField) panel.getComponent(0);
-//                JTextField credit = (JTextField) panel.getComponent(2);
-//
-//                CoursePart coursePart = new CoursePart();
-//                coursePart.setName(name.getText());
-//                coursePart.setCredits((Double.parseDouble(credit.getText())));
-//
-//                courseParts.add(coursePart);
-//            }
-//        }
-
         JTextField[][] textFields = courseContentPanel.getPartFields();
 
         for (JTextField[] row : textFields) {
