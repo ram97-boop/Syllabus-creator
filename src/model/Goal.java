@@ -10,7 +10,7 @@ public class Goal {
 	private ArrayList<CoursePart> parts = new ArrayList<CoursePart>();
 	
 	// Constructor
-	private Goal() {
+	public Goal() {
 	}
 	
 	
