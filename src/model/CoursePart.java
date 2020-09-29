@@ -4,6 +4,7 @@ import java.util.*;
 
 public class CoursePart {
 	String name; // Name of this course part
+	String engName; // English name of this course part
 	double credits; // Credits tied to this course part
 	String examination; // The method of examination used in this course part
 	ArrayList<String> gradingScale; // 7-grade, 3-grade or 2-grade scale used for this course part
@@ -18,6 +19,10 @@ public class CoursePart {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getEngName() {
+		return engName;
 	}
 	
 	public double getCredits() {
@@ -36,6 +41,10 @@ public class CoursePart {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String setEngName() {
+		return engName;
 	}
 	
 	public void setCredits(double credits) {

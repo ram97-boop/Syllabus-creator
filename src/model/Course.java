@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Course {
 	String name; // Name of the course
+	String engName; // English name of the course
 	double credits; // Credits earned from completing the course
 	String code; // The course's code
 	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>(); // Parts that the course consists of
@@ -29,6 +30,10 @@ public class Course {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getEngName() {
+		return engName;
 	}
 	
 	public double getCredits() {
@@ -67,6 +72,10 @@ public class Course {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String setEngName() {
+		return engName;
 	}
 	
 	public void setCredits(double credits) {
