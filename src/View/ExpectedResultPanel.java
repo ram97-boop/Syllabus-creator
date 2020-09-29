@@ -106,6 +106,11 @@ public class ExpectedResultPanel implements CoursePanel {
     }
 
     // Getters to Controller
+
+    public JCheckBox getIsConnectedToAll() {
+        return isConnectedToAll;
+    }
+
     public JPanel[] getGoalPanels() {
         return new JPanel[]{
                 goalPanel1,
