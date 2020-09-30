@@ -1,6 +1,7 @@
 package View;
 
 import model.Course;
+import model.CoursePart;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +12,8 @@ public class CourseContentPanel implements CoursePanel {
     private JButton previousPanelButton;
     private JPanel mainPanel;
     private JPanel partsPanel;
-    private JTextArea textArea1;
 
-
+    private JTextPane courseContentTextPane;
     private JComboBox<Integer> nPartsComboBox;
     private JTextField part1S;
     private JTextField part2S;
@@ -36,6 +36,9 @@ public class CourseContentPanel implements CoursePanel {
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
+    private JTextPane printOutPane;
+    private JButton printOutButton;
+
 
     private JTextField[][] partFields = {
             {part1S, part1E, credits1},
@@ -61,6 +64,7 @@ public class CourseContentPanel implements CoursePanel {
         }
 //        nPartsComboBox.setSelectedIndex(0);
         nPartsComboBox.addActionListener(e -> updatePartFields());
+        printOutButton.addActionListener(e -> printOut());
     }
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
     public static CourseContentPanel getInstance() {return INSTANCE;}
@@ -117,8 +121,22 @@ public class CourseContentPanel implements CoursePanel {
 
     // Print out
 
-    public void printOut(Course course) {
+    public void printOut() {
+        String outPutText = "a. Kursen behandlar: ";
+        outPutText += courseContentTextPane.getText();
+        outPutText += "\n\n";
+        outPutText += "b. Kursen består av följande delar: \n";
+        for (JTextField[] row : partFields) {
+            if (row[0].isVisible()) {
+                String name = row[0].getText();
+                String ename = row[1].getText();
+                String credit = row[2].getText();
 
+                outPutText += name + " (" + ename + "), " + credit + " hp\n";
+            }
+        }
+
+        printOutPane.setText(outPutText);
     }
 
 

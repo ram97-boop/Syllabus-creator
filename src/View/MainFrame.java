@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
     private int width = 800;
-    private int height = 600;
+    private int height = 800;
     private final Course course = new Course();
 
     private final CourseController[] controllers = {
@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
 
         this.setContentPane(controllers[0].getPanel().getPanel());
         this.pack();
-        this.setSize(800, 600);
+        this.setSize(width, height);
 
         for (int i = 0; i < controllers.length; i++) {
             int finalI = i;
