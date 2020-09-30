@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CourseContentPanel implements CoursePanel {
+    private MainFrame frame;
     private JButton nextPanelButton;
     private JButton previousPanelButton;
     private JPanel mainPanel;
@@ -36,7 +37,7 @@ public class CourseContentPanel implements CoursePanel {
     private JLabel label2;
     private JLabel label3;
 
-    private final JTextField[][] partFields = {
+    private JTextField[][] partFields = {
             {part1S, part1E, credits1},
             {part2S, part2E, credits2},
             {part3S, part3E, credits3},
@@ -58,7 +59,7 @@ public class CourseContentPanel implements CoursePanel {
         for (int possibleNPart : possibleNParts) {
             nPartsComboBox.addItem(possibleNPart);
         }
-        nPartsComboBox.setSelectedIndex(0);
+//        nPartsComboBox.setSelectedIndex(0);
         nPartsComboBox.addActionListener(e -> updatePartFields());
     }
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
@@ -75,7 +76,7 @@ public class CourseContentPanel implements CoursePanel {
         return previousPanelButton;
     }
 
-    public void updateView(Course course) {
+    public void updateView(MainFrame frame, Course course) {
         for (JLabel label : labels) label.setVisible(nParts > 0);
         int i = 0;
         for (JTextField[] row : partFields) {
@@ -84,6 +85,7 @@ public class CourseContentPanel implements CoursePanel {
             }
             i++;
         }
+        this.frame = frame;
     }
 
     // Action listener methods
@@ -100,6 +102,7 @@ public class CourseContentPanel implements CoursePanel {
             }
             i++;
         }
+        frame.keepSize();
     }
 
     public int getNParts() {

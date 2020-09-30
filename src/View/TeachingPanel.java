@@ -42,7 +42,7 @@ public class TeachingPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-    public void updateView(Course course) {
+    public void updateView(MainFrame frame, Course course) {
         distancePanel.setVisible(course.isDistance());
         notDistancePanel.setVisible(!course.isDistance());
         thesisPanel.setVisible(course.hasThesis());
