@@ -14,7 +14,7 @@ public class Course {
 	String language; // The language the course is taught in
 	ArrayList<Goal> goals = new ArrayList<Goal>(); // List of expected results from going the course
 	boolean thesis; // Whether this course has a thesis or not
-	CoursePanel[] panels;
+	CoursePanel[] panels; // Stores panels, may be able to use this to save panels to a file along with the course instance
 	
 	public Course() {
 		
