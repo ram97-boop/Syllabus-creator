@@ -33,9 +33,12 @@ public class CourseContentControllerTest {
         panel = courseContentController.getPanel();
         courseParts = new ArrayList<>();
 
+        // set all text-fields to not visible
         JTextField[][] partFields = panel.getPartFields();
         for (JTextField[] row : partFields) {
             row[0].setVisible(false);
+            row[1].setVisible(false);
+            row[2].setVisible(false);
         }
 
         firstPart.setCredits(1.5);
@@ -98,7 +101,11 @@ public class CourseContentControllerTest {
         JTextField[][] partFields = panel.getPartFields();
 
         partFields[0][0].setVisible(true);
+        partFields[0][1].setVisible(true);
+        partFields[0][2].setVisible(true);
         partFields[1][0].setVisible(true);
+        partFields[1][1].setVisible(true);
+        partFields[1][2].setVisible(true);
 
         partFields[0][0].setText(firstPart.getName());
         partFields[0][1].setText(firstPart.getEngName());
@@ -135,8 +142,14 @@ public class CourseContentControllerTest {
         JTextField[][] partFields = panel.getPartFields();
 
         partFields[0][0].setVisible(true);
+        partFields[0][1].setVisible(true);
+        partFields[0][2].setVisible(true);
         partFields[1][0].setVisible(true);
+        partFields[1][1].setVisible(true);
+        partFields[1][2].setVisible(true);
         partFields[2][0].setVisible(true);
+        partFields[2][1].setVisible(true);
+        partFields[2][2].setVisible(true);
 
         partFields[0][0].setText(firstPart.getName());
         partFields[0][1].setText(firstPart.getEngName());
