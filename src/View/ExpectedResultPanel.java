@@ -119,6 +119,8 @@ public class ExpectedResultPanel implements CoursePanel {
 
     private final HashMap<JTextField, JRadioButton[]> goals = new HashMap<>();
 
+    int nParts = 0;
+
     //Constructors
     private ExpectedResultPanel() {
         isConnectedToAll.addActionListener(e -> updateRadioButtons());
@@ -139,7 +141,7 @@ public class ExpectedResultPanel implements CoursePanel {
     }
     public void updateView(MainFrame frame, Course course) {
         ArrayList<CoursePart> courseParts = course.getCourseParts();
-        int nParts = courseParts.size();
+        nParts = courseParts.size();
         int i = 0;
         for (JLabel partLabel : partLabels) {
             partLabel.setVisible(i < nParts);
@@ -162,9 +164,12 @@ public class ExpectedResultPanel implements CoursePanel {
         for (JLabel partLabel : partLabels) {
             partLabel.setVisible(!isConnectedToAll.isSelected());
         }
+        int i;
         for (JRadioButton[] radioPanel : goals.values()) {
+            i = 0;
             for (JRadioButton radioButton : radioPanel) {
-                radioButton.setVisible(!isConnectedToAll.isSelected());
+                radioButton.setVisible(!isConnectedToAll.isSelected() && i < nParts);
+                i++;
             }
         }
     }
