@@ -74,8 +74,8 @@ public class Course {
 		this.name = name;
 	}
 	
-	public String setEngName() {
-		return engName;
+	public void setEngName(String engName) {
+		this.engName = engName;
 	}
 	
 	public void setCredits(double credits) {
