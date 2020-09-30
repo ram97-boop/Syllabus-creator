@@ -12,8 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -33,13 +32,12 @@ public class ExpectedResultControllerTest {
         expectedResultController = new ExpectedResultController(course, ExpectedResultPanel.getInstance());
         panel = expectedResultController.getPanel();
 
-        Arrays.stream(panel.getGoalPanels()).forEach(jPanel -> {
-            JPanel buttonPanel = (JPanel) jPanel.getComponent(1);
-            for (int i=0; i<8; i++) {
-                JRadioButton button = (JRadioButton) buttonPanel.getComponent(i);
+        HashMap<JTextField, JRadioButton[]> goalsMap = panel.getGoals();
+        goalsMap.forEach((key, value) -> {
+            Arrays.stream(value).forEach(button -> {
                 button.setVisible(false);
                 button.setSelected(false);
-            }
+            });
         });
 
         JCheckBox isConnectedToAll = panel.getIsConnectedToAll();
@@ -62,18 +60,18 @@ public class ExpectedResultControllerTest {
     @Test
     public void updateModelWithGoalsConnectedToThreeCoursePartsSetGoalsCorrectForCourse() {
 
-        JPanel[] goalPanels = panel.getGoalPanels();
-        setUppThreeGoals(goalPanels);
+        HashMap<JTextField, JRadioButton[]> goalsMap = panel.getGoals();
+        setUppThreeGoals(goalsMap);
 
         // connect course parts 1 and 2 to first goal
-        setButtonSelected(goalPanels, 0, 0);
-        setButtonSelected(goalPanels, 0, 1);
+        setButtonSelected(goalsMap, 0, 0);
+        setButtonSelected(goalsMap, 0, 1);
 
         // connect course part 1 to second goal
-        setButtonSelected(goalPanels, 1, 0);
+        setButtonSelected(goalsMap, 1, 0);
 
         // connect course part 3 to third goal
-        setButtonSelected(goalPanels, 2, 2);
+        setButtonSelected(goalsMap, 2, 2);
 
         expectedResultController.updateModel();
 
@@ -102,8 +100,8 @@ public class ExpectedResultControllerTest {
 
         JCheckBox isConnectedToAll = panel.getIsConnectedToAll();
         isConnectedToAll.setSelected(true);
-        JPanel[] goalPanels = panel.getGoalPanels();
-        setUppThreeGoals(goalPanels);
+        HashMap<JTextField, JRadioButton[]> goalsMap = panel.getGoals();
+        setUppThreeGoals(goalsMap);
 
         expectedResultController.updateModel();
 
@@ -137,8 +135,8 @@ public class ExpectedResultControllerTest {
 
         course.setCourseParts(new ArrayList<>());
 
-        JPanel[] goalPanels = panel.getGoalPanels();
-        setUppThreeGoals(goalPanels);
+        HashMap<JTextField, JRadioButton[]> goalsMap = panel.getGoals();
+        setUppThreeGoals(goalsMap);
 
         expectedResultController.updateModel();
 
@@ -158,15 +156,19 @@ public class ExpectedResultControllerTest {
 
     }
 
-    private void setUppThreeGoals(JPanel[] goalPanels) {
+    private void setUppThreeGoals(HashMap<JTextField, JRadioButton[]> goalsMap) {
         // set text fields for three goals
-        ((JTextField)goalPanels[0].getComponent(0)).setText("First goal text info");
-        ((JTextField)goalPanels[1].getComponent(0)).setText("Second goal text info");
-        ((JTextField)goalPanels[2].getComponent(0)).setText("Third goal text info");
+        List<JTextField> jTextFields = new ArrayList<>(goalsMap.keySet());
+        jTextFields.get(0).setText("First goal text info");;
+        jTextFields.get(1).setText("Second goal text info");
+        jTextFields.get(2).setText("Third goal text info");
     }
 
-    private void setButtonSelected(JPanel[] goalPanels, int panelIndex, int buttonIndex) {
-        JRadioButton button = (JRadioButton) ((JPanel) goalPanels[panelIndex].getComponent(1)).getComponent(buttonIndex);
+    private void setButtonSelected(HashMap<JTextField, JRadioButton[]> goalsMap, int panelIndex, int buttonIndex) {
+        List<JTextField> jTextFields = new ArrayList<>(goalsMap.keySet());
+        JTextField jTextField = jTextFields.get(panelIndex);
+        JRadioButton[] jRadioButtons = goalsMap.get(jTextField);
+        JRadioButton button = jRadioButtons[buttonIndex];
         button.setSelected(true);
         button.setVisible(true);
     }
