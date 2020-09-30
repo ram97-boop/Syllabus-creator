@@ -3,15 +3,16 @@ package model;
 import java.util.*;
 
 public class Course {
-	String name;
-	double credits;
-	String code;
-	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>();
-	ArrayList<String> gradingScale;
-	boolean distance;
-	String language;
-	ArrayList<Goal> goal = new ArrayList<Goal>();
-	boolean thesis;
+	String name; // Name of the course
+	String engName; // English name of the course
+	double credits; // Credits earned from completing the course
+	String code; // The course's code
+	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>(); // Parts that the course consists of
+	ArrayList<String> gradingScale; // 7-grade, 3-grade or 2-grade scale used for the course
+	boolean distance; // Whether the course is taught on campus or from a distance
+	String language; // The language the course is taught in
+	ArrayList<Goal> goals = new ArrayList<Goal>(); // List of expected results from going the course
+	boolean thesis; // Whether this course has a thesis or not
 	
 	public Course() {
 		
@@ -29,6 +30,10 @@ public class Course {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getEngName() {
+		return engName;
 	}
 	
 	public double getCredits() {
@@ -56,7 +61,7 @@ public class Course {
 	}
 	
 	public ArrayList<Goal> getGoals() {
-		return goal;
+		return goals;
 	}
 	
 	public boolean hasThesis() {
@@ -67,6 +72,10 @@ public class Course {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setEngName(String engName) {
+		this.engName = engName;
 	}
 	
 	public void setCredits(double credits) {
@@ -108,14 +117,14 @@ public class Course {
 	}
 	
 	public void setGoals(ArrayList<Goal> goals) {
-		goal = goals;
+		this.goals = goals;
 	}
 	
 	public void addGoal(Goal goal) {
-		this.goal.add(goal);
+		goals.add(goal);
 	}
 	
 	public boolean removeGoal(Goal goal) {
-		return this.goal.remove(goal);
+		return goals.remove(goal);
 	}
 }
