@@ -124,7 +124,9 @@ public class ExpectedResultPanel implements CoursePanel {
 
     private final HashMap<JTextField, JRadioButton[]> goals = new HashMap<>();
 
+    ArrayList<CoursePart> courseParts;
     int nParts = 0;
+    boolean hasParts = false;
 
     //Constructors
     private ExpectedResultPanel() {
@@ -149,8 +151,10 @@ public class ExpectedResultPanel implements CoursePanel {
         return previousPanelButton;
     }
     public void updateView(MainFrame frame, Course course) {
-        ArrayList<CoursePart> courseParts = course.getCourseParts();
+        courseParts = course.getCourseParts();
         nParts = courseParts.size();
+        hasParts = nParts > 0;
+
         int i = 0;
         for (JLabel partLabel : partLabels) {
             partLabel.setVisible(i < nParts);
@@ -158,6 +162,7 @@ public class ExpectedResultPanel implements CoursePanel {
             partLabel.setText(courseName);
             i++;
         }
+
         for (JRadioButton[] radioPanel : goals.values()) {
             i = 0;
             for (JRadioButton radioButton : radioPanel) {
@@ -165,9 +170,10 @@ public class ExpectedResultPanel implements CoursePanel {
                 i++;
             }
         }
-        isConnectedToAll.setVisible(nParts > 0);
-        printAlt1Radio.setVisible(nParts > 0);
-        printAlt2Radio.setVisible(nParts > 0);
+
+        isConnectedToAll.setVisible(hasParts);
+        printAlt1Radio.setVisible(hasParts);
+        printAlt2Radio.setVisible(hasParts);
         frame.keepSize();
     }
 
@@ -230,13 +236,46 @@ public class ExpectedResultPanel implements CoursePanel {
             outPutText += "De förväntade studieresultaten behandlas i alla kursdelar.\n\n";
         }
         outPutText += "Efter att ha genomgått kursen ska studenten kunna:\n";
-        if (printAlt1Radio.isSelected()) {
-            for (JTextField goal : goals.keySet()) {
-                if (!goal.getText().isEmpty()) {
-                    outPutText += goal.getText() +",\n";
+
+        if (printAlt1Radio.isSelected() || isConnectedToAll.isSelected()) {
+            for (Map.Entry<JTextField, JRadioButton[]> entry : goals.entrySet()) {
+                if (!entry.getKey().getText().isEmpty()) {
+                    outPutText += entry.getKey().getText();
+                    if (hasParts && !isConnectedToAll.isSelected()) {
+                        String connectedParts = " (";
+                        int i = 0;
+                        boolean firstPrinted = false;
+                        for (JRadioButton radio : entry.getValue()) {
+                            if (i < nParts) {
+                                if (radio.isSelected()) {
+                                    connectedParts += firstPrinted ? ", " : "";
+                                    firstPrinted = true;
+                                    connectedParts += courseParts.get(i).getName();
+                                }
+                            }
+                            i++;
+                        }
+                        connectedParts += ")";
+                        outPutText += connectedParts;
+                    }
+                    outPutText += "\n";
                 }
             }
+        } else if (printAlt2Radio.isSelected()) {
+            int i = 0;
+            for (CoursePart coursePart : courseParts) {
+                outPutText += coursePart.getName() + ", " + "(" + coursePart.getEngName() + ") "
+                        + coursePart.getCredits() + " hp:\n";
+                for (Map.Entry<JTextField, JRadioButton[]> entry : goals.entrySet()) {
+                    if (entry.getValue()[i].isSelected()) {
+                        outPutText += entry.getKey().getText() + "\n";
+                    }
+                }
+                i++;
+            }
         }
+
+
         printOutPane.setText(outPutText);
     }
 }
