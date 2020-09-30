@@ -29,24 +29,32 @@ public class CourseContentController implements CourseController {
 
         JTextField[][] textFields = courseContentPanel.getPartFields();
 
-        for (JTextField[] row : textFields) {
-            if (row[0].isVisible()) {
-                String name = row[0].getText();
-                String credit = row[2].getText();
+        try {
+            for (JTextField[] row : textFields) {
+                if (row[0].isVisible()) {
+                    String name = row[0].getText();
+                    String engName = row[1].getText();
+                    String credit = row[2].getText();
 
-                CoursePart coursePart = new CoursePart();
-                coursePart.setName(name);
-                coursePart.setCredits((Double.parseDouble(credit)));
+                    CoursePart coursePart = new CoursePart();
+                    coursePart.setName(name);
+                    coursePart.setEngName(engName);
+                    coursePart.setCredits((Double.parseDouble(credit)));
 
-                courseParts.add(coursePart);
+                    courseParts.add(coursePart);
+                }
             }
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Fel i inmatning! Vänligen kontrollera att inmatning är korrekt.");
         }
 
         if (!courseParts.isEmpty()){
             if (Math.abs(sumCourseParts(courseParts)-course.getCredits()) < 1e-8) {
                 course.setCourseParts(courseParts);
             } else {
-                throw new RuntimeException("Wrong sum of course part credits");
+                throw new RuntimeException("" +
+                        "Summan av kursdelarna är inte samma som totala poängen för kursen ("
+                        + course.getCredits() + ").");
             }
         }
 
