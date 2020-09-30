@@ -20,7 +20,10 @@ public class MainFrame extends JFrame {
 
         this.setContentPane(startPanelController.getPanel().getPanel());
         this.pack();
-        this.setSize(500, 400);
+
+
+        this.setSize(width, height);
+
 
         startPanelController.getPanel().getNextPanelButton().addActionListener(l -> {
             try {
@@ -67,13 +70,6 @@ public class MainFrame extends JFrame {
         this.setSize(width, height);
     }
 
-//    public int getWidth() {
-//        return width;
-//    }
-//
-//    public int getHeight() {
-//        return height;
-//    }
 
     public static void main(String[] args) {
         JFrame frame = new MainFrame("Syllabus Creator");
