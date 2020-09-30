@@ -34,14 +34,14 @@ public class MainFrame extends JFrame {
                     controllers[finalI].updateModel();
                     changePanel(finalI + 1);
                 } catch (RuntimeException exception) {
-                    // do something meaningful
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
                 }
             });
             controllers[i].getPanel().getPreviousPanelButton().addActionListener(e -> {
                 try {
                     changePanel(finalI - 1);
                 } catch (RuntimeException exception) {
-                    // do something meaningful
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
                 }
             });
         }
