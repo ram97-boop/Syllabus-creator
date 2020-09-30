@@ -31,7 +31,7 @@ public class CourseContentController implements CourseController {
 
         try {
             for (JTextField[] row : textFields) {
-                if (row[0].isVisible()) {
+                if (row[0].isVisible() && row[1].isVisible() && row[2].isVisible()) {
                     String name = row[0].getText();
                     String engName = row[1].getText();
                     String credit = row[2].getText();

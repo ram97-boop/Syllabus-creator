@@ -35,16 +35,15 @@ public class ExpectedResultController implements CourseController {
 
         HashMap<JTextField, JRadioButton[]> goalsMap = expectedResultPanel.getGoals();
 
-        goalsMap.forEach((key, value) -> {
+        goalsMap.forEach((jTextField, jRadioButtons) -> {
             Goal goal = new Goal();
 
-            if (!key.getText().isEmpty()) {
+            if (!jTextField.getText().isEmpty()) {
 
-                goal.describeGoal(key.getText());
+                goal.describeGoal(jTextField.getText());
 
                 if (!expectedResultPanel.getIsConnectedToAll().isSelected() && !courseParts.isEmpty()) {
-                    JRadioButton[] buttonPanel = value;
-                    setCoursePartForGoal(buttonPanel, goal);
+                    setCoursePartForGoal(jRadioButtons, goal);
                 } else if (!courseParts.isEmpty()) {
                     goal.setCourseParts(courseParts);
                 }
@@ -58,11 +57,11 @@ public class ExpectedResultController implements CourseController {
 
     }
 
-    private void setCoursePartForGoal(JRadioButton[] buttonPanel, Goal goal) {
+    private void setCoursePartForGoal(JRadioButton[] jRadioButtons, Goal goal) {
         ArrayList<CoursePart> courseParts = course.getCourseParts();
         AtomicInteger index = new AtomicInteger();
 
-        Arrays.stream(buttonPanel).forEach(button -> {
+        Arrays.stream(jRadioButtons).forEach(button -> {
             if (index.get() <= courseParts.size() && button.isVisible() && button.isSelected()) {
                 goal.addCoursePart(courseParts.get(index.get()));
             }
