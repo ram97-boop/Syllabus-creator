@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -106,6 +107,10 @@ public class ExpectedResultPanel implements CoursePanel {
     private JRadioButton r124;
     private JRadioButton r125;
     private JRadioButton r126;
+    private JButton printOutButton;
+    private JTextPane printOutPane;
+    private JRadioButton printAlt1Radio;
+    private JRadioButton printAlt2Radio;
 
 
     private final JLabel[] partLabels = {
@@ -119,10 +124,16 @@ public class ExpectedResultPanel implements CoursePanel {
 
     private final HashMap<JTextField, JRadioButton[]> goals = new HashMap<>();
 
+    int nParts = 0;
+
     //Constructors
     private ExpectedResultPanel() {
         isConnectedToAll.addActionListener(e -> updateRadioButtons());
         setGoalsMap();
+        printAlt1Radio.setSelected(true);
+        printAlt1Radio.addActionListener(e -> updatePrintOutRadios(printAlt2Radio));
+        printAlt2Radio.addActionListener(e -> updatePrintOutRadios(printAlt1Radio));
+        printOutButton.addActionListener(e -> printOut());
     }
     private static final ExpectedResultPanel INSTANCE = new ExpectedResultPanel();
     public static ExpectedResultPanel getInstance() {return INSTANCE;}
@@ -139,7 +150,7 @@ public class ExpectedResultPanel implements CoursePanel {
     }
     public void updateView(MainFrame frame, Course course) {
         ArrayList<CoursePart> courseParts = course.getCourseParts();
-        int nParts = courseParts.size();
+        nParts = courseParts.size();
         int i = 0;
         for (JLabel partLabel : partLabels) {
             partLabel.setVisible(i < nParts);
@@ -154,6 +165,9 @@ public class ExpectedResultPanel implements CoursePanel {
                 i++;
             }
         }
+        isConnectedToAll.setVisible(nParts > 0);
+        printAlt1Radio.setVisible(nParts > 0);
+        printAlt2Radio.setVisible(nParts > 0);
         frame.keepSize();
     }
 
@@ -162,11 +176,22 @@ public class ExpectedResultPanel implements CoursePanel {
         for (JLabel partLabel : partLabels) {
             partLabel.setVisible(!isConnectedToAll.isSelected());
         }
+        int i;
         for (JRadioButton[] radioPanel : goals.values()) {
+            i = 0;
             for (JRadioButton radioButton : radioPanel) {
-                radioButton.setVisible(!isConnectedToAll.isSelected());
+                radioButton.setVisible(!isConnectedToAll.isSelected() && i < nParts);
+                i++;
             }
         }
+
+        printAlt1Radio.setSelected(isConnectedToAll.isSelected() || printAlt1Radio.isSelected());
+        printAlt2Radio.setSelected(!isConnectedToAll.isSelected() && printAlt2Radio.isSelected());
+        printAlt2Radio.setEnabled(!isConnectedToAll.isSelected());
+    }
+
+    private void updatePrintOutRadios(JRadioButton radio) {
+        radio.setSelected(false);
     }
 
     // Getters to Controller
@@ -199,7 +224,19 @@ public class ExpectedResultPanel implements CoursePanel {
 
 
     // Print out
-    public void printOut(Course course) {
-
+    public void printOut() {
+        String outPutText = "";
+        if (isConnectedToAll.isSelected()) {
+            outPutText += "De förväntade studieresultaten behandlas i alla kursdelar.\n\n";
+        }
+        outPutText += "Efter att ha genomgått kursen ska studenten kunna:\n";
+        if (printAlt1Radio.isSelected()) {
+            for (JTextField goal : goals.keySet()) {
+                if (!goal.getText().isEmpty()) {
+                    outPutText += goal.getText() +",\n";
+                }
+            }
+        }
+        printOutPane.setText(outPutText);
     }
 }
