@@ -1,5 +1,6 @@
 package model;
 
+import View.CoursePanel;
 import java.util.*;
 
 public class Course {
@@ -13,6 +14,7 @@ public class Course {
 	String language; // The language the course is taught in
 	ArrayList<Goal> goals = new ArrayList<Goal>(); // List of expected results from going the course
 	boolean thesis; // Whether this course has a thesis or not
+	CoursePanel[] panels;
 	
 	public Course() {
 		
@@ -66,6 +68,10 @@ public class Course {
 	
 	public boolean hasThesis() {
 		return thesis;
+	}
+	
+	public CoursePanel[] getCoursePanels() {
+		return panels;
 	}
 	
 	// Basic setters
@@ -126,5 +132,9 @@ public class Course {
 	
 	public boolean removeGoal(Goal goal) {
 		return goals.remove(goal);
+	}
+	
+	public void setCoursePanels(CoursePanel[] panels) {
+		this.panels = panels;
 	}
 }
