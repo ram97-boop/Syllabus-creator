@@ -5,10 +5,7 @@ import model.CoursePart;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class ExpectedResultPanel implements CoursePanel {
@@ -122,7 +119,7 @@ public class ExpectedResultPanel implements CoursePanel {
         partLabel6,
     };
 
-    private final HashMap<JTextField, JRadioButton[]> goals = new HashMap<>();
+    private final LinkedHashMap<JTextField, JRadioButton[]> goals = new LinkedHashMap<>();
 
     ArrayList<CoursePart> courseParts;
     int nParts = 0;
