@@ -40,10 +40,13 @@ public class CourseContentControllerTest {
 
         firstPart.setCredits(1.5);
         firstPart.setName("Teori");
+        firstPart.setEngName("Theory");
         secondPart.setCredits(3.0);
         secondPart.setName("Laboration");
+        secondPart.setEngName("Lab");
         thirdPart.setCredits(3);
-        thirdPart.setName("Individuell uppgift");
+        thirdPart.setName("Projekt");
+        thirdPart.setEngName("Project");
     }
 
     @Test
@@ -81,8 +84,11 @@ public class CourseContentControllerTest {
 
         assertEquals(3, course.getCourseParts().size());
         assertEquals(firstPart.getName(), course.getCourseParts().get(0).getName());
+        assertEquals(firstPart.getEngName(), course.getCourseParts().get(0).getEngName());
         assertEquals(secondPart.getName(), course.getCourseParts().get(1).getName());
+        assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
         assertEquals(thirdPart.getName(), course.getCourseParts().get(2).getName());
+        assertEquals(thirdPart.getEngName(), course.getCourseParts().get(2).getEngName());
 
     }
 
@@ -95,9 +101,11 @@ public class CourseContentControllerTest {
         partFields[1][0].setVisible(true);
 
         partFields[0][0].setText(firstPart.getName());
+        partFields[0][1].setText(firstPart.getEngName());
         partFields[0][2].setText(Double.toString(firstPart.getCredits()));
 
         partFields[1][0].setText(secondPart.getName());
+        partFields[1][1].setText(secondPart.getEngName());
         partFields[1][2].setText(Double.toString(secondPart.getCredits()));
 
         courseContentController.updateModel();
@@ -115,8 +123,11 @@ public class CourseContentControllerTest {
 
         assertEquals(3, course.getCourseParts().size());
         assertEquals(firstPart.getName(), course.getCourseParts().get(0).getName());
+        assertEquals(firstPart.getEngName(), course.getCourseParts().get(0).getEngName());
         assertEquals(secondPart.getName(), course.getCourseParts().get(1).getName());
+        assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
         assertEquals(thirdPart.getName(), course.getCourseParts().get(2).getName());
+        assertEquals(thirdPart.getEngName(), course.getCourseParts().get(2).getEngName());
 
     }
 
@@ -128,12 +139,15 @@ public class CourseContentControllerTest {
         partFields[2][0].setVisible(true);
 
         partFields[0][0].setText(firstPart.getName());
+        partFields[0][1].setText(firstPart.getEngName());
         partFields[0][2].setText(Double.toString(firstPart.getCredits()));
 
         partFields[1][0].setText(secondPart.getName());
+        partFields[1][1].setText(secondPart.getEngName());
         partFields[1][2].setText(Double.toString(secondPart.getCredits()));
 
         partFields[2][0].setText(thirdPart.getName());
+        partFields[2][1].setText(thirdPart.getEngName());
         partFields[2][2].setText(Double.toString(thirdPart.getCredits()));
 
     }
