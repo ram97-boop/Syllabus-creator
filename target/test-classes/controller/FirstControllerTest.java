@@ -10,8 +10,6 @@ import model.Course;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
 public class FirstControllerTest {
 
     private FirstController firstController;
@@ -57,7 +55,7 @@ public class FirstControllerTest {
 
     }
 
-    @Test (expected = NumberFormatException.class)
+    @Test (expected = RuntimeException.class)
     public void updateModelWithWrongTypeOnCreditShouldResultInException() {
 
         firstController.updateModel();
