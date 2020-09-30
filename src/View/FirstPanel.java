@@ -62,7 +62,7 @@ public class FirstPanel implements CoursePanel {
         return previousPanelButton;
     }
 
-    public void updateView(Course course) {
+    public void updateView(MainFrame frame, Course course) {
 
     }
 

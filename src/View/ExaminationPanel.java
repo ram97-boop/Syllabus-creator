@@ -156,7 +156,7 @@ public class ExaminationPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-    public void updateView(Course course) {
+    public void updateView(MainFrame frame, Course course) {
         homeExamPanel.setVisible(false);
         englishExaminationPanel.setVisible(false);
 

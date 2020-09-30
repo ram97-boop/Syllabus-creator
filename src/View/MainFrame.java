@@ -6,6 +6,8 @@ import model.Course;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
+    private int width = 800;
+    private int height = 600;
     private final Course course = new Course();
 
     private final CourseController[] controllers = {
@@ -46,11 +48,25 @@ public class MainFrame extends JFrame {
     }
 
     public void changePanel(int nextIndex) {
-        controllers[nextIndex].getPanel().updateView(course);
+        controllers[nextIndex].getPanel().updateView(this, course);
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
-        this.pack();
-        this.setSize(800, 600);
+        keepSize();
     }
+
+    public void keepSize() {
+        width = this.getWidth();
+        height = this.getHeight();
+        this.pack();
+        this.setSize(width, height);
+    }
+
+//    public int getWidth() {
+//        return width;
+//    }
+//
+//    public int getHeight() {
+//        return height;
+//    }
 
     public static void main(String[] args) {
         JFrame frame = new MainFrame("Syllabus Creator");
