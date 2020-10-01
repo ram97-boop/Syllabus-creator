@@ -70,7 +70,7 @@ public class TeachingPanel implements CoursePanel {
     public void printOut() {
         String outPutText = "";
         if (!isDistance) {
-            outPutText += "Undervisningen består av: ";
+            outPutText += "Undervisningen består av ";
             outPutText += teachingField.getText() + "\n\n";
         } else {
             outPutText += "Undervisningen sker på distans.\n";

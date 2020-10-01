@@ -8,6 +8,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Stream;
 
+// TODO . i slutet på varje mål
+
 public class ExpectedResultPanel implements CoursePanel {
     private JPanel mainPanel;
     private JButton nextPanelButton;
@@ -154,19 +156,12 @@ public class ExpectedResultPanel implements CoursePanel {
 
         int i = 0;
         for (JLabel partLabel : partLabels) {
-            partLabel.setVisible(i < nParts);
-            String courseName = i < nParts ? courseParts.get(i).getName() : null;
+            String courseName = i < nParts ? courseParts.get(i).getName() : "";
             partLabel.setText(courseName);
             i++;
         }
 
-        for (JRadioButton[] radioPanel : goals.values()) {
-            i = 0;
-            for (JRadioButton radioButton : radioPanel) {
-                radioButton.setVisible(i < nParts);
-                i++;
-            }
-        }
+        updateRadioButtons();
 
         isConnectedToAll.setVisible(hasParts);
         printAlt1Radio.setVisible(hasParts);
@@ -176,10 +171,12 @@ public class ExpectedResultPanel implements CoursePanel {
 
     // Action listener methods
     private void updateRadioButtons() {
+        int i = 0;
         for (JLabel partLabel : partLabels) {
-            partLabel.setVisible(!isConnectedToAll.isSelected());
+            partLabel.setVisible(!isConnectedToAll.isSelected() && i < nParts);
+            i++;
         }
-        int i;
+
         for (JRadioButton[] radioPanel : goals.values()) {
             i = 0;
             for (JRadioButton radioButton : radioPanel) {
@@ -261,8 +258,8 @@ public class ExpectedResultPanel implements CoursePanel {
         } else if (printAlt2Radio.isSelected()) {
             int i = 0;
             for (CoursePart coursePart : courseParts) {
-                outPutText += coursePart.getName() + ", " + "(" + coursePart.getEngName() + ") "
-                        + coursePart.getCredits() + " hp:\n";
+                outPutText += "Del " + (i + 1) + ", " + coursePart.getName() + ", " +
+                    "(" + coursePart.getEngName() + ") " + coursePart.getCredits() + " hp:\n";
                 for (Map.Entry<JTextField, JRadioButton[]> entry : goals.entrySet()) {
                     if (entry.getValue()[i].isSelected()) {
                         outPutText += entry.getKey().getText() + "\n";

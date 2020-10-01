@@ -6,6 +6,11 @@ import model.CoursePart;
 import javax.swing.*;
 import java.awt.*;
 
+// TODO Add more parts
+// TODO Ta bort alla delar om man väljer 0 delar efter att ha fyllt i delar
+// TODO Sätt - i printOut innan Del 1, 2 osv
+
+
 public class CourseContentPanel implements CoursePanel {
     private MainFrame frame;
     private JButton nextPanelButton;
@@ -123,16 +128,16 @@ public class CourseContentPanel implements CoursePanel {
 
     public void printOut() {
         String outPutText = "a. Kursen behandlar: ";
-        outPutText += courseContentTextPane.getText();
-        outPutText += "\n\n";
-        outPutText += "b. Kursen består av följande delar: \n";
-        for (JTextField[] row : partFields) {
-            if (row[0].isVisible()) {
-                String name = row[0].getText();
-                String ename = row[1].getText();
-                String credit = row[2].getText();
+        outPutText += courseContentTextPane.getText() + "\n\n";
+        outPutText += nParts > 0 ? "b. Kursen består av följande moment: \n" : "";
+        for (int i = 0; i < nParts; i++) {
+            if (partFields[i][0].isVisible()) {
+                String name = partFields[i][0].getText();
+                String ename = partFields[i][1].getText();
+                String credit = partFields[i][2].getText();
 
-                outPutText += name + " (" + ename + "), " + credit + " hp\n";
+                outPutText += "Del " + (i + 1) + ", " + name + " (" + ename + "), " +
+                        credit.replace('.', ',') + " hp\n";
             }
         }
 

@@ -7,6 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+// TODO Sätt ihop delar i printOut som examineras på samma sätt
+// TODO Sätt ihop delar i printOut som har samma betygskala
+// TODO Slytbetyg sätts på annat sätt i printOut
+// TODO Betygskala för varje del
+// TODO GradingScale behöver namn, typ sjugradig målrelaterad skala
+// TODO Kunskapskontroll för del 1, inte för Teori
+// TODO Betygsättning för del 1 i printOut
+
 public class ExaminationPanel implements CoursePanel {
     private JPanel mainPanel;
     private JButton nextPanelButton;
@@ -53,7 +61,7 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton totalGradeRadio2;
     private JRadioButton totalGradeRadio3;
     private JCheckBox otherActivitiesCheckBox;
-    private JTextArea textArea2;
+    private JTextArea otherActivitiesField;
     private JPanel otherAcitivitiesGradePanel;
     private JButton printOutButton;
     private JTextPane printOutPane;
@@ -71,6 +79,12 @@ public class ExaminationPanel implements CoursePanel {
     private JTextField partExaminationField6;
     private JTextArea notDistanceAttendanceField;
     private JTextArea distanceAttendanceField;
+    private JRadioButton supplementRadio1;
+    private JRadioButton supplementRadio2;
+    private JRadioButton supplementRadio3;
+    private JRadioButton noSupplementRadio1;
+    private JRadioButton noSupplementRadio2;
+    private JCheckBox supplementCheckBox;
 
     private final JLabel[] examinationLabels = {
         partExaminationLabel1,
@@ -101,17 +115,25 @@ public class ExaminationPanel implements CoursePanel {
     };
 
     private final String[] gradingScaleStrings = {
-            "7-gradig (A-F)",
-            "3-gradig (VG-U)",
-            "2-gradig (G-U)"
+            "sjugradig målrelaterad skala",
+            "tregradig skala: underkänd (U), godkänd (G), väl godkänd (VG)",
+            "tvågradig betygskala: underkänd (U) eller godkänd (G)"
     };
 
-    ArrayList<CoursePart> courseParts;
-    int nParts = 0;
-    boolean hasParts = false;
-    boolean isDistance = false;
-    ArrayList<String> gradingScale;
-    boolean thesis = false;
+    private final JRadioButton[] supplementRadios = {
+            supplementRadio1,
+            supplementRadio2,
+            supplementRadio3,
+            noSupplementRadio1,
+            noSupplementRadio2
+    };
+
+    private ArrayList<CoursePart> courseParts;
+    private int nParts = 0;
+    private boolean hasParts = false;
+    private boolean isDistance = false;
+    private ArrayList<String> gradingScale;
+    private boolean thesis = false;
 
     // Constructors
     private ExaminationPanel() {
@@ -126,6 +148,12 @@ public class ExaminationPanel implements CoursePanel {
         totalGradeRadio2.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio3, totalGradeRadio1));
         totalGradeRadio3.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio1, totalGradeRadio2));
         otherActivitiesCheckBox.addActionListener(e -> updateOtherActivitiesGradePanel());
+        supplementCheckBox.addActionListener(e -> updateSupplementRadios());
+        for (JRadioButton radio : supplementRadios) radio.addActionListener(e -> {
+            for (JRadioButton otherRadio : supplementRadios) {
+                if (otherRadio != radio) otherRadio.setSelected(false);
+            }
+        });
         printOutButton.addActionListener(e -> printOut());
 
         for (String gradingScaleString : gradingScaleStrings) {
@@ -177,7 +205,7 @@ public class ExaminationPanel implements CoursePanel {
                 if (i < nParts) {
                     String labelText = "Kunskapskontroll för ";
                     labelText += courseParts.get(i).getName();
-                    labelText += " sker genom: ";
+                    labelText += " sker genom ";
                     examinationLabel.setText(labelText);
                 }
                 i++;
@@ -199,6 +227,14 @@ public class ExaminationPanel implements CoursePanel {
         }
         totalGradeRadio1.setSelected(true);
         otherAcitivitiesGradePanel.setVisible(false);
+
+
+        supplementCheckBox.setSelected(true);
+        if (thesis) {
+            supplementCheckBox.setEnabled(false);
+        }
+        supplementRadio1.setSelected(true);
+        updateSupplementRadios();
     }
 
     // Action listeners methods
@@ -233,16 +269,42 @@ public class ExaminationPanel implements CoursePanel {
         otherAcitivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
     }
 
+    private void updateSupplementRadios() {
+        supplementRadio1.setVisible(supplementCheckBox.isSelected());
+        supplementRadio2.setVisible(supplementCheckBox.isSelected());
+        supplementRadio3.setVisible(supplementCheckBox.isSelected());
+        noSupplementRadio1.setVisible(!supplementCheckBox.isSelected());
+        noSupplementRadio2.setVisible(!supplementCheckBox.isSelected());
+    }
+
     // PrintOut method
 
     public void printOut() {
-        String outPutText = "Kursen examineras på följande vis: \n";
+        // a. /////////
+        String outPutText = aPrintOut();
+        // b. /////////
+        outPutText += bPrintOut();
+        // c. /////////
+        outPutText += cPrintOut();
+        // d. /////////
+        outPutText += dPrintOut();
+        // e. /////////
+        outPutText += ePrintOut();
+        // f. /////////
+        outPutText += fPrintOut();
+        // Möjlighet till komplettering
+
+        printOutPane.setText(outPutText);
+    }
+
+    private String aPrintOut() {
+        String outPutText = "a. Kursen examineras på följande vis: \n";
 
         if (!hasParts) {
             outPutText += examinationField.getText() + "\n\n";
         } else {
             for (int i = 0; i < nParts; i++) {
-                outPutText += examinationLabels[i].getText() + " ";
+                outPutText += examinationLabels[i].getText();
                 outPutText += examinationFields[i].getText() + "\n";
             }
         }
@@ -269,8 +331,11 @@ public class ExaminationPanel implements CoursePanel {
                         "examination komma att genomföras på engelska.\n\n";
             }
         }
+        return outPutText;
+    }
 
-        outPutText += "b. ";
+    private String bPrintOut() {
+        String outPutText = "b. ";
         if (hasAttendanceCheckBox.isSelected()) {
             if (!isDistance) {
                 outPutText += "För godkänt slutbetyg krävs deltagande i ";
@@ -290,21 +355,43 @@ public class ExaminationPanel implements CoursePanel {
                 outPutText += "Kursen innehåller inga moment som kräver närvaro på campus.\n\n";
             }
         }
+        return outPutText;
+    }
 
-        outPutText += "c. Betygsättning: Kursens slutbetyg sätts enligt\n\n";
+    private String cPrintOut() {
+        String outPutText = "c. Betygsättning: Kursens slutbetyg sätts enligt\n";
         for (String grade : gradingScale) {
             outPutText += grade + "\n";
         }
+        outPutText += "\n";
 
-        // Betygskala för varje del
+        if (nParts > 0) outPutText += gradingScale1.getSelectedItem() + ".\n";
+        if (nParts > 1) outPutText += gradingScale2.getSelectedItem() + ".\n";
+        if (nParts > 2) outPutText += gradingScale3.getSelectedItem() + ".\n";
+        if (nParts > 3) outPutText += gradingScale4.getSelectedItem() + ".\n";
+        if (nParts > 4) outPutText += gradingScale5.getSelectedItem() + ".\n";
+        if (nParts > 5) outPutText += gradingScale6.getSelectedItem() + ".\n";
 
-        outPutText += "\nFör godkänt slutbetyg krävs godkänt betyg på samtliga ingående delar.\n\n";
+        outPutText += "\nFör godkänt slutbetyg krävs godkänt betyg på samtliga ingående delar. ";
 
-        // Hur slutbetyget sätts
+        if (totalGradeRadio1.isSelected()) {
+            outPutText += "Kursens slutbetyg sätts genom en sammanvägning av betygen på kursens delar, " +
+                    "där de olika delarnas betyg viktas i förhållande till deras omfattning.\n\n";
+        } else if (totalGradeRadio2.isSelected()) {
+            outPutText += "Kursens slutbetyg sätts utifrån betygsättning på del X\n\n";
+        } else if (totalGradeRadio3.isSelected()) {
+            outPutText += "";
+        }
 
-        // Andra aktiviteter som påverkar betyget
+        if (otherActivitiesCheckBox.isSelected()) {
+            outPutText += otherActivitiesField.getText() + "\n\n";
+        }
 
-        outPutText += "d. Kursens betygskriterier delas ut vid kursstart.\n\n";
+        return outPutText;
+    }
+
+    private String dPrintOut() {
+        String outPutText = "d. Kursens betygskriterier delas ut vid kursstart.\n\n";
 
         if (thesis) {
             outPutText += "Grundläggande bedömningsgrunder är: \n" +
@@ -316,10 +403,13 @@ public class ExaminationPanel implements CoursePanel {
                     "6. Förmåga att hålla den fastställda tidsplanen för arbetet \n" +
                     "7. Presentation  muntlig redovisning \n" +
                     "8. Presentation  skriftlig redovisning \n" +
-                    "9. Övrigt\n";
+                    "9. Övrigt\n\n";
         }
+        return outPutText;
+    }
 
-        outPutText += "\ne. Studerande som underkänts i ordinarie prov har rätt att genomgå " +
+    private String ePrintOut() {
+        String outPutText = "e. Studerande som underkänts i ordinarie prov har rätt att genomgå " +
                 "ytterligare prov så länge kursen ges. Antalet provtillfällen är inte begränsat. " +
                 "Med prov jämställs också andra obligatoriska kursdelar. Studerande som godkänts på " +
                 "prov får inte genomgå förnyat prov för högre betyg. En student, som utan godkänt " +
@@ -327,11 +417,33 @@ public class ExaminationPanel implements CoursePanel {
                 "en annan examinator utsedd, om inte särskilda skäl talar mot det. Framställan härom ska " +
                 "göras till institutionsstyrelsen. Kursen har minst tre examinationstillfällen " +
                 "(vid behov: för varje del) per läsår de år då undervisning ges. För de läsår som " +
-                "kursen inte ges erbjuds minst ett examinationstillfälle. ";
-
-        // Möjlighet till komplettering
-
-        printOutPane.setText(outPutText);
+                "kursen inte ges erbjuds minst ett examinationstillfälle. \n\n";
+        return outPutText;
     }
 
+    private String fPrintOut() {
+        String outPutText = "f. ";
+        if (supplementRadio1.isSelected()) {
+            outPutText += "Vid betyget Fx ges möjlighet att komplettera upp till betyget E. " +
+                    "Examinator beslutar om vilka kompletteringsuppgifter som ska utföras och vilka " +
+                    "kriterier som ska gälla för att bli godkänd på kompletteringen. Kompletteringen " +
+                    "ska äga rum före nästa examinationstillfälle.";
+        } else if (supplementRadio2.isSelected()) {
+            outPutText += "Vid betyget Fx ges möjlighet att komplettera till godkänt betyg. Examinator beslutar" +
+                    " om vilka kompletteringsuppgifter som ska utföras och vilka kriterier som ska gälla för " +
+                    "att bli godkänd på kompletteringen. Kompletteringen ska äga rum före nästa " +
+                    "examinationstillfälle. Vid godkänd komplettering av brister av förståelsekaraktär - " +
+                    "mindre missförstånd, smärre felaktigheter eller i någon del alltför begränsade resonemang - " +
+                    "används betyget E. Vid godkänd komplettering av enklare formaliafel används betygen A-E. ";
+        } else if (supplementRadio3.isSelected()) {
+            outPutText += "Vid betyget U ges möjlighet att komplettera upp till betyget G. Examinator beslutar " +
+                    "om vilka kompletteringsuppgiftersom ska utföras och vilka kriterier som ska gälla för att bli " +
+                    "godkänd på kompletteringen. Kompletteringen ska äga rum före nästa examinationstillfälle.";
+        } else if (noSupplementRadio1.isSelected()) {
+            outPutText += "Möjlighet till komplettering av betyget Fx upp till godkänt betyg ges inte på denna kurs.";
+        } else if (noSupplementRadio2.isSelected()) {
+            outPutText += "Möjlighet till komplettering av betyget U upp till godkänt betyg ges inte på denna kurs.";
+        }
+        return outPutText;
+    }
 }
