@@ -117,10 +117,12 @@ public class ExaminationPanel implements CoursePanel {
     };
 
     private final String[] gradingScaleStrings = {
-            "sjugradig målrelaterad skala",
-            "tregradig skala: underkänd (U), godkänd (G), väl godkänd (VG)",
-            "tvågradig betygskala: underkänd (U) eller godkänd (G)"
+            "7-gradig (A-F)",
+            "3-gradig (VG-U)",
+            "2-gradig (G-U)"
     };
+
+    private ArrayList<JComboBox<String>> gradingScales = new ArrayList<>();
 
     private final JRadioButton[] supplementRadios = {
             supplementRadio1,
@@ -158,13 +160,19 @@ public class ExaminationPanel implements CoursePanel {
         });
         printOutButton.addActionListener(e -> printOut());
 
+
+
+        gradingScales.add(gradingScale1);
+        gradingScales.add(gradingScale2);
+        gradingScales.add(gradingScale3);
+        gradingScales.add(gradingScale4);
+        gradingScales.add(gradingScale5);
+        gradingScales.add(gradingScale6);
+
         for (String gradingScaleString : gradingScaleStrings) {
-            gradingScale1.addItem(gradingScaleString);
-            gradingScale2.addItem(gradingScaleString);
-            gradingScale3.addItem(gradingScaleString);
-            gradingScale4.addItem(gradingScaleString);
-            gradingScale5.addItem(gradingScaleString);
-            gradingScale6.addItem(gradingScaleString);
+            for (JComboBox<String> gradingScale : gradingScales) {
+                gradingScale.addItem(gradingScaleString);
+            }
         }
     }
     private static final ExaminationPanel INSTANCE = new ExaminationPanel();
@@ -277,6 +285,10 @@ public class ExaminationPanel implements CoursePanel {
         supplementRadio3.setVisible(supplementCheckBox.isSelected());
         noSupplementRadio1.setVisible(!supplementCheckBox.isSelected());
         noSupplementRadio2.setVisible(!supplementCheckBox.isSelected());
+    }
+
+    public ArrayList<JComboBox<String>> getGradingScales() {
+        return gradingScales;
     }
 
     // PrintOut method
