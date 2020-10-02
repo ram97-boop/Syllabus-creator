@@ -8,7 +8,7 @@ public class GradingScale {
 	
 	// An array of strings that the user will see
 	// when choosing a grading scale.
-	private String[] gradingScaleStrings = {
+	private static String[] gradingScaleStrings = {
 			"7-gradig (A-F)",
 			"3-gradig (VG-U)",
 			"2-gradig (G-U)"
@@ -59,7 +59,7 @@ public class GradingScale {
 	}
 	
 	
-	public String[] getGradingScaleStrings() {
+	public static String[] getGradingScaleStrings() {
 		return gradingScaleStrings;
 	}
 	
