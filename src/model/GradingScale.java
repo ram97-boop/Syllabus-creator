@@ -4,6 +4,9 @@ import java.util.*;
 
 public class GradingScale {
 	
+//Suggestion: maybe make gradingScaleMap, getGradingScale()
+// & usergetGradingScale() static.
+	
 	private HashMap<Integer,ArrayList<String>> gradingScaleMap = new HashMap<Integer, ArrayList<String>>();
 	
 	// An array of strings that the user will see
