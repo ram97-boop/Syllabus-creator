@@ -14,6 +14,12 @@ public class GradingScale {
 			"2-gradig (G-U)"
 	};
 	
+	private static String[] longGradingScaleStrings = {
+		"sjugradig målrelaterad skala.",
+		"tvågradig betygsskala: underkänd (U) eller godkänd (G).",
+		"tregradig skala underkänd (U), godkänd (G), väl godkänd (VG)."
+	};
+	
 	private void createGradingScales() {
 		// ArrayList of A-F grading scale.
 		ArrayList<String> seven = new ArrayList<String>();
@@ -27,14 +33,14 @@ public class GradingScale {
 	
 		// ArrayList of VG-G-U
 		ArrayList<String> three = new ArrayList<String>();
-		three.add("VG");
-		three.add("G");
-		three.add("U");
+		three.add("V = Väl godkänd");
+		three.add("G = Godkänd");
+		three.add("U = Underkänd");
 	
 		// ArrayList of G-U
 		ArrayList<String> two = new ArrayList<String>();
-		two.add("G");
-		two.add("U"); 
+		two.add("G = Tillfredsställande");
+		two.add("U = Underkänd"); 
 	
 		// Insert grading scales into gradingScaleMap
 		gradingScaleMap.put(7, seven);
@@ -45,6 +51,15 @@ public class GradingScale {
 	// Constructor
 	public GradingScale() {
 		createGradingScales();
+	}
+	
+	// Getters
+	public static String[] getGradingScaleStrings() {
+		return gradingScaleStrings;
+	}
+	
+	public static String[] getLongGradingScaleStrings() {
+		return longGradingScaleStrings;
 	}
 	
 	
@@ -59,27 +74,22 @@ public class GradingScale {
 	}
 	
 	
-	public static String[] getGradingScaleStrings() {
-		return gradingScaleStrings;
-	}
-	
-	
 	/**
 	 * A second method for getting a grading scale,
 	 * but this one uses the strings in gradingScaleStrings
-	 * as input.
+	 * and/or the strings in longGradingScaleStrings as input.
 	 * 
 	 * @param choice
 	 * @return
 	 */
 	public ArrayList<String> userGetGradingScale(String choice) {
-		if (choice.equals(gradingScaleStrings[0])) {
+		if (choice.equals(gradingScaleStrings[0]) || choice.equals(longGradingScaleStrings[0])) {
 			return gradingScaleMap.get(7);
 		}
-		else if (choice.equals(gradingScaleStrings[1])) {
+		else if (choice.equals(gradingScaleStrings[1]) || choice.equals(longGradingScaleStrings[1])) {
 			return gradingScaleMap.get(3);
 		}
-		else if (choice.equals(gradingScaleStrings[2])) {
+		else if (choice.equals(gradingScaleStrings[2]) || choice.equals(longGradingScaleStrings[2])) {
 			return gradingScaleMap.get(2);
 		}
 		else return null;
