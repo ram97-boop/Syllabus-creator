@@ -73,7 +73,7 @@ public class TeachingPanel implements CoursePanel {
             outPutText += "Undervisningen består av ";
             outPutText += teachingField.getText() + "\n\n";
         } else {
-            outPutText += "Undervisningen sker på distans.\n";
+            outPutText += "Undervisningen sker på distans.\n\n";
         }
 
         if (otherThanSwedishCheckBox.isSelected()) {

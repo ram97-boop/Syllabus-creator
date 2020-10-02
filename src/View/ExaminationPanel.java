@@ -14,6 +14,8 @@ import java.util.ArrayList;
 // TODO GradingScale behöver namn, typ sjugradig målrelaterad skala
 // TODO Kunskapskontroll för del 1, inte för Teori
 // TODO Betygsättning för del 1 i printOut
+// TODO Slutbetyg beror på bara vissa delar
+// TODO Problem med vad som krävs på campus
 
 public class ExaminationPanel implements CoursePanel {
     private JPanel mainPanel;
@@ -61,7 +63,7 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton totalGradeRadio2;
     private JRadioButton totalGradeRadio3;
     private JCheckBox otherActivitiesCheckBox;
-    private JTextArea otherActivitiesField;
+    private JTextPane otherActivitiesField;
     private JPanel otherAcitivitiesGradePanel;
     private JButton printOutButton;
     private JTextPane printOutPane;
@@ -344,9 +346,7 @@ public class ExaminationPanel implements CoursePanel {
                         "med vederbörande lärare medge den studerande befrielse från skyldigheten " +
                         "att delta i viss obligatorisk undervisning.\n\n";
             } else {
-                outPutText += "Kursen innehåller ";
-                outPutText += distanceAttendanceField.getText() + ".";
-                outPutText += "som kräver närvaro på campus.\n\n";
+                outPutText += distanceAttendanceField.getText() + "\n\n";
             }
         } else {
             if (!isDistance) {

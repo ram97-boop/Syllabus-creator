@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Stream;
 
-// TODO . i slutet på varje mål
+// TODO Fler mål
 
 public class ExpectedResultPanel implements CoursePanel {
     private JPanel mainPanel;
