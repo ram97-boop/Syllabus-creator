@@ -2,18 +2,14 @@ package View;
 
 import model.Course;
 import model.CoursePart;
+import model.GradingScale;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 // TODO Sätt ihop delar i printOut som examineras på samma sätt
 // TODO Sätt ihop delar i printOut som har samma betygskala
 // TODO Slytbetyg sätts på annat sätt i printOut
-// TODO Betygskala för varje del
-// TODO GradingScale behöver namn, typ sjugradig målrelaterad skala
-// TODO Kunskapskontroll för del 1, inte för Teori
-// TODO Betygsättning för del 1 i printOut
 // TODO Slutbetyg beror på bara vissa delar
 // TODO Problem med vad som krävs på campus
 
@@ -26,34 +22,23 @@ public class ExaminationPanel implements CoursePanel {
     private JCheckBox homeExamCheckBox;
     private JPanel homeExamPanel;
     private JCheckBox examinationOnEnglishCheckBox;
-
     private JPanel notDistanceAttendancePanel;
     private JPanel distanceAttendancePanel;
     private JCheckBox hasAttendanceCheckBox;
     private JPanel attendancePanel;
-
     private JPanel englishExaminationPanel;
-    private JPanel gradingPanel;
-    private JPanel partsGradingScalePanel;
     private JLabel partLabel1;
     private JLabel partLabel2;
     private JLabel partLabel3;
     private JLabel partLabel4;
     private JLabel partLabel5;
     private JLabel partLabel6;
-    private JPanel partPanel1;
-    private JPanel partPanel2;
-    private JPanel partPanel3;
-    private JPanel partPanel4;
-    private JPanel partPanel5;
-    private JPanel partPanel6;
     private JComboBox<String> gradingScale1;
     private JComboBox<String> gradingScale2;
     private JComboBox<String> gradingScale3;
     private JComboBox<String> gradingScale4;
     private JComboBox<String> gradingScale5;
     private JComboBox<String> gradingScale6;
-
     private JTextArea examinationField;
     private JRadioButton homeExamRadio1;
     private JRadioButton homeExamRadio2;
@@ -64,7 +49,7 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton totalGradeRadio3;
     private JCheckBox otherActivitiesCheckBox;
     private JTextPane otherActivitiesField;
-    private JPanel otherAcitivitiesGradePanel;
+    private JPanel otherActivitiesGradePanel;
     private JButton printOutButton;
     private JTextPane printOutPane;
     private JLabel partExaminationLabel1;
@@ -87,6 +72,8 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton noSupplementRadio1;
     private JRadioButton noSupplementRadio2;
     private JCheckBox supplementCheckBox;
+    private JPanel gradingPanel;
+
 
     private final JLabel[] examinationLabels = {
         partExaminationLabel1,
@@ -96,7 +83,6 @@ public class ExaminationPanel implements CoursePanel {
         partExaminationLabel5,
         partExaminationLabel6,
     };
-
     private final JTextField[] examinationFields = {
             partExaminationField1,
             partExaminationField2,
@@ -105,25 +91,16 @@ public class ExaminationPanel implements CoursePanel {
             partExaminationField5,
             partExaminationField6
     };
-
-
-    private final JPanel[] partPanels = {
-            partPanel1,
-            partPanel2,
-            partPanel3,
-            partPanel4,
-            partPanel5,
-            partPanel6,
+    private final JLabel[] gradingScalePartLabels = {
+            partLabel1,
+            partLabel2,
+            partLabel3,
+            partLabel4,
+            partLabel5,
+            partLabel6,
     };
-
-    private final String[] gradingScaleStrings = {
-            "7-gradig (A-F)",
-            "3-gradig (VG-U)",
-            "2-gradig (G-U)"
-    };
-
-    private ArrayList<JComboBox<String>> gradingScales = new ArrayList<>();
-
+    private final String[] gradingScaleStrings = GradingScale.getGradingScaleStrings();
+    private final ArrayList<JComboBox<String>> gradingScaleComboBoxes = new ArrayList<>();
     private final JRadioButton[] supplementRadios = {
             supplementRadio1,
             supplementRadio2,
@@ -141,6 +118,18 @@ public class ExaminationPanel implements CoursePanel {
 
     // Constructors
     private ExaminationPanel() {
+        addActionListeners();
+
+        supplementCheckBox.setSelected(true);
+        supplementRadio1.setSelected(true);
+
+        setUpGradingScalesComboBoxes();
+
+    }
+    private static final ExaminationPanel INSTANCE = new ExaminationPanel();
+    public static ExaminationPanel getInstance() {return INSTANCE;}
+
+    private void addActionListeners() {
         homeExamCheckBox.addActionListener(e -> updateHomeExamPanel());
         examinationOnEnglishCheckBox.addActionListener(e -> updateEnglishExaminationPanel());
         hasAttendanceCheckBox.addActionListener(e -> updateAttendancePanel());
@@ -159,24 +148,22 @@ public class ExaminationPanel implements CoursePanel {
             }
         });
         printOutButton.addActionListener(e -> printOut());
+    }
 
-
-
-        gradingScales.add(gradingScale1);
-        gradingScales.add(gradingScale2);
-        gradingScales.add(gradingScale3);
-        gradingScales.add(gradingScale4);
-        gradingScales.add(gradingScale5);
-        gradingScales.add(gradingScale6);
+    private void setUpGradingScalesComboBoxes() {
+        gradingScaleComboBoxes.add(gradingScale1);
+        gradingScaleComboBoxes.add(gradingScale2);
+        gradingScaleComboBoxes.add(gradingScale3);
+        gradingScaleComboBoxes.add(gradingScale4);
+        gradingScaleComboBoxes.add(gradingScale5);
+        gradingScaleComboBoxes.add(gradingScale6);
 
         for (String gradingScaleString : gradingScaleStrings) {
-            for (JComboBox<String> gradingScale : gradingScales) {
+            for (JComboBox<String> gradingScale : gradingScaleComboBoxes) {
                 gradingScale.addItem(gradingScaleString);
             }
         }
     }
-    private static final ExaminationPanel INSTANCE = new ExaminationPanel();
-    public static ExaminationPanel getInstance() {return INSTANCE;}
 
     // Interface methods
     public JPanel getPanel() {
@@ -189,62 +176,49 @@ public class ExaminationPanel implements CoursePanel {
         return previousPanelButton;
     }
     public void updateView(MainFrame frame, Course course) {
-        homeExamPanel.setVisible(false);
-        englishExaminationPanel.setVisible(false);
+        updateCourseAttributes(course);
+        setVisibilityOfComponents();
+        setLabelNames();
+    }
 
-        attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
-        distanceAttendancePanel.setVisible(course.isDistance());
-        notDistanceAttendancePanel.setVisible(!course.isDistance());
-
-
-
+    private void updateCourseAttributes(Course course) {
         courseParts = course.getCourseParts();
         nParts = courseParts.size();
         hasParts = nParts > 0;
         isDistance = course.isDistance();
         gradingScale = course.getGradingScale();
         thesis = course.hasThesis();
+    }
 
+    private void setVisibilityOfComponents() {
+        homeExamPanel.setVisible(homeExamCheckBox.isSelected());
+        englishExaminationPanel.setVisible(examinationOnEnglishCheckBox.isSelected());
+        attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
+        distanceAttendancePanel.setVisible(isDistance);
+        notDistanceAttendancePanel.setVisible(!isDistance);
         partsExaminationPanel.setVisible(hasParts);
         noPartsExaminationPanel.setVisible(!hasParts);
-        partsGradingScalePanel.setVisible(hasParts);
-        if(hasParts) {
-            int i = 0;
-            for (JLabel examinationLabel : examinationLabels) {
-                examinationLabel.setVisible(i < nParts);
-                if (i < nParts) {
-                    String labelText = "Kunskapskontroll för ";
-                    labelText += courseParts.get(i).getName();
-                    labelText += " sker genom ";
-                    examinationLabel.setText(labelText);
-                }
-                i++;
-            }
-            i = 0;
-            for (JTextField examinationField : examinationFields) {
-                examinationField.setVisible(i < nParts);
-                i++;
-            }
-            i = 0;
-            for (JPanel partPanel : partPanels) {
-                partPanel.setVisible(i < nParts);
-                if (i < nParts) {
-                    JLabel label = (JLabel) partPanel.getComponent(0);
-                    label.setText(courseParts.get(i).getName());
-                }
-                i++;
-            }
+        gradingPanel.setVisible(hasParts);
+        otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
+        for (int i = 0; i < examinationLabels.length; i++) {
+            examinationLabels[i].setVisible(i < nParts);
+            examinationFields[i].setVisible(i < nParts);
+            gradingScalePartLabels[i].setVisible(i < nParts);
+            gradingScaleComboBoxes.get(i).setVisible(i < nParts);
         }
-        totalGradeRadio1.setSelected(true);
-        otherAcitivitiesGradePanel.setVisible(false);
-
-
-        supplementCheckBox.setSelected(true);
         if (thesis) {
+            supplementCheckBox.setSelected(true);
             supplementCheckBox.setEnabled(false);
         }
-        supplementRadio1.setSelected(true);
         updateSupplementRadios();
+    }
+
+    private void setLabelNames() {
+        for (int i = 0; i < nParts; i++) {
+            String examinationLabelText = "Kunskapskontroll för " + courseParts.get(i).getName() + " sker genom ";
+            examinationLabels[i].setText(examinationLabelText);
+            gradingScalePartLabels[i].setText(courseParts.get(i).getName());
+        }
     }
 
     // Action listeners methods
@@ -276,7 +250,7 @@ public class ExaminationPanel implements CoursePanel {
     }
 
     private void updateOtherActivitiesGradePanel() {
-        otherAcitivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
+        otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
     }
 
     private void updateSupplementRadios() {
@@ -288,10 +262,10 @@ public class ExaminationPanel implements CoursePanel {
     }
 
     public ArrayList<JComboBox<String>> getGradingScales() {
-        return gradingScales;
+        return gradingScaleComboBoxes;
     }
 
-    // PrintOut method
+    // PrintOut methods
 
     public void printOut() {
         // a. /////////
@@ -377,12 +351,10 @@ public class ExaminationPanel implements CoursePanel {
         }
         outPutText += "\n";
 
-        if (nParts > 0) outPutText += gradingScale1.getSelectedItem() + ".\n";
-        if (nParts > 1) outPutText += gradingScale2.getSelectedItem() + ".\n";
-        if (nParts > 2) outPutText += gradingScale3.getSelectedItem() + ".\n";
-        if (nParts > 3) outPutText += gradingScale4.getSelectedItem() + ".\n";
-        if (nParts > 4) outPutText += gradingScale5.getSelectedItem() + ".\n";
-        if (nParts > 5) outPutText += gradingScale6.getSelectedItem() + ".\n";
+        for (int i = 0; i < nParts; i++) {
+            outPutText += "Betygsättning av " + courseParts.get(i).getName() + " sker enligt " +
+                    gradingScaleComboBoxes.get(i).getSelectedItem() + ".\n";
+        }
 
         outPutText += "\nFör godkänt slutbetyg krävs godkänt betyg på samtliga ingående delar. ";
 
@@ -421,7 +393,7 @@ public class ExaminationPanel implements CoursePanel {
     }
 
     private String ePrintOut() {
-        String outPutText = "e. Studerande som underkänts i ordinarie prov har rätt att genomgå " +
+        return "e. Studerande som underkänts i ordinarie prov har rätt att genomgå " +
                 "ytterligare prov så länge kursen ges. Antalet provtillfällen är inte begränsat. " +
                 "Med prov jämställs också andra obligatoriska kursdelar. Studerande som godkänts på " +
                 "prov får inte genomgå förnyat prov för högre betyg. En student, som utan godkänt " +
@@ -430,7 +402,6 @@ public class ExaminationPanel implements CoursePanel {
                 "göras till institutionsstyrelsen. Kursen har minst tre examinationstillfällen " +
                 "(vid behov: för varje del) per läsår de år då undervisning ges. För de läsår som " +
                 "kursen inte ges erbjuds minst ett examinationstillfälle. \n\n";
-        return outPutText;
     }
 
     private String fPrintOut() {
@@ -458,4 +429,5 @@ public class ExaminationPanel implements CoursePanel {
         }
         return outPutText;
     }
+
 }

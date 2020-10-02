@@ -1,6 +1,7 @@
 package View;
 
 import model.Course;
+import model.GradingScale;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -15,11 +16,7 @@ public class FirstPanel implements CoursePanel {
     private JCheckBox isDistanceCheckBox;
     private JComboBox<String> gradingScaleComboBox;
     private JCheckBox thesisCheckBox;
-    private final String[] gradingScaleStrings = {
-            "7-gradig (A-F)",
-            "3-gradig (VG-U)",
-            "2-gradig (G-U)"
-    };
+    private final String[] gradingScaleStrings = GradingScale.getGradingScaleStrings();
     private final HashMap<String, Integer> gradingScaleMap = new HashMap<>();
 
     private boolean isDistance = false;

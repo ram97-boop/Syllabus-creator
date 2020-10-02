@@ -16,8 +16,6 @@ public class CourseContentPanel implements CoursePanel {
     private JButton nextPanelButton;
     private JButton previousPanelButton;
     private JPanel mainPanel;
-    private JPanel partsPanel;
-
     private JTextPane courseContentTextPane;
     private JComboBox<Integer> nPartsComboBox;
     private JTextField part1S;
@@ -38,11 +36,9 @@ public class CourseContentPanel implements CoursePanel {
     private JTextField credits4;
     private JTextField credits5;
     private JTextField credits6;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
     private JTextPane printOutPane;
     private JButton printOutButton;
+    private JPanel partsPanel;
 
 
     private JTextField[][] partFields = {
@@ -54,25 +50,31 @@ public class CourseContentPanel implements CoursePanel {
             {part6S, part6E, credits6},
     };
 
-    private final JLabel[] labels = {
-            label1, label2, label3
-    };
-
     private int nParts = 0;
 
     // Constructors
     private CourseContentPanel() {
+        setVisibilityOfComponents();
+        setUpComboBox();
+        addActionListeners();
+    }
+    private static final CourseContentPanel INSTANCE = new CourseContentPanel();
+    public static CourseContentPanel getInstance() {return INSTANCE;}
+
+    private void setVisibilityOfComponents() {
         nPartsComboBox.setEditable(false);
+        partsPanel.setVisible(false);
+    }
+    private void setUpComboBox() {
         int[] possibleNParts = {0, 1, 2, 3, 4, 5, 6};
         for (int possibleNPart : possibleNParts) {
             nPartsComboBox.addItem(possibleNPart);
         }
-//        nPartsComboBox.setSelectedIndex(0);
+    }
+    private void addActionListeners() {
         nPartsComboBox.addActionListener(e -> updatePartFields());
         printOutButton.addActionListener(e -> printOut());
     }
-    private static final CourseContentPanel INSTANCE = new CourseContentPanel();
-    public static CourseContentPanel getInstance() {return INSTANCE;}
 
     // Interface methods
     public JPanel getPanel() {
@@ -84,16 +86,7 @@ public class CourseContentPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
-
     public void updateView(MainFrame frame, Course course) {
-        for (JLabel label : labels) label.setVisible(nParts > 0);
-        int i = 0;
-        for (JTextField[] row : partFields) {
-            for (JTextField field : row) {
-                field.setVisible(i < nParts);
-            }
-            i++;
-        }
         this.frame = frame;
     }
 
@@ -103,22 +96,19 @@ public class CourseContentPanel implements CoursePanel {
         if ((nPartsObject = nPartsComboBox.getSelectedItem()) != null) {
             nParts = (int) nPartsObject;
         }
-        for (JLabel label : labels) label.setVisible(nParts > 0);
-        int i = 0;
-        for (JTextField[] row : partFields) {
-            for (JTextField field : row) {
+        partsPanel.setVisible(nParts > 0);
+        for (int i = 0; i < partFields.length; i++) {
+            for (JTextField field : partFields[i]) {
                 field.setVisible(i < nParts);
             }
-            i++;
         }
         frame.keepSize();
     }
 
+    // Getters to Controller
     public int getNParts() {
         return nParts;
     }
-
-    // Getters to Controller
 
     public JTextField[][] getPartFields() {
         return partFields;
@@ -143,6 +133,5 @@ public class CourseContentPanel implements CoursePanel {
 
         printOutPane.setText(outPutText);
     }
-
 
 }
