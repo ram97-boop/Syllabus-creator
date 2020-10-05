@@ -178,6 +178,9 @@ public class ExaminationPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public String getFrameName() {
+        return properties.getProperty("ExaminationTitle");
+    }
     public void updateView(MainFrame frame, Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();

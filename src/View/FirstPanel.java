@@ -5,6 +5,7 @@ import model.GradingScale;
 
 import javax.swing.*;
 import java.util.HashMap;
+import java.util.Properties;
 
 // TODO skicka med värden eller hela components? Koden är inkonsekvent
 
@@ -24,6 +25,8 @@ public class FirstPanel implements CoursePanel {
     private boolean isDistance = false;
     private int gradingScale;
     private boolean thesis;
+
+    Properties properties;
 
     // Constructors
     private FirstPanel() {
@@ -72,8 +75,12 @@ public class FirstPanel implements CoursePanel {
         return previousPanelButton;
     }
 
-    public void updateView(MainFrame frame, Course course) {
+    public String getFrameName() {
+        return properties.getProperty("FirstPanelTitle");
+    }
 
+    public void updateView(MainFrame frame, Course course) {
+        properties = frame.getProperties();
     }
 
     // Action listeners methods

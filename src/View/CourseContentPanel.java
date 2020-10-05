@@ -5,6 +5,7 @@ import model.CoursePart;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Properties;
 
 // TODO Add more parts
 // TODO Ta bort alla delar om man väljer 0 delar efter att ha fyllt i delar
@@ -54,6 +55,8 @@ public class CourseContentPanel implements CoursePanel {
 
     private int nParts = 0;
 
+    Properties properties;
+
     // Constructors
     private CourseContentPanel() {
         setVisibilityOfComponents();
@@ -94,8 +97,12 @@ public class CourseContentPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public String getFrameName() {
+        return properties.getProperty("CourseContentTitle");
+    }
     public void updateView(MainFrame frame, Course course) {
         this.frame = frame;
+        properties = frame.getProperties();
     }
 
     // Action listener methods

@@ -180,6 +180,9 @@ public class ExpectedResultPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public String getFrameName() {
+        return properties.getProperty("ExpectedResultsTitle");
+    }
     public void updateView(MainFrame frame, Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();

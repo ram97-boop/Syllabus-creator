@@ -50,6 +50,10 @@ public class LiteraturePanel implements CoursePanel {
         return previousPanelButton;
     }
 
+    public String getFrameName() {
+        return properties.getProperty("LiteratureTitle");
+    }
+
     public void updateView(MainFrame frame, Course course) {
         thesis = course.hasThesis();
         updateRadios();
