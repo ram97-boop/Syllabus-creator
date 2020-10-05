@@ -5,6 +5,8 @@ import model.Course;
 
 import javax.swing.*;
 
+// TODO Save draft Button
+
 public class MainFrame extends JFrame {
     private int width = 800;
     private int height = 800;
