@@ -5,6 +5,7 @@ import model.Course;
 import model.CoursePart;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CourseContentController implements CourseController {
 
@@ -30,8 +31,10 @@ public class CourseContentController implements CourseController {
         JTextField[][] textFields = courseContentPanel.getPartFields();
 
         try {
-            for (JTextField[] row : textFields) {
-                if (row[0].isVisible() && row[1].isVisible() && row[2].isVisible()) {
+            int nParts = (int) courseContentPanel.getnPartsComboBox().getSelectedItem();
+
+            if (nParts>0) {
+                Arrays.stream(textFields).filter(row -> row[0].isVisible()).forEach(row -> {
                     String name = row[0].getText();
                     String engName = row[1].getText();
                     String credit = row[2].getText();
@@ -42,12 +45,17 @@ public class CourseContentController implements CourseController {
                     coursePart.setCredits((Double.parseDouble(credit)));
 
                     courseParts.add(coursePart);
-                }
+                });
             }
         } catch (RuntimeException e) {
             throw new RuntimeException("Fel i inmatning! Vänligen kontrollera att inmatning är korrekt.");
         }
 
+        setCoursePartsForCourse(courseParts);
+
+    }
+
+    private void setCoursePartsForCourse(ArrayList<CoursePart> courseParts) {
         if (!courseParts.isEmpty()){
             if (Math.abs(sumCourseParts(courseParts)-course.getCredits()) < 1e-8) {
                 course.setCourseParts(courseParts);
@@ -56,8 +64,9 @@ public class CourseContentController implements CourseController {
                         "Summan av kursdelarna är inte samma som totala poängen för kursen ("
                         + course.getCredits() + ").");
             }
+        } else {
+            course.setCourseParts(courseParts);
         }
-
     }
 
     double sumCourseParts(ArrayList<CoursePart> courseParts) {
