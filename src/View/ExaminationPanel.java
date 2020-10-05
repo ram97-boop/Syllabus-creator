@@ -40,7 +40,6 @@ public class ExaminationPanel implements CoursePanel {
     private JComboBox<String> gradingScale4;
     private JComboBox<String> gradingScale5;
     private JComboBox<String> gradingScale6;
-    private JTextArea examinationField;
     private JRadioButton homeExamRadio1;
     private JRadioButton homeExamRadio2;
     private JRadioButton englishRadio1;
@@ -75,6 +74,8 @@ public class ExaminationPanel implements CoursePanel {
     private JCheckBox supplementCheckBox;
     private JPanel gradingPanel;
     private JTextPane ePane;
+    private JTextPane examinationPane;
+    private JTextPane courseGradingScalePane;
 
     Properties properties;
 
@@ -121,16 +122,21 @@ public class ExaminationPanel implements CoursePanel {
 
     // Constructors
     public ExaminationPanel(MainFrame frame) {
-        addActionListeners();
-        supplementCheckBox.setSelected(true);
-        supplementRadio1.setSelected(true);
+        setUpComponents();
+
         setUpGradingScalesComboBoxes();
+        addActionListeners();
         properties = frame.getProperties();
         setToolTips();
     }
 
     public ExaminationPanel() {
         setUpGradingScalesComboBoxes();
+    }
+
+    private void setUpComponents() {
+        supplementCheckBox.setSelected(true);
+        supplementRadio1.setSelected(true);
     }
 
     private void addActionListeners() {
@@ -307,7 +313,7 @@ public class ExaminationPanel implements CoursePanel {
         String outPutText = "a. Kursen examineras på följande vis: \n";
 
         if (!hasParts) {
-            outPutText += examinationField.getText() + "\n\n";
+            outPutText += examinationPane.getText() + "\n\n";
         } else {
             for (int i = 0; i < nParts; i++) {
                 outPutText += examinationLabels[i].getText();
