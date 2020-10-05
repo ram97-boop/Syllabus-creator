@@ -102,13 +102,14 @@ public class CourseContentPanel implements CoursePanel {
                 field.setVisible(i < nParts);
             }
         }
-        frame.keepSize();
+        if (frame != null) {
+            frame.keepSize();
+        }
     }
 
     // Getters to Controller
-    public int getNParts() {
-        return nParts;
-    }
+
+    public JComboBox<Integer> getnPartsComboBox() {return nPartsComboBox;}
 
     public JTextField[][] getPartFields() {
         return partFields;

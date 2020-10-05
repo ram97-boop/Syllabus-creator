@@ -74,6 +74,7 @@ public class CourseContentControllerTest {
 
     @Test
     public void noCoursePartEnteredShouldResultInEmptyCoursePartForCourse() {
+
         courseContentController.updateModel();
 
         assertTrue(course.getCourseParts().isEmpty());
@@ -81,7 +82,7 @@ public class CourseContentControllerTest {
 
     @Test
     public void threeEnteredCoursePartsShouldResultInCoursePartArrayIsSetForCourse() {
-        setUpTextFields();
+        setUpThreeTextFields();
 
         courseContentController.updateModel();
 
@@ -98,31 +99,16 @@ public class CourseContentControllerTest {
     @Test (expected = RuntimeException.class)
     public void enteredCoursePartsWithWrongSumShouldResultInException() {
 
-        JTextField[][] partFields = panel.getPartFields();
-
-        partFields[0][0].setVisible(true);
-        partFields[0][1].setVisible(true);
-        partFields[0][2].setVisible(true);
-        partFields[1][0].setVisible(true);
-        partFields[1][1].setVisible(true);
-        partFields[1][2].setVisible(true);
-
-        partFields[0][0].setText(firstPart.getName());
-        partFields[0][1].setText(firstPart.getEngName());
-        partFields[0][2].setText(Double.toString(firstPart.getCredits()));
-
-        partFields[1][0].setText(secondPart.getName());
-        partFields[1][1].setText(secondPart.getEngName());
-        partFields[1][2].setText(Double.toString(secondPart.getCredits()));
+        setUpTwoTextFields();
 
         courseContentController.updateModel();
 
     }
 
     @Test
-    public void callingUpdateModelSeveralTimesShouldResultInCorrectSetCoursePartArrayForCourse() {
+    public void callingUpdateModelSeveralTimesShouldResultInCorrectSetCoursePartArrayForCourseTest() {
 
-        setUpTextFields();
+        setUpThreeTextFields();
 
         courseContentController.updateModel();
         courseContentController.updateModel();
@@ -138,7 +124,11 @@ public class CourseContentControllerTest {
 
     }
 
-    private void setUpTextFields() {
+    private void setUpThreeTextFields() {
+
+        JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
+        nPartsComboBox.setSelectedItem(3);
+
         JTextField[][] partFields = panel.getPartFields();
 
         partFields[0][0].setVisible(true);
@@ -163,6 +153,28 @@ public class CourseContentControllerTest {
         partFields[2][1].setText(thirdPart.getEngName());
         partFields[2][2].setText(Double.toString(thirdPart.getCredits()));
 
+    }
+
+    private void setUpTwoTextFields() {
+        JTextField[][] partFields = panel.getPartFields();
+
+        JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
+        nPartsComboBox.setSelectedItem(2);
+
+        partFields[0][0].setVisible(true);
+        partFields[0][1].setVisible(true);
+        partFields[0][2].setVisible(true);
+        partFields[1][0].setVisible(true);
+        partFields[1][1].setVisible(true);
+        partFields[1][2].setVisible(true);
+
+        partFields[0][0].setText(firstPart.getName());
+        partFields[0][1].setText(firstPart.getEngName());
+        partFields[0][2].setText(Double.toString(firstPart.getCredits()));
+
+        partFields[1][0].setText(secondPart.getName());
+        partFields[1][1].setText(secondPart.getEngName());
+        partFields[1][2].setText(Double.toString(secondPart.getCredits()));
     }
 
 }
