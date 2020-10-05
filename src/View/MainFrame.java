@@ -4,6 +4,9 @@ import controller.*;
 import model.Course;
 
 import javax.swing.*;
+import java.io.*;
+import java.net.URL;
+import java.util.Properties;
 
 // TODO Save draft Button
 
@@ -16,6 +19,8 @@ public class MainFrame extends JFrame {
 
     private CourseController[] controllers;
 
+    private final Properties properties;
+
     public MainFrame(String title) {
         super(title);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -23,8 +28,20 @@ public class MainFrame extends JFrame {
         this.setContentPane(startPanelController.getPanel().getPanel());
         this.pack();
 
-
         this.setSize(width, height);
+
+        ToolTipManager.sharedInstance().setDismissDelay(60000);
+        ToolTipManager.sharedInstance().setInitialDelay(0);
+
+        properties = new Properties();
+        URL url = getClass().getResource("res.properties");
+        File file = new File(url.getPath());
+        try {
+            InputStream input = new FileInputStream(file);
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         startPanelController.getPanel().getNextPanelButton().addActionListener(l -> {
@@ -70,6 +87,10 @@ public class MainFrame extends JFrame {
         height = this.getHeight();
         this.pack();
         this.setSize(width, height);
+    }
+
+    public Properties getProperties() {
+        return properties;
     }
 
 

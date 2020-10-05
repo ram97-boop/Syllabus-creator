@@ -39,6 +39,8 @@ public class CourseContentPanel implements CoursePanel {
     private JTextPane printOutPane;
     private JButton printOutButton;
     private JPanel partsPanel;
+    private JLabel courseContentLabel;
+    private JLabel creditsLabel;
 
 
     private JTextField[][] partFields = {
@@ -57,6 +59,7 @@ public class CourseContentPanel implements CoursePanel {
         setVisibilityOfComponents();
         setUpComboBox();
         addActionListeners();
+        addToolTips();
     }
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
     public static CourseContentPanel getInstance() {return INSTANCE;}
@@ -74,6 +77,11 @@ public class CourseContentPanel implements CoursePanel {
     private void addActionListeners() {
         nPartsComboBox.addActionListener(e -> updatePartFields());
         printOutButton.addActionListener(e -> printOut());
+    }
+
+    private void addToolTips() {
+        courseContentLabel.setToolTipText("");
+        creditsLabel.setToolTipText("Använd punkt som kommatecken.");
     }
 
     // Interface methods

@@ -261,6 +261,8 @@ public class ExaminationPanel implements CoursePanel {
         noSupplementRadio2.setVisible(!supplementCheckBox.isSelected());
     }
 
+    // Getters to Controller
+
     public ArrayList<JComboBox<String>> getGradingScales() {
         return gradingScaleComboBoxes;
     }
