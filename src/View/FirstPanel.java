@@ -6,6 +6,8 @@ import model.GradingScale;
 import javax.swing.*;
 import java.util.HashMap;
 
+// TODO skicka med värden eller hela components? Koden är inkonsekvent
+
 public class FirstPanel implements CoursePanel {
     private JButton nextPanelButton;
     private JButton previousPanelButton;
@@ -25,25 +27,36 @@ public class FirstPanel implements CoursePanel {
 
     // Constructors
     private FirstPanel() {
+        setVisibilityOfComponents();
+        setUpComboBox();
+        addActionListeners();
+    }
+
+    private static final FirstPanel INSTANCE = new FirstPanel();
+    public static FirstPanel getInstance() {return INSTANCE;}
+
+    private void setVisibilityOfComponents() {
         previousPanelButton.setEnabled(false);
         gradingScaleComboBox.setEditable(false);
+    }
 
+    private void setUpComboBox() {
         gradingScaleMap.put(gradingScaleStrings[0], 7);
         gradingScaleMap.put(gradingScaleStrings[1], 3);
         gradingScaleMap.put(gradingScaleStrings[2], 2);
 
         gradingScale = gradingScaleMap.get(gradingScaleStrings[0]);
 
-        gradingScaleComboBox.addActionListener(e -> updateGradingScale());
-        thesisCheckBox.addActionListener(e -> updateThesis());
-        isDistanceCheckBox.addActionListener(e -> updateIsDistance());
-
         for (String gradingScaleString : gradingScaleStrings) {
             gradingScaleComboBox.addItem(gradingScaleString);
         }
     }
-    private static final FirstPanel INSTANCE = new FirstPanel();
-    public static FirstPanel getInstance() {return INSTANCE;}
+
+    private void addActionListeners() {
+        gradingScaleComboBox.addActionListener(e -> updateGradingScale());
+        thesisCheckBox.addActionListener(e -> updateThesis());
+        isDistanceCheckBox.addActionListener(e -> updateIsDistance());
+    }
 
     // Interface methods
 
@@ -104,10 +117,5 @@ public class FirstPanel implements CoursePanel {
         return isDistance;
     }
 
-    // Print Out
-
-    public void printOut(Course course) {
-
-    }
 
 }

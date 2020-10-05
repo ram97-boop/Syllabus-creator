@@ -29,13 +29,18 @@ public class TeachingPanel implements CoursePanel {
 
     private TeachingPanel() {
         languagePanel.setVisible(false);
-        otherThanSwedishCheckBox.addActionListener(e -> updateLanguagePanel());
-        radio1.addActionListener(e -> updateRadios(radio2));
-        radio2.addActionListener(e -> updateRadios(radio1));
-        printOutButton.addActionListener(e -> printOut());
+        radio1.setSelected(true);
+        addActionListeners();
     }
     private static final TeachingPanel INSTANCE = new TeachingPanel();
     public static TeachingPanel getInstance() {return INSTANCE;}
+
+    private void addActionListeners() {
+        otherThanSwedishCheckBox.addActionListener(e -> updateLanguagePanel());
+        radio1.addActionListener(e -> radio2.setSelected(false));
+        radio2.addActionListener(e -> radio1.setSelected(false));
+        printOutButton.addActionListener(e -> printOut());
+    }
 
     // Interface methods
 
@@ -49,41 +54,40 @@ public class TeachingPanel implements CoursePanel {
         return previousPanelButton;
     }
     public void updateView(MainFrame frame, Course course) {
+        updateCourseAttributes(course);
+        setVisibilityOfComponents();
+    }
+
+    private void updateCourseAttributes(Course course) {
         isDistance = course.isDistance();
+        thesis = course.hasThesis();
+    }
+
+    private void setVisibilityOfComponents() {
         distancePanel.setVisible(isDistance);
         notDistancePanel.setVisible(!isDistance);
-        thesis = course.hasThesis();
         thesisPanel.setVisible(thesis);
     }
 
     // Action listeners methods
     private void updateLanguagePanel() {
         languagePanel.setVisible(otherThanSwedishCheckBox.isSelected());
-        radio1.setSelected(true);
-    }
-
-    private void updateRadios(JRadioButton radio) {
-        radio.setSelected(false);
     }
 
     // PrintOut method
     public void printOut() {
         String outPutText = "";
-        if (!isDistance) {
-            outPutText += "Undervisningen består av ";
-            outPutText += teachingField.getText() + "\n\n";
-        } else {
-            outPutText += "Undervisningen sker på distans.\n\n";
-        }
+        outPutText += printOutDistance();
 
-        if (otherThanSwedishCheckBox.isSelected()) {
-            if (radio1.isSelected()) {
-                outPutText += "Kursen ges på engelska.\n\n";
-            } else if (radio2.isSelected()) {
-                outPutText += "Kursens undervisningsspråk anges inför varje kurstillfälle " +
-                        "och framgår av den digitala utbildningskatalogen.\n\n";
-            }
-        }
+        outPutText += printOutEnglish();
+
+        outPutText += printOutThesis();
+
+        printOutPane.setText(outPutText);
+    }
+
+    private String printOutThesis() {
+        String outPutText = "";
         if (thesis) {
             outPutText += "Studenten har rätt till minst ";
             outPutText += thesisHoursField.getText();
@@ -98,7 +102,30 @@ public class TeachingPanel implements CoursePanel {
                         "Begäran om detta ska ställas till institutionsstyrelsen. ";
             }
         }
+        return outPutText;
+    }
 
-        printOutPane.setText(outPutText);
+    private String printOutEnglish() {
+        String outPutText = "";
+        if (otherThanSwedishCheckBox.isSelected()) {
+            if (radio1.isSelected()) {
+                outPutText += "Kursen ges på engelska.\n\n";
+            } else if (radio2.isSelected()) {
+                outPutText += "Kursens undervisningsspråk anges inför varje kurstillfälle " +
+                        "och framgår av den digitala utbildningskatalogen.\n\n";
+            }
+        }
+        return outPutText;
+    }
+
+    private String printOutDistance() {
+        String outPutText = "";
+        if (!isDistance) {
+            outPutText += "Undervisningen består av ";
+            outPutText += teachingField.getText() + "\n\n";
+        } else {
+            outPutText += "Undervisningen sker på distans.\n\n";
+        }
+        return outPutText;
     }
 }
