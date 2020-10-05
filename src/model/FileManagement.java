@@ -26,7 +26,7 @@ class FileManagement {
 	 * @return A course object.
 	 * @throws IOException
 	 */
-	public Course loadCourse(String filename) throws IOException {
+	public Course loadCourse(String filename) throws IOException, JsonSyntaxException {
 		BufferedReader reader = new BufferedReader(new FileReader(filename));
 		Course course = gson.fromJson(reader.readLine(),Course.class);
 		reader.close();
