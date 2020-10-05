@@ -6,6 +6,7 @@ import model.GradingScale;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 // TODO Sätt ihop delar i printOut som examineras på samma sätt
 // TODO Sätt ihop delar i printOut som har samma betygskala
@@ -73,7 +74,9 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton noSupplementRadio2;
     private JCheckBox supplementCheckBox;
     private JPanel gradingPanel;
+    private JTextPane ePane;
 
+    Properties properties;
 
     private final JLabel[] examinationLabels = {
         partExaminationLabel1,
@@ -179,6 +182,8 @@ public class ExaminationPanel implements CoursePanel {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
+        properties = frame.getProperties();
+        setToolTips();
     }
 
     private void updateCourseAttributes(Course course) {
@@ -219,6 +224,10 @@ public class ExaminationPanel implements CoursePanel {
             examinationLabels[i].setText(examinationLabelText);
             gradingScalePartLabels[i].setText(courseParts.get(i).getName());
         }
+    }
+
+    private void setToolTips() {
+        ePane.setToolTipText(properties.getProperty("examinationEPaneToolTip"));
     }
 
     // Action listeners methods

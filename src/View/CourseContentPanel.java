@@ -59,7 +59,7 @@ public class CourseContentPanel implements CoursePanel {
         setVisibilityOfComponents();
         setUpComboBox();
         addActionListeners();
-        addToolTips();
+        setToolTips();
     }
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
     public static CourseContentPanel getInstance() {return INSTANCE;}
@@ -79,7 +79,7 @@ public class CourseContentPanel implements CoursePanel {
         printOutButton.addActionListener(e -> printOut());
     }
 
-    private void addToolTips() {
+    private void setToolTips() {
         courseContentLabel.setToolTipText("");
         creditsLabel.setToolTipText("Använd punkt som kommatecken.");
     }
