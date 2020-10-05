@@ -106,7 +106,7 @@ public class CourseContentControllerTest {
     }
 
     @Test
-    public void callingUpdateModelSeveralTimesShouldResultInCorrectSetCoursePartArrayForCourseTest() {
+    public void callingUpdateModelSeveralTimesShouldResultInCorrectCoursePartArrayForCourse() {
 
         setUpThreeTextFields();
 
@@ -121,6 +121,45 @@ public class CourseContentControllerTest {
         assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
         assertEquals(thirdPart.getName(), course.getCourseParts().get(2).getName());
         assertEquals(thirdPart.getEngName(), course.getCourseParts().get(2).getEngName());
+
+    }
+
+    @Test
+    public void changingNumberOfCoursePartsForCourseShouldResultInCorrectCoursePartArrayForCourse() {
+
+        // set 3 course parts
+        setUpThreeTextFields();
+
+        courseContentController.updateModel();
+
+        assertEquals(3, course.getCourseParts().size());
+        assertEquals(firstPart.getName(), course.getCourseParts().get(0).getName());
+        assertEquals(firstPart.getEngName(), course.getCourseParts().get(0).getEngName());
+        assertEquals(secondPart.getName(), course.getCourseParts().get(1).getName());
+        assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
+        assertEquals(thirdPart.getName(), course.getCourseParts().get(2).getName());
+        assertEquals(thirdPart.getEngName(), course.getCourseParts().get(2).getEngName());
+
+        // changing to 2 course parts. Set new credits to add up to course credit
+        firstPart.setCredits(3);
+        secondPart.setCredits(4.5);
+        setUpTwoTextFields();
+
+        courseContentController.updateModel();
+
+        assertEquals(2, course.getCourseParts().size());
+        assertEquals(firstPart.getName(), course.getCourseParts().get(0).getName());
+        assertEquals(firstPart.getEngName(), course.getCourseParts().get(0).getEngName());
+        assertEquals(secondPart.getName(), course.getCourseParts().get(1).getName());
+        assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
+
+        // change to 0 course parts
+        JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
+        nPartsComboBox.setSelectedItem(0);
+
+        courseContentController.updateModel();
+
+        assertEquals(0, course.getCourseParts().size());
 
     }
 

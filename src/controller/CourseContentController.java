@@ -30,11 +30,8 @@ public class CourseContentController implements CourseController {
 
         JTextField[][] textFields = courseContentPanel.getPartFields();
 
-        JComboBox<Integer> nPartsComboBox = courseContentPanel.getnPartsComboBox();
-
-
         try {
-            int nParts = (int) nPartsComboBox.getSelectedItem();
+            int nParts = (int) courseContentPanel.getnPartsComboBox().getSelectedItem();
 
             if (nParts>0) {
                 Arrays.stream(textFields).filter(row -> row[0].isVisible()).forEach(row -> {
@@ -54,6 +51,11 @@ public class CourseContentController implements CourseController {
             throw new RuntimeException("Fel i inmatning! Vänligen kontrollera att inmatning är korrekt.");
         }
 
+        setCoursePartsForCourse(courseParts);
+
+    }
+
+    private void setCoursePartsForCourse(ArrayList<CoursePart> courseParts) {
         if (!courseParts.isEmpty()){
             if (Math.abs(sumCourseParts(courseParts)-course.getCredits()) < 1e-8) {
                 course.setCourseParts(courseParts);
@@ -62,8 +64,9 @@ public class CourseContentController implements CourseController {
                         "Summan av kursdelarna är inte samma som totala poängen för kursen ("
                         + course.getCredits() + ").");
             }
+        } else {
+            course.setCourseParts(courseParts);
         }
-
     }
 
     double sumCourseParts(ArrayList<CoursePart> courseParts) {
