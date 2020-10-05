@@ -629,7 +629,7 @@
                   </component>
                   <component id="807b2" class="javax.swing.JCheckBox" binding="supplementCheckBox">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value="Det ges möjlighet till komplettering"/>

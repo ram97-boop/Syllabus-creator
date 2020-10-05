@@ -164,8 +164,10 @@ public class ExpectedResultPanel implements CoursePanel {
         printOutButton.addActionListener(e -> printOut());
     }
 
-    private void addToolTips() {
+    private void setToolTips() {
         goalsLabel.setToolTipText(properties.getProperty("courseContentLabelToolTip"));
+        printAlt1Radio.setToolTipText(properties.getProperty("expectedResultsPrintOutAlt1ToolTip"));
+        printAlt2Radio.setToolTipText(properties.getProperty("expectedResultsPrintOutAlt2ToolTip"));
     }
 
     // Interface methods
@@ -184,7 +186,7 @@ public class ExpectedResultPanel implements CoursePanel {
         setLabelNames();
         frame.keepSize();
         properties = frame.getProperties();
-        addToolTips();
+        setToolTips();
     }
 
     private void updateCourseAttributes(Course course) {

@@ -3,6 +3,7 @@ package View;
 import model.Course;
 
 import javax.swing.*;
+import java.util.Properties;
 
 public class LiteraturePanel implements CoursePanel {
     private JPanel mainPanel;
@@ -15,6 +16,8 @@ public class LiteraturePanel implements CoursePanel {
     private JRadioButton radio2;
 
     private boolean thesis = false;
+
+    Properties properties;
 
     // Constructors
 
@@ -50,6 +53,13 @@ public class LiteraturePanel implements CoursePanel {
     public void updateView(MainFrame frame, Course course) {
         thesis = course.hasThesis();
         updateRadios();
+        properties = frame.getProperties();
+        setToolTips();
+    }
+
+    private void setToolTips() {
+        radio1.setToolTipText(properties.getProperty("literaturePanelAlt1ToolTip"));
+        radio2.setToolTipText(properties.getProperty("literaturePanelAlt2ToolTip"));
     }
 
     // Action listener methods

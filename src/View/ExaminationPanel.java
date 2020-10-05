@@ -228,6 +228,11 @@ public class ExaminationPanel implements CoursePanel {
 
     private void setToolTips() {
         ePane.setToolTipText(properties.getProperty("examinationEPaneToolTip"));
+        supplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt1ToolTip"));
+        supplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt2ToolTip"));
+        supplementRadio3.setToolTipText(properties.getProperty("examinationFPaneAlt3ToolTip"));
+        noSupplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt4ToolTip"));
+        noSupplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt5ToolTip"));
     }
 
     // Action listeners methods
