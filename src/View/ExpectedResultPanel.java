@@ -112,6 +112,7 @@ public class ExpectedResultPanel implements CoursePanel {
     private JRadioButton printAlt2Radio;
     private JLabel goalsLabel;
 
+    MainFrame frame;
     Properties properties;
 
 
@@ -131,13 +132,18 @@ public class ExpectedResultPanel implements CoursePanel {
     boolean hasParts = false;
 
     //Constructors
-    private ExpectedResultPanel() {
+    public ExpectedResultPanel(MainFrame frame) {
         setUpGoalsMap();
         addActionListeners();
         printAlt1Radio.setSelected(true);
+        this.frame = frame;
+        properties = frame.getProperties();
+        setToolTips();
     }
-    private static final ExpectedResultPanel INSTANCE = new ExpectedResultPanel();
-    public static ExpectedResultPanel getInstance() {return INSTANCE;}
+
+    public ExpectedResultPanel() {
+        setUpGoalsMap();
+    }
 
     private void setUpGoalsMap() {
         goals.put(goal01, new JRadioButton[]{r011, r012, r013, r014, r015, r016});
@@ -183,13 +189,11 @@ public class ExpectedResultPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("ExpectedResultsTitle");
     }
-    public void updateView(MainFrame frame, Course course) {
+    public void updateView(Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
         frame.keepSize();
-        properties = frame.getProperties();
-        setToolTips();
     }
 
     private void updateCourseAttributes(Course course) {

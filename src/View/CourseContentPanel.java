@@ -58,14 +58,18 @@ public class CourseContentPanel implements CoursePanel {
     Properties properties;
 
     // Constructors
-    private CourseContentPanel() {
+    public CourseContentPanel(MainFrame frame) {
         setVisibilityOfComponents();
         setUpComboBox();
         addActionListeners();
+        this.frame = frame;
+        properties = frame.getProperties();
         setToolTips();
     }
-    private static final CourseContentPanel INSTANCE = new CourseContentPanel();
-    public static CourseContentPanel getInstance() {return INSTANCE;}
+
+    public CourseContentPanel() {
+        setUpComboBox();
+    }
 
     private void setVisibilityOfComponents() {
         nPartsComboBox.setEditable(false);
@@ -100,9 +104,8 @@ public class CourseContentPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("CourseContentTitle");
     }
-    public void updateView(MainFrame frame, Course course) {
-        this.frame = frame;
-        properties = frame.getProperties();
+    public void updateView(Course course) {
+
     }
 
     // Action listener methods

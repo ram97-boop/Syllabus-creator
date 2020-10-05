@@ -120,17 +120,18 @@ public class ExaminationPanel implements CoursePanel {
     private boolean thesis = false;
 
     // Constructors
-    private ExaminationPanel() {
+    public ExaminationPanel(MainFrame frame) {
         addActionListeners();
-
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
-
         setUpGradingScalesComboBoxes();
-
+        properties = frame.getProperties();
+        setToolTips();
     }
-    private static final ExaminationPanel INSTANCE = new ExaminationPanel();
-    public static ExaminationPanel getInstance() {return INSTANCE;}
+
+    public ExaminationPanel() {
+        setUpGradingScalesComboBoxes();
+    }
 
     private void addActionListeners() {
         homeExamCheckBox.addActionListener(e -> updateHomeExamPanel());
@@ -181,12 +182,10 @@ public class ExaminationPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("ExaminationTitle");
     }
-    public void updateView(MainFrame frame, Course course) {
+    public void updateView(Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
-        properties = frame.getProperties();
-        setToolTips();
     }
 
     private void updateCourseAttributes(Course course) {
