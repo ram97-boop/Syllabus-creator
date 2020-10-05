@@ -4,6 +4,7 @@ import model.Course;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Properties;
 
 public class TeachingPanel implements CoursePanel {
     private JPanel mainPanel;
@@ -24,6 +25,8 @@ public class TeachingPanel implements CoursePanel {
 
     boolean isDistance = false;
     boolean thesis = false;
+
+    Properties properties;
 
     // Constructors
 
@@ -53,9 +56,13 @@ public class TeachingPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public String getFrameName() {
+        return properties.getProperty("TeachingTitle");
+    }
     public void updateView(MainFrame frame, Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
+        properties = frame.getProperties();
     }
 
     private void updateCourseAttributes(Course course) {

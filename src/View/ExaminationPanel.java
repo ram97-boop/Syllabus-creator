@@ -6,6 +6,7 @@ import model.GradingScale;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 // TODO Sätt ihop delar i printOut som examineras på samma sätt
 // TODO Sätt ihop delar i printOut som har samma betygskala
@@ -73,7 +74,9 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton noSupplementRadio2;
     private JCheckBox supplementCheckBox;
     private JPanel gradingPanel;
+    private JTextPane ePane;
 
+    Properties properties;
 
     private final JLabel[] examinationLabels = {
         partExaminationLabel1,
@@ -175,10 +178,15 @@ public class ExaminationPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public String getFrameName() {
+        return properties.getProperty("ExaminationTitle");
+    }
     public void updateView(MainFrame frame, Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
+        properties = frame.getProperties();
+        setToolTips();
     }
 
     private void updateCourseAttributes(Course course) {
@@ -221,6 +229,15 @@ public class ExaminationPanel implements CoursePanel {
         }
     }
 
+    private void setToolTips() {
+        ePane.setToolTipText(properties.getProperty("examinationEPaneToolTip"));
+        supplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt1ToolTip"));
+        supplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt2ToolTip"));
+        supplementRadio3.setToolTipText(properties.getProperty("examinationFPaneAlt3ToolTip"));
+        noSupplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt4ToolTip"));
+        noSupplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt5ToolTip"));
+    }
+
     // Action listeners methods
     private void updateHomeExamPanel() {
         homeExamPanel.setVisible(homeExamCheckBox.isSelected());
@@ -260,6 +277,8 @@ public class ExaminationPanel implements CoursePanel {
         noSupplementRadio1.setVisible(!supplementCheckBox.isSelected());
         noSupplementRadio2.setVisible(!supplementCheckBox.isSelected());
     }
+
+    // Getters to Controller
 
     public ArrayList<JComboBox<String>> getGradingScales() {
         return gradingScaleComboBoxes;

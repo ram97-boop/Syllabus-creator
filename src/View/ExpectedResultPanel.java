@@ -110,6 +110,9 @@ public class ExpectedResultPanel implements CoursePanel {
     private JTextPane printOutPane;
     private JRadioButton printAlt1Radio;
     private JRadioButton printAlt2Radio;
+    private JLabel goalsLabel;
+
+    Properties properties;
 
 
     private final JLabel[] partLabels = {
@@ -161,6 +164,12 @@ public class ExpectedResultPanel implements CoursePanel {
         printOutButton.addActionListener(e -> printOut());
     }
 
+    private void setToolTips() {
+        goalsLabel.setToolTipText(properties.getProperty("courseContentLabelToolTip"));
+        printAlt1Radio.setToolTipText(properties.getProperty("expectedResultsPrintOutAlt1ToolTip"));
+        printAlt2Radio.setToolTipText(properties.getProperty("expectedResultsPrintOutAlt2ToolTip"));
+    }
+
     // Interface methods
     public JPanel getPanel() {
         return mainPanel;
@@ -171,11 +180,16 @@ public class ExpectedResultPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public String getFrameName() {
+        return properties.getProperty("ExpectedResultsTitle");
+    }
     public void updateView(MainFrame frame, Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
         frame.keepSize();
+        properties = frame.getProperties();
+        setToolTips();
     }
 
     private void updateCourseAttributes(Course course) {

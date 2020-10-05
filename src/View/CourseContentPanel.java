@@ -5,6 +5,7 @@ import model.CoursePart;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Properties;
 
 // TODO Add more parts
 // TODO Ta bort alla delar om man väljer 0 delar efter att ha fyllt i delar
@@ -39,6 +40,8 @@ public class CourseContentPanel implements CoursePanel {
     private JTextPane printOutPane;
     private JButton printOutButton;
     private JPanel partsPanel;
+    private JLabel courseContentLabel;
+    private JLabel creditsLabel;
 
 
     private JTextField[][] partFields = {
@@ -52,11 +55,14 @@ public class CourseContentPanel implements CoursePanel {
 
     private int nParts = 0;
 
+    Properties properties;
+
     // Constructors
     private CourseContentPanel() {
         setVisibilityOfComponents();
         setUpComboBox();
         addActionListeners();
+        setToolTips();
     }
     private static final CourseContentPanel INSTANCE = new CourseContentPanel();
     public static CourseContentPanel getInstance() {return INSTANCE;}
@@ -76,6 +82,11 @@ public class CourseContentPanel implements CoursePanel {
         printOutButton.addActionListener(e -> printOut());
     }
 
+    private void setToolTips() {
+        courseContentLabel.setToolTipText("");
+        creditsLabel.setToolTipText("Använd punkt som kommatecken.");
+    }
+
     // Interface methods
     public JPanel getPanel() {
         return mainPanel;
@@ -86,8 +97,12 @@ public class CourseContentPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public String getFrameName() {
+        return properties.getProperty("CourseContentTitle");
+    }
     public void updateView(MainFrame frame, Course course) {
         this.frame = frame;
+        properties = frame.getProperties();
     }
 
     // Action listener methods
