@@ -1,10 +1,7 @@
 package model;
 
 import java.io.*;
-import java.nio.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
+import java.nio.file.*;
 import com.google.gson.*;
 
 class FileManagement {
@@ -15,7 +12,10 @@ class FileManagement {
 		Files.write(Paths.get(filename),json.getBytes());
 	}
 	
-	public Course loadCourse(String filename) {
-		return null;
+	public Course loadCourse(String filename) throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(filename));
+		Course course = gson.fromJson(reader.readLine(),Course.class);
+		reader.close();
+		return course;
 	}
 }
