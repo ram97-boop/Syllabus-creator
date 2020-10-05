@@ -19,20 +19,32 @@ public class MainFrame extends JFrame {
 
     private CourseController[] controllers;
 
-    private final Properties properties;
+    private Properties properties;
 
     public MainFrame(String title) {
         super(title);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         this.setContentPane(startPanelController.getPanel().getPanel());
         this.pack();
-
         this.setSize(width, height);
 
         ToolTipManager.sharedInstance().setDismissDelay(60000);
         ToolTipManager.sharedInstance().setInitialDelay(0);
 
+        setUpPropertiesFile();
+
+        startPanelController.getPanel().getNextPanelButton().addActionListener(l -> {
+            try {
+                controllers = startPanelController.getCourseControllers(course);
+                changePanel(0);
+                addActionListeners();
+            } catch (RuntimeException exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage());
+            }
+        });
+    }
+
+    private void setUpPropertiesFile() {
         properties = new Properties();
         URL url = getClass().getResource("res.properties");
         File file = new File(url.getPath());
@@ -42,44 +54,34 @@ public class MainFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        startPanelController.getPanel().getNextPanelButton().addActionListener(l -> {
-            try {
-                controllers = startPanelController.getCourseControllers(course);
-
-                this.setContentPane(controllers[0].getPanel().getPanel());
-                this.pack();
-                this.setSize(width, height);
-
-                for (int i = 0; i < controllers.length; i++) {
-                    int finalI = i;
-                    controllers[i].getPanel().getNextPanelButton().addActionListener(e -> {
-                        try{
-                            controllers[finalI].updateModel();
-                            changePanel(finalI + 1);
-                        } catch (RuntimeException exception) {
-                            JOptionPane.showMessageDialog(null, exception.getMessage());
-                        }
-                    });
-                    controllers[i].getPanel().getPreviousPanelButton().addActionListener(e -> {
-                        try {
-                            changePanel(finalI - 1);
-                        } catch (RuntimeException exception) {
-                            JOptionPane.showMessageDialog(null, exception.getMessage());
-                        }
-                    });
-                }
-            } catch (RuntimeException exception) {
-                JOptionPane.showMessageDialog(null, exception.getMessage());
-            }
-        });
     }
 
-    public void changePanel(int nextIndex) {
+    private void changePanel(int nextIndex) {
         controllers[nextIndex].getPanel().updateView(this, course);
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
+        this.setTitle(properties.getProperty("Frame_name") + " | " + controllers[nextIndex].getPanel().getFrameName());
         keepSize();
+    }
+
+    private void addActionListeners() {
+        for (int i = 0; i < controllers.length; i++) {
+            int finalI = i;
+            controllers[i].getPanel().getNextPanelButton().addActionListener(e -> {
+                try{
+                    controllers[finalI].updateModel();
+                    changePanel(finalI + 1);
+                } catch (RuntimeException exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
+                }
+            });
+            controllers[i].getPanel().getPreviousPanelButton().addActionListener(e -> {
+                try {
+                    changePanel(finalI - 1);
+                } catch (RuntimeException exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
+                }
+            });
+        }
     }
 
     public void keepSize() {
