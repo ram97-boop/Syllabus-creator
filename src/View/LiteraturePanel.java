@@ -20,14 +20,18 @@ public class LiteraturePanel implements CoursePanel {
 
     private LiteraturePanel() {
         nextPanelButton.setEnabled(false);
-        multipleInstitutionsCheckBox.addActionListener(e -> updateRadios());
-        radio1.addActionListener(e -> switchRadios(radio2));
-        radio2.addActionListener(e -> switchRadios(radio1));
-
-        printOutButton.addActionListener(e -> printOut());
+        radio1.setSelected(true);
+        addActionListeners();
     }
     private static final LiteraturePanel INSTANCE = new LiteraturePanel();
     public static LiteraturePanel getInstance() {return INSTANCE;}
+
+    private void addActionListeners() {
+        multipleInstitutionsCheckBox.addActionListener(e -> updateRadios());
+        radio1.addActionListener(e -> radio2.setSelected(false));
+        radio2.addActionListener(e -> radio1.setSelected(false));
+        printOutButton.addActionListener(e -> printOut());
+    }
 
     // Interface methods
 
@@ -45,7 +49,6 @@ public class LiteraturePanel implements CoursePanel {
 
     public void updateView(MainFrame frame, Course course) {
         thesis = course.hasThesis();
-
         updateRadios();
     }
 
@@ -54,19 +57,22 @@ public class LiteraturePanel implements CoursePanel {
     private void updateRadios() {
         radio1.setVisible(multipleInstitutionsCheckBox.isSelected());
         radio2.setVisible(multipleInstitutionsCheckBox.isSelected());
-        radio1.setSelected(true);
-        radio2.setSelected(false);
     }
 
-    private void switchRadios(JRadioButton radio) {
-        radio.setSelected(false);
-    }
-
-    // PrintOut method
+    // PrintOut methods
 
     public void printOut() {
         String outPutText = "";
 
+        outPutText += printOutMultipleInstitutions();
+
+        outPutText += printOutThesis();
+
+        printOutPane.setText(outPutText);
+    }
+
+    private String printOutMultipleInstitutions() {
+        String outPutText = "";
         if (!multipleInstitutionsCheckBox.isSelected()) {
             outPutText += "Kurslitteratur beslutas av institutionsstyrelsen och publiceras på " +
                     "Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
@@ -79,13 +85,16 @@ public class LiteraturePanel implements CoursePanel {
                         "och publiceras på Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
             }
         }
+        return outPutText;
+    }
 
+    private String printOutThesis() {
+        String outPutText = "";
         if (thesis) {
             outPutText += "Litteraturen baseras på vetenskapliga publikationer och rapporter " +
                     "inom det aktuella området framtagna av den studerande genom litteratursökning samt " +
                     "litteratur utdelad av huvudhandledaren och/eller av den biträdande handledaren. ";
         }
-
-        printOutPane.setText(outPutText);
+        return outPutText;
     }
 }
