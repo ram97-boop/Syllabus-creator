@@ -15,14 +15,13 @@ public class FirstControllerTest {
 
     private FirstController firstController;
     private Course course;
-    private FirstPanel panel;
+    private final FirstPanel panel = new FirstPanel();
 
 
     @Before
     public void setUp() {
         course = new Course();
-        firstController = new FirstController(course, new FirstPanel());
-        panel = firstController.getPanel();
+        firstController = new FirstController(course, panel);
 
         // default values
         panel.getIsDistanceCheckBox().setSelected(false);

@@ -19,7 +19,7 @@ public class CourseContentControllerTest {
 
     private final Course course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
     private CourseContentController courseContentController;
-    private CourseContentPanel panel;
+    private CourseContentPanel panel = new CourseContentPanel();
 
     private final CoursePart firstPart = new CoursePart();
     private final CoursePart secondPart = new CoursePart();
@@ -29,8 +29,7 @@ public class CourseContentControllerTest {
 
     @Before
     public void setUp() {
-        courseContentController = new CourseContentController(course, new CourseContentPanel());
-        panel = courseContentController.getPanel();
+        courseContentController = new CourseContentController(course, panel);
         courseParts = new ArrayList<>();
 
         // set all text-fields to not visible
