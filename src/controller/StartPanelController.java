@@ -2,13 +2,16 @@ package controller;
 
 import View.*;
 import model.Course;
+import sun.applet.Main;
 
 import java.util.Arrays;
 
 public class StartPanelController {
-    private StartPanel startPanel;
+    private final MainFrame frame;
+    private final StartPanel startPanel;
 
-    public StartPanelController(StartPanel startPanel) {
+    public StartPanelController(MainFrame frame, StartPanel startPanel) {
+        this.frame = frame;
         this.startPanel = startPanel;
     }
 
@@ -42,12 +45,12 @@ public class StartPanelController {
 
     private CoursePanel[] getAllPanels() {
         return new CoursePanel[]{
-                FirstPanel.getInstance(),
-                CourseContentPanel.getInstance(),
-                ExpectedResultPanel.getInstance(),
-                TeachingPanel.getInstance(),
-                ExaminationPanel.getInstance(),
-                LiteraturePanel.getInstance()};
+                new FirstPanel(frame),
+                new CourseContentPanel(frame),
+                new ExpectedResultPanel(frame),
+                new TeachingPanel(frame),
+                new ExaminationPanel(frame),
+                new LiteraturePanel(frame)};
     }
 
 }

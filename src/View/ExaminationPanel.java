@@ -40,7 +40,6 @@ public class ExaminationPanel implements CoursePanel {
     private JComboBox<String> gradingScale4;
     private JComboBox<String> gradingScale5;
     private JComboBox<String> gradingScale6;
-    private JTextArea examinationField;
     private JRadioButton homeExamRadio1;
     private JRadioButton homeExamRadio2;
     private JRadioButton englishRadio1;
@@ -75,6 +74,8 @@ public class ExaminationPanel implements CoursePanel {
     private JCheckBox supplementCheckBox;
     private JPanel gradingPanel;
     private JTextPane ePane;
+    private JTextPane examinationPane;
+    private JTextPane courseGradingScalePane;
 
     Properties properties;
 
@@ -120,17 +121,23 @@ public class ExaminationPanel implements CoursePanel {
     private boolean thesis = false;
 
     // Constructors
-    private ExaminationPanel() {
-        addActionListeners();
-
-        supplementCheckBox.setSelected(true);
-        supplementRadio1.setSelected(true);
+    public ExaminationPanel(MainFrame frame) {
+        setUpComponents();
 
         setUpGradingScalesComboBoxes();
-
+        addActionListeners();
+        properties = frame.getProperties();
+        setToolTips();
     }
-    private static final ExaminationPanel INSTANCE = new ExaminationPanel();
-    public static ExaminationPanel getInstance() {return INSTANCE;}
+
+    public ExaminationPanel() {
+        setUpGradingScalesComboBoxes();
+    }
+
+    private void setUpComponents() {
+        supplementCheckBox.setSelected(true);
+        supplementRadio1.setSelected(true);
+    }
 
     private void addActionListeners() {
         homeExamCheckBox.addActionListener(e -> updateHomeExamPanel());
@@ -181,12 +188,10 @@ public class ExaminationPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("ExaminationTitle");
     }
-    public void updateView(MainFrame frame, Course course) {
+    public void updateView(Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
-        properties = frame.getProperties();
-        setToolTips();
     }
 
     private void updateCourseAttributes(Course course) {
@@ -308,7 +313,7 @@ public class ExaminationPanel implements CoursePanel {
         String outPutText = "a. Kursen examineras på följande vis: \n";
 
         if (!hasParts) {
-            outPutText += examinationField.getText() + "\n\n";
+            outPutText += examinationPane.getText() + "\n\n";
         } else {
             for (int i = 0; i < nParts; i++) {
                 outPutText += examinationLabels[i].getText();

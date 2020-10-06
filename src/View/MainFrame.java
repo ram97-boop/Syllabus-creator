@@ -15,7 +15,8 @@ public class MainFrame extends JFrame {
     private int height = 800;
     private final Course course = new Course();
 
-    private final StartPanelController startPanelController = new StartPanelController(StartPanel.getInstance());
+    private final StartPanelController startPanelController =
+            new StartPanelController(this, new StartPanel());
 
     private CourseController[] controllers;
 
@@ -57,7 +58,7 @@ public class MainFrame extends JFrame {
     }
 
     private void changePanel(int nextIndex) {
-        controllers[nextIndex].getPanel().updateView(this, course);
+        controllers[nextIndex].getPanel().updateView(course);
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.setTitle(properties.getProperty("Frame_name") + " | " + controllers[nextIndex].getPanel().getFrameName());
         keepSize();

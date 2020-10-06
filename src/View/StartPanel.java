@@ -10,7 +10,7 @@ public class StartPanel {
     private JTextField courseCode;
     private JPanel courseInfoPanel;
 
-    private StartPanel() {
+    public StartPanel() {
         courseInfoPanel.setVisible(false);
         continueCourseButton.addActionListener(e -> {
             createNewCourseButton.setSelected(false);
@@ -21,9 +21,6 @@ public class StartPanel {
             updateCourseInfoPanel();
         });
     }
-
-    private static final StartPanel INSTANCE = new StartPanel();
-    public static StartPanel getInstance() {return INSTANCE;}
 
     public JPanel getPanel() {
         return mainPanel;

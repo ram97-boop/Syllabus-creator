@@ -21,13 +21,17 @@ public class LiteraturePanel implements CoursePanel {
 
     // Constructors
 
-    private LiteraturePanel() {
+    public LiteraturePanel(MainFrame frame) {
         nextPanelButton.setEnabled(false);
         radio1.setSelected(true);
         addActionListeners();
+        properties = frame.getProperties();
+        setToolTips();
     }
-    private static final LiteraturePanel INSTANCE = new LiteraturePanel();
-    public static LiteraturePanel getInstance() {return INSTANCE;}
+
+    public LiteraturePanel() {
+
+    }
 
     private void addActionListeners() {
         multipleInstitutionsCheckBox.addActionListener(e -> updateRadios());
@@ -54,11 +58,9 @@ public class LiteraturePanel implements CoursePanel {
         return properties.getProperty("LiteratureTitle");
     }
 
-    public void updateView(MainFrame frame, Course course) {
+    public void updateView(Course course) {
         thesis = course.hasThesis();
         updateRadios();
-        properties = frame.getProperties();
-        setToolTips();
     }
 
     private void setToolTips() {

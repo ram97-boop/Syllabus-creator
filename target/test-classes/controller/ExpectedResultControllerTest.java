@@ -29,7 +29,7 @@ public class ExpectedResultControllerTest {
 
     @Before
     public void setUp(){
-        expectedResultController = new ExpectedResultController(course, ExpectedResultPanel.getInstance());
+        expectedResultController = new ExpectedResultController(course, new ExpectedResultPanel());
         panel = expectedResultController.getPanel();
 
         HashMap<JTextField, JRadioButton[]> goalsMap = panel.getGoals();
