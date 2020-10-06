@@ -4,7 +4,9 @@ import View.FirstPanel;
 import model.Course;
 import model.GradingScale;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FirstController implements CourseController {
     private Course course;
@@ -32,11 +34,15 @@ public class FirstController implements CourseController {
             course.setCredits(Float.parseFloat(firstPanel.getCoursePoints().getText()));
             course.setName(firstPanel.getCourseName().getText());
             course.setCode(firstPanel.getCourseCode().getText());
-            course.setDistance(firstPanel.getIsDistance());
-            course.setThesis(firstPanel.getThesis());
+            course.setDistance(firstPanel.getIsDistanceCheckBox().isSelected());
+            course.setThesis(firstPanel.getThesisCheckBox().isSelected());
+
+            HashMap<String, Integer> gradingScaleMap = firstPanel.getGradingScaleMap();
+            JComboBox<String> gradingScaleComboBox = firstPanel.getGradingScaleComboBox();
 
             GradingScale gradingScale = new GradingScale();
-            ArrayList<String> gradingScaleList = gradingScale.getGradingScale(firstPanel.getGradingScale());
+            String selectedItem = (String)gradingScaleComboBox.getSelectedItem();
+            ArrayList<String> gradingScaleList = gradingScale.getGradingScale(gradingScaleMap.get(selectedItem));
 
             course.setGradingScale(gradingScaleList);
         } catch(RuntimeException e) {

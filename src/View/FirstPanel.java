@@ -112,17 +112,20 @@ public class FirstPanel implements CoursePanel {
         return coursePoints;
     }
 
-    public int getGradingScale() {
-        return gradingScale;
+    public JComboBox<String> getGradingScaleComboBox() {
+        return gradingScaleComboBox;
     }
 
-    public boolean getThesis() {
-        return thesis;
+    public HashMap<String, Integer> getGradingScaleMap() {
+        return gradingScaleMap;
     }
 
-    public boolean getIsDistance() {
-        return isDistance;
+    public JCheckBox getIsDistanceCheckBox() {
+        return isDistanceCheckBox;
     }
 
+    public JCheckBox getThesisCheckBox() {
+        return thesisCheckBox;
+    }
 
 }
