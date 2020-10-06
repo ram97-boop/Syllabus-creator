@@ -5,6 +5,7 @@ Created by: Sofia Ayata Karbin
 package controller;
 import View.FirstPanel;
 import model.Course;
+import model.GradingScale;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class FirstControllerTest {
         // default values
         panel.getIsDistanceCheckBox().setSelected(false);
         panel.getThesisCheckBox().setSelected(false);
-        panel.getGradingScaleComboBox().setSelectedItem("7-gradig (A-F)");
+        panel.getGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[0]);
     }
 
     @Test
@@ -68,7 +69,7 @@ public class FirstControllerTest {
         panel.getCourseCode().setText("DA4002");
         panel.getIsDistanceCheckBox().setSelected(true);
         panel.getThesisCheckBox().setSelected(true);
-        panel.getGradingScaleComboBox().setSelectedItem("2-gradig (G-U)");
+        panel.getGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
 
         firstController.updateModel();
 
