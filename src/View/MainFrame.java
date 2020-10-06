@@ -5,13 +5,8 @@ import controller.StartPanelController;
 import model.Course;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Properties;
 
 // TODO Save draft Button
@@ -38,11 +33,7 @@ public class MainFrame extends JFrame {
         ToolTipManager.sharedInstance().setDismissDelay(60000);
         ToolTipManager.sharedInstance().setInitialDelay(0);
 
-        try{
-            setUpPropertiesFile();
-        } catch (URISyntaxException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        setUpPropertiesFile();
 
         startPanelController.getPanel().getNextPanelButton().addActionListener(l -> {
             try {
@@ -55,13 +46,10 @@ public class MainFrame extends JFrame {
         });
     }
 
-    private void setUpPropertiesFile() throws URISyntaxException {
+    private void setUpPropertiesFile() {
         properties = new Properties();
-        URL url = getClass().getResource("res.properties");
-        URI uri = new URI(url.toString());
-        File file = new File(uri.getPath());
         try {
-            InputStream input = new FileInputStream(file);
+            InputStream input = this.getClass().getResourceAsStream("res.properties");
             properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
