@@ -29,14 +29,17 @@ public class FirstPanel implements CoursePanel {
     Properties properties;
 
     // Constructors
-    private FirstPanel() {
+    public FirstPanel(MainFrame frame) {
         setVisibilityOfComponents();
         setUpComboBox();
         addActionListeners();
+        properties = frame.getProperties();
     }
 
-    private static final FirstPanel INSTANCE = new FirstPanel();
-    public static FirstPanel getInstance() {return INSTANCE;}
+    public FirstPanel() {
+        setUpComboBox();
+    }
+
 
     private void setVisibilityOfComponents() {
         previousPanelButton.setEnabled(false);
@@ -79,8 +82,8 @@ public class FirstPanel implements CoursePanel {
         return properties.getProperty("FirstPanelTitle");
     }
 
-    public void updateView(MainFrame frame, Course course) {
-        properties = frame.getProperties();
+    public void updateView(Course course) {
+
     }
 
     // Action listeners methods

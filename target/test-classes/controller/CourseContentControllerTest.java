@@ -29,7 +29,7 @@ public class CourseContentControllerTest {
 
     @Before
     public void setUp() {
-        courseContentController = new CourseContentController(course, CourseContentPanel.getInstance());
+        courseContentController = new CourseContentController(course, new CourseContentPanel());
         panel = courseContentController.getPanel();
         courseParts = new ArrayList<>();
 

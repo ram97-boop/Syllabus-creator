@@ -30,13 +30,16 @@ public class TeachingPanel implements CoursePanel {
 
     // Constructors
 
-    private TeachingPanel() {
+    public TeachingPanel(MainFrame frame) {
         languagePanel.setVisible(false);
         radio1.setSelected(true);
         addActionListeners();
+        properties = frame.getProperties();
     }
-    private static final TeachingPanel INSTANCE = new TeachingPanel();
-    public static TeachingPanel getInstance() {return INSTANCE;}
+
+    public TeachingPanel() {
+
+    }
 
     private void addActionListeners() {
         otherThanSwedishCheckBox.addActionListener(e -> updateLanguagePanel());
@@ -59,10 +62,9 @@ public class TeachingPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("TeachingTitle");
     }
-    public void updateView(MainFrame frame, Course course) {
+    public void updateView(Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
-        properties = frame.getProperties();
     }
 
     private void updateCourseAttributes(Course course) {

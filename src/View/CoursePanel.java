@@ -9,5 +9,5 @@ public interface CoursePanel {
     JButton getPreviousPanelButton();
     JButton getNextPanelButton();
     String getFrameName();
-    void updateView(MainFrame frame, Course course);
+    void updateView(Course course);
 }

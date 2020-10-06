@@ -20,7 +20,7 @@ public class FirstControllerTest {
     @Before
     public void setUp() {
         course = new Course();
-        firstController = new FirstController(course, FirstPanel.getInstance());
+        firstController = new FirstController(course, new FirstPanel());
         panel = firstController.getPanel();
     }
 
