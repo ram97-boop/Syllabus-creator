@@ -1,10 +1,8 @@
 package View;
 
 import model.Course;
-import model.CoursePart;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Properties;
 
 // TODO Add more parts
@@ -69,6 +67,7 @@ public class CourseContentPanel implements CoursePanel {
 
     public CourseContentPanel() {
         setUpComboBox();
+        addActionListeners();
     }
 
     private void setVisibilityOfComponents() {
