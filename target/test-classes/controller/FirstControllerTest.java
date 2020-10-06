@@ -3,12 +3,12 @@ Created by: Sofia Ayata Karbin
  */
 
 package controller;
-import static org.junit.Assert.*;
-
 import View.FirstPanel;
 import model.Course;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class FirstControllerTest {
 
@@ -22,10 +22,15 @@ public class FirstControllerTest {
         course = new Course();
         firstController = new FirstController(course, new FirstPanel());
         panel = firstController.getPanel();
+
+        // default values
+        panel.getIsDistanceCheckBox().setSelected(false);
+        panel.getThesisCheckBox().setSelected(false);
+        panel.getGradingScaleComboBox().setSelectedItem("7-gradig (A-F)");
     }
 
     @Test
-    public void updateModelWithCorrectTypeShouldResultInCourseAttributesAreSetCorrect() {
+    public void updateModelWithCorrectInputShouldResultInCourseAttributesAreSetCorrect() {
 
         panel.getCourseCode().setText("Mjukvaruutveckling");
         panel.getCoursePoints().setText("7.5");
@@ -55,8 +60,41 @@ public class FirstControllerTest {
 
     }
 
+    @Test
+    public void updateModelForDistanceCourseWithThesisShouldResultInCourseAttributesAreSetCorrect() {
+
+        panel.getCourseCode().setText("Mjukvaruutveckling");
+        panel.getCoursePoints().setText("7.5");
+        panel.getCourseCode().setText("DA4002");
+        panel.getIsDistanceCheckBox().setSelected(true);
+        panel.getThesisCheckBox().setSelected(true);
+        panel.getGradingScaleComboBox().setSelectedItem("2-gradig (G-U)");
+
+        firstController.updateModel();
+
+        assertEquals(panel.getCourseName().getText(), course.getName());
+        assertEquals(panel.getCourseCode().getText(), course.getCode());
+        assertTrue(Math.abs(Float.parseFloat(panel.getCoursePoints().getText())-course.getCredits())<1e-8);
+        assertTrue(course.isDistance());
+        assertTrue(course.hasThesis());
+
+        assertEquals(2, course.getGradingScale().size());
+        assertEquals("G", course.getGradingScale().get(0).substring(0,1));
+        assertEquals("U", course.getGradingScale().get(1).substring(0,1));
+
+        // assert have not been set
+        assertTrue(course.getCourseParts().isEmpty());
+        assertTrue(course.getGoals().isEmpty());
+        assertNull(course.getLanguage());
+
+    }
+
     @Test (expected = RuntimeException.class)
-    public void updateModelWithWrongTypeOnCreditShouldResultInException() {
+    public void updateModelWithWrongFormOnCreditShouldResultInException() {
+
+        panel.getCourseCode().setText("Mjukvaruutveckling");
+        panel.getCoursePoints().setText("7,5");
+        panel.getCourseCode().setText("DA4002");
 
         firstController.updateModel();
 
@@ -64,6 +102,7 @@ public class FirstControllerTest {
         assertNull(course.getCode());
         assertTrue(Math.abs(0.0-course.getCredits())<1e-8);
         assertFalse(course.isDistance());
+        assertFalse(course.hasThesis());
         assertTrue(course.getCourseParts().isEmpty());
         assertTrue(course.getGoals().isEmpty());
         assertNull(course.getLanguage());
