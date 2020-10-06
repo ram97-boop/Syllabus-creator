@@ -4,7 +4,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import model.Goal;
 import model.CoursePart;
-
 import org.junit.jupiter.api.Test;
 
 class GoalTest {

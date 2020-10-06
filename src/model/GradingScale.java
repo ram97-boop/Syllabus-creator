@@ -4,17 +4,16 @@ import java.util.*;
 
 public class GradingScale {
 	
-//Suggestion: maybe make gradingScaleMap, getGradingScale()
-// & usergetGradingScale() static.
+//TODO: sonarcloud, tests for FileManagement.
 	
 	private HashMap<Integer,ArrayList<String>> gradingScaleMap = new HashMap<Integer, ArrayList<String>>();
 	
 	// An array of strings that the user will see
 	// when choosing a grading scale.
 	private static String[] gradingScaleStrings = {
-			"7-gradig (A-F)",
-			"3-gradig (VG-U)",
-			"2-gradig (G-U)"
+			"sjugradig målrelaterad skala",
+			"tregradig målrelaterad skala",
+			"tvågradig målrelaterad skala"
 	};
 	
 	private static String[] longGradingScaleStrings = {
