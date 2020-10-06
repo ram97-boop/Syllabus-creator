@@ -3,6 +3,7 @@ package View;
 import controller.CourseController;
 import controller.StartPanelController;
 import model.Course;
+import model.FileManagement;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -14,7 +15,8 @@ import java.util.Properties;
 public class MainFrame extends JFrame {
     private int width = 800;
     private int height = 800;
-    private final Course course = new Course();
+    private Course course;
+    FileManagement fileManagement = new FileManagement();
 
     private final StartPanelController startPanelController =
             new StartPanelController(this, new StartPanel());
@@ -37,7 +39,8 @@ public class MainFrame extends JFrame {
 
         startPanelController.getPanel().getNextPanelButton().addActionListener(l -> {
             try {
-                controllers = startPanelController.getCourseControllers(course);
+                controllers = startPanelController.getCourseControllers(fileManagement);
+                course = controllers[0].getCourse();
                 changePanel(0);
                 addActionListeners();
             } catch (RuntimeException exception) {
@@ -61,6 +64,19 @@ public class MainFrame extends JFrame {
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.setTitle(properties.getProperty("Frame_name") + " | " + controllers[nextIndex].getPanel().getFrameName());
         keepSize();
+
+        // should not be here maybe - but just to see that it works
+        if (nextIndex>0) {
+            saveCourse();
+        }
+    }
+
+    private void saveCourse() {
+        try {
+            fileManagement.saveCourse(course, course.getCode().toLowerCase() + ".json");
+        } catch (IOException e) {
+            throw new RuntimeException("Kunde inte spara kurs");
+        }
     }
 
     private void addActionListeners() {
@@ -94,7 +110,6 @@ public class MainFrame extends JFrame {
     public Properties getProperties() {
         return properties;
     }
-
 
     public static void main(String[] args) {
         JFrame frame = new MainFrame("Syllabus Creator");
