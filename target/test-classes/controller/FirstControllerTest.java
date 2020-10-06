@@ -27,7 +27,9 @@ public class FirstControllerTest {
         // default values
         panel.getIsDistanceCheckBox().setSelected(false);
         panel.getThesisCheckBox().setSelected(false);
+
         panel.getGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[0]);
+
     }
 
     @Test
@@ -69,7 +71,9 @@ public class FirstControllerTest {
         panel.getCourseCode().setText("DA4002");
         panel.getIsDistanceCheckBox().setSelected(true);
         panel.getThesisCheckBox().setSelected(true);
+
         panel.getGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
+
 
         firstController.updateModel();
 

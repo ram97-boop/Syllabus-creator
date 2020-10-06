@@ -3,7 +3,6 @@ package modelClasses;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import model.GradingScale;
-
 import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.BeforeAll;
 //import org.junit.jupiter.api.BeforeEach;
@@ -53,9 +52,9 @@ class GradingScaleTest {
 
 	@Test
 	void testUserGetGradingScale() {
-		ArrayList<String> gScale7 = g.userGetGradingScale("7-gradig (A-F)");
-		ArrayList<String> gScale3 = g.userGetGradingScale("3-gradig (VG-U)");
-		ArrayList<String> gScale2 = g.userGetGradingScale("2-gradig (G-U)");
+		ArrayList<String> gScale7 = g.userGetGradingScale("sjugradig målrelaterad skala");
+		ArrayList<String> gScale3 = g.userGetGradingScale("tregradig målrelaterad skala");
+		ArrayList<String> gScale2 = g.userGetGradingScale("tvågradig målrelaterad skala");
 		
 		assertTrue(gScale7.get(0) == "A = Utmärkt" &&
 				gScale7.get(1) == "B = Mycket bra" &&
