@@ -4,7 +4,7 @@ import java.util.*;
 
 public class GradingScale {
 	
-//TODO: sonarcloud, tests for FileManagement.
+//TODO: sonarcloud.
 	
 	private HashMap<Integer,ArrayList<String>> gradingScaleMap = new HashMap<Integer, ArrayList<String>>();
 	
