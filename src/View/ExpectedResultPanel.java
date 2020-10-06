@@ -111,6 +111,34 @@ public class ExpectedResultPanel implements CoursePanel {
     private JRadioButton printAlt1Radio;
     private JRadioButton printAlt2Radio;
     private JLabel goalsLabel;
+    private JTextField goal13;
+    private JTextField goal14;
+    private JTextField goal15;
+    private JTextField goal16;
+    private JRadioButton r131;
+    private JRadioButton r132;
+    private JRadioButton r133;
+    private JRadioButton r134;
+    private JRadioButton r135;
+    private JRadioButton r136;
+    private JRadioButton r141;
+    private JRadioButton r142;
+    private JRadioButton r143;
+    private JRadioButton r144;
+    private JRadioButton r145;
+    private JRadioButton r146;
+    private JRadioButton r151;
+    private JRadioButton r152;
+    private JRadioButton r153;
+    private JRadioButton r154;
+    private JRadioButton r155;
+    private JRadioButton r156;
+    private JRadioButton r161;
+    private JRadioButton r162;
+    private JRadioButton r163;
+    private JRadioButton r164;
+    private JRadioButton r165;
+    private JRadioButton r166;
 
     MainFrame frame;
     Properties properties;
@@ -158,6 +186,10 @@ public class ExpectedResultPanel implements CoursePanel {
         goals.put(goal10, new JRadioButton[]{r101, r102, r103, r104, r105, r106});
         goals.put(goal11, new JRadioButton[]{r111, r112, r113, r114, r115, r116});
         goals.put(goal12, new JRadioButton[]{r121, r122, r123, r124, r125, r126});
+        goals.put(goal13, new JRadioButton[]{r131, r132, r133, r134, r135, r136});
+        goals.put(goal14, new JRadioButton[]{r141, r142, r143, r144, r145, r146});
+        goals.put(goal15, new JRadioButton[]{r151, r152, r153, r154, r155, r156});
+        goals.put(goal16, new JRadioButton[]{r161, r162, r163, r164, r165, r166});
     }
 
     private void addActionListeners() {

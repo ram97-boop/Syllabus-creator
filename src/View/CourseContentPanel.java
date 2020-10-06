@@ -7,9 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Properties;
 
-// TODO Add more parts
-// TODO Ta bort alla delar om man väljer 0 delar efter att ha fyllt i delar
-// TODO Sätt - i printOut innan Del 1, 2 osv
+
 
 
 public class CourseContentPanel implements CoursePanel {

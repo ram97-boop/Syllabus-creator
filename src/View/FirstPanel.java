@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Properties;
 
-// TODO skicka med värden eller hela components? Koden är inkonsekvent
+
 
 public class FirstPanel implements CoursePanel {
     private JButton nextPanelButton;
