@@ -3,15 +3,11 @@ package View;
 import controller.CourseController;
 import controller.StartPanelController;
 import model.Course;
+import model.FileManagement;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Properties;
 
 // TODO Save draft Button
@@ -19,7 +15,8 @@ import java.util.Properties;
 public class MainFrame extends JFrame {
     private int width = 800;
     private int height = 800;
-    private final Course course = new Course();
+    private Course course;
+    FileManagement fileManagement = new FileManagement();
 
     private final StartPanelController startPanelController =
             new StartPanelController(this, new StartPanel());
@@ -38,15 +35,12 @@ public class MainFrame extends JFrame {
         ToolTipManager.sharedInstance().setDismissDelay(60000);
         ToolTipManager.sharedInstance().setInitialDelay(0);
 
-        try{
-            setUpPropertiesFile();
-        } catch (URISyntaxException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        setUpPropertiesFile();
 
         startPanelController.getPanel().getNextPanelButton().addActionListener(l -> {
             try {
-                controllers = startPanelController.getCourseControllers(course);
+                controllers = startPanelController.getCourseControllers(fileManagement);
+                course = controllers[0].getCourse();
                 changePanel(0);
                 addActionListeners();
             } catch (RuntimeException exception) {
@@ -55,13 +49,10 @@ public class MainFrame extends JFrame {
         });
     }
 
-    private void setUpPropertiesFile() throws URISyntaxException {
+    private void setUpPropertiesFile() {
         properties = new Properties();
-        URL url = getClass().getResource("res.properties");
-        URI uri = new URI(url.toString());
-        File file = new File(uri.getPath());
         try {
-            InputStream input = new FileInputStream(file);
+            InputStream input = this.getClass().getResourceAsStream("res.properties");
             properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,6 +64,19 @@ public class MainFrame extends JFrame {
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.setTitle(properties.getProperty("Frame_name") + " | " + controllers[nextIndex].getPanel().getFrameName());
         keepSize();
+
+        // should not be here maybe - but just to see that it works
+        if (nextIndex>0) {
+            saveCourse();
+        }
+    }
+
+    private void saveCourse() {
+        try {
+            fileManagement.saveCourse(course, course.getCode().toLowerCase() + ".json");
+        } catch (IOException e) {
+            throw new RuntimeException("Kunde inte spara kurs");
+        }
     }
 
     private void addActionListeners() {
@@ -106,7 +110,6 @@ public class MainFrame extends JFrame {
     public Properties getProperties() {
         return properties;
     }
-
 
     public static void main(String[] args) {
         JFrame frame = new MainFrame("Syllabus Creator");
