@@ -289,6 +289,8 @@ public class ExaminationPanel implements CoursePanel {
         return gradingScaleComboBoxes;
     }
 
+    public JTextField[] getExaminationFields(){return examinationFields;}
+
     // PrintOut methods
 
     public void printOut() {
