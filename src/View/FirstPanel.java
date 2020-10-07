@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Properties;
 
-
+// TODO om fönstret är för litet
 
 public class FirstPanel implements CoursePanel {
     private JButton nextPanelButton;

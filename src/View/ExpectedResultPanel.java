@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Stream;
 
-// TODO Fler mål
 
 public class ExpectedResultPanel implements CoursePanel {
     private JPanel mainPanel;

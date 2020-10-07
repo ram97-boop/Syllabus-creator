@@ -75,7 +75,7 @@ public class ExaminationPanel implements CoursePanel {
     private JPanel gradingPanel;
     private JTextPane ePane;
     private JTextPane examinationPane;
-    private JTextPane courseGradingScalePane;
+    private JComboBox<String> courseGradingScaleComboBox;
 
     Properties properties;
 
@@ -104,6 +104,7 @@ public class ExaminationPanel implements CoursePanel {
             partLabel6,
     };
     private final String[] gradingScaleStrings = GradingScale.getGradingScaleStrings();
+    private final String[] gradingScaleStringsLong = GradingScale.getLongGradingScaleStrings();
     private final ArrayList<JComboBox<String>> gradingScaleComboBoxes = new ArrayList<>();
     private final JRadioButton[] supplementRadios = {
             supplementRadio1,
@@ -169,6 +170,10 @@ public class ExaminationPanel implements CoursePanel {
         gradingScaleComboBoxes.add(gradingScale6);
 
         for (String gradingScaleString : gradingScaleStrings) {
+            courseGradingScaleComboBox.addItem(gradingScaleString);
+        }
+
+        for (String gradingScaleString : gradingScaleStringsLong) {
             for (JComboBox<String> gradingScale : gradingScaleComboBoxes) {
                 gradingScale.addItem(gradingScaleString);
             }
@@ -371,7 +376,8 @@ public class ExaminationPanel implements CoursePanel {
     }
 
     private String cPrintOut() {
-        String outPutText = "c. Betygsättning: Kursens slutbetyg sätts enligt\n";
+        String outPutText = "c. Betygsättning: Kursens slutbetyg sätts enligt ";
+        outPutText += courseGradingScaleComboBox.getSelectedItem() + "\n";
         for (String grade : gradingScale) {
             outPutText += grade + "\n";
         }
