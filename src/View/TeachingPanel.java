@@ -1,5 +1,6 @@
 package View;
 
+import controller.Language;
 import model.Course;
 
 import javax.swing.*;
@@ -34,6 +35,37 @@ public class TeachingPanel implements CoursePanel {
         radio1.setSelected(true);
         addActionListeners();
         properties = frame.getProperties();
+    }
+
+    public TeachingPanel(MainFrame frame, Course course) {
+        languagePanel.setVisible(false);
+        radio1.setSelected(true);
+        addActionListeners();
+        properties = frame.getProperties();
+
+        String language = course.getLanguage();
+
+        if (language == null || language.equals(Language.SWEDISH.getLanguage())) {
+            otherThanSwedishCheckBox.setSelected(false);
+            radio1.setSelected(false);
+            radio2.setSelected(false);
+        } else if (language.equals(Language.ENGLISH.getLanguage())) {
+            otherThanSwedishCheckBox.setSelected(true);
+            languagePanel.setVisible(true);
+            radio1.setSelected(true);
+            radio2.setSelected(false);
+        } else if (language.equals(Language.NOT_SPECIFIED.getLanguage())) {
+            otherThanSwedishCheckBox.setSelected(true);
+            languagePanel.setVisible(true);
+            radio1.setSelected(false);
+            radio2.setSelected(true);
+        } else if (language.equals(Language.UNKNOWN.getLanguage())) {
+            otherThanSwedishCheckBox.setSelected(true);
+            languagePanel.setVisible(true);
+            radio1.setSelected(false);
+            radio2.setSelected(false);
+        }
+
     }
 
     public TeachingPanel() {

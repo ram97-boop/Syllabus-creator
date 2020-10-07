@@ -1,9 +1,12 @@
 package View;
 
 import model.Course;
+import model.CoursePart;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.stream.IntStream;
 
 // TODO Add more parts
 // TODO Ta bort alla delar om man väljer 0 delar efter att ha fyllt i delar
@@ -63,6 +66,26 @@ public class CourseContentPanel implements CoursePanel {
         this.frame = frame;
         properties = frame.getProperties();
         setToolTips();
+    }
+
+    public CourseContentPanel(MainFrame frame, Course course) {
+        setVisibilityOfComponents();
+        setUpComboBox();
+        addActionListeners();
+        this.frame = frame;
+        properties = frame.getProperties();
+        setToolTips();
+
+        nPartsComboBox.setSelectedItem(course.getCourseParts().size());
+        updatePartFields();
+
+        IntStream.range(0, course.getCourseParts().size()).forEach(index -> {
+            JTextField[] row = partFields[index];
+            ArrayList<CoursePart> courseParts = course.getCourseParts();
+            row[0].setText(courseParts.get(index).getName());
+            row[1].setText(courseParts.get(index).getEngName());
+            row[2].setText(String.valueOf(courseParts.get(index).getCredits()));
+        });
     }
 
     public CourseContentPanel() {

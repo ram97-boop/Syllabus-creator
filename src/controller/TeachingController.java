@@ -29,11 +29,13 @@ public class TeachingController implements CourseController {
         JRadioButton radioButtonLanguageGivenAtStart = teachingPanel.getRadioButtonLanguageGivenAtStart();
 
         if (otherThanSwedishCheckBox.isSelected() && radioButtonCourseInEnglish.isSelected()) {
-            course.setLanguage("english");
+            course.setLanguage(Language.ENGLISH.getLanguage());
         } else if (otherThanSwedishCheckBox.isSelected() && radioButtonLanguageGivenAtStart.isSelected()) {
-            course.setLanguage("unknown");
+            course.setLanguage(Language.NOT_SPECIFIED.getLanguage());
+        } else if (otherThanSwedishCheckBox.isSelected()) {
+            course.setLanguage(Language.UNKNOWN.getLanguage());
         } else {
-            course.setLanguage("swedish");
+            course.setLanguage(Language.SWEDISH.getLanguage());
         }
 
     }
