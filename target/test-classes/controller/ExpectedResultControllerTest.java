@@ -20,7 +20,7 @@ public class ExpectedResultControllerTest {
 
     private final Course course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
     private ExpectedResultController expectedResultController;
-    private ExpectedResultPanel panel;
+    private final ExpectedResultPanel panel = new ExpectedResultPanel();
 
     private final ArrayList<CoursePart> parts = new ArrayList<>();
     private final CoursePart part1 = new CoursePart();
@@ -29,8 +29,7 @@ public class ExpectedResultControllerTest {
 
     @Before
     public void setUp(){
-        expectedResultController = new ExpectedResultController(course, new ExpectedResultPanel());
-        panel = expectedResultController.getPanel();
+        expectedResultController = new ExpectedResultController(course, panel);
 
         HashMap<JTextField, JRadioButton[]> goalsMap = panel.getGoals();
         goalsMap.forEach((key, value) -> {
