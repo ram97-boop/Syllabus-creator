@@ -3,7 +3,6 @@ package View;
 import model.Course;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Properties;
 
 public class TeachingPanel implements CoursePanel {
@@ -81,6 +80,19 @@ public class TeachingPanel implements CoursePanel {
     // Action listeners methods
     private void updateLanguagePanel() {
         languagePanel.setVisible(otherThanSwedishCheckBox.isSelected());
+    }
+
+    // Getters
+    public JCheckBox getOtherThanSwedishCheckBox() {
+        return otherThanSwedishCheckBox;
+    }
+
+    public JRadioButton getRadioButtonCourseInEnglish() {
+        return radio1;
+    }
+
+    public JRadioButton getRadioButtonLanguageGivenAtStart() {
+        return radio2;
     }
 
     // PrintOut method

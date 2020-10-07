@@ -27,14 +27,13 @@ public class StartPanelController {
             String courseCode = startPanel.getCourseCode().getText();
             try {
                 course = fileManagement.loadCourse(courseCode.toLowerCase() + ".json");
-                panels = getAllPanels(); // should get them in another way...
+                panels = getAllPanelsForSavedCourse(course);
             } catch (RuntimeException | IOException e) {
                 throw new RuntimeException("Kunde inte hitta sparad kurs med kurskod: " + courseCode);
             }
         } else if (startPanel.getCreateNewCourseButton().isSelected()) {
             course = new Course();
-            panels = getAllPanels();
-            course.setCoursePanels(panels);
+            panels = getAllPanelsForNewCourse();
         } else {
             throw new RuntimeException("Måste välja ett av alternativen");
         }
@@ -50,9 +49,19 @@ public class StartPanelController {
 
     }
 
-    private CoursePanel[] getAllPanels() {
+    private CoursePanel[] getAllPanelsForNewCourse() {
         return new CoursePanel[]{
                 new FirstPanel(frame),
+                new CourseContentPanel(frame),
+                new ExpectedResultPanel(frame),
+                new TeachingPanel(frame),
+                new ExaminationPanel(frame),
+                new LiteraturePanel(frame)};
+    }
+
+    private CoursePanel[] getAllPanelsForSavedCourse(Course course) {
+        return new CoursePanel[]{
+                new FirstPanel(frame, course),
                 new CourseContentPanel(frame),
                 new ExpectedResultPanel(frame),
                 new TeachingPanel(frame),
