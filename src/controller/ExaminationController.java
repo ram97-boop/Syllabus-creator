@@ -7,6 +7,7 @@ import model.GradingScale;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class ExaminationController implements CourseController {
     private Course course;
@@ -29,21 +30,23 @@ public class ExaminationController implements CourseController {
         return examinationPanel;
     }
 
-
     public void updateModel() {
         ArrayList<JComboBox<String>> gradingScales = examinationPanel.getGradingScales();
         JTextField[] examinationFields = examinationPanel.getExaminationFields();
 
         GradingScale gradingScale = new GradingScale();
 
-        for (int i=0; i<course.getCourseParts().size(); i++) {
-            JTextField examinationField = examinationFields[i];
-            String selectedItem = (String) gradingScales.get(i).getSelectedItem();
-            ArrayList<String> scale = gradingScale.userGetGradingScale(selectedItem);
+        IntStream.range(0, course.getCourseParts().size()).forEach(i -> {
             CoursePart coursePart = course.getCourseParts().get(i);
-            coursePart.setGradingScale(scale);
+
+            JTextField examinationField = examinationFields[i];
             coursePart.setExamination(examinationField.getText());
-        }
+
+            String selectedGradingScale = (String) gradingScales.get(i).getSelectedItem();
+            ArrayList<String> scale = gradingScale.userGetGradingScale(selectedGradingScale);
+            coursePart.setGradingScale(scale);
+
+        });
     }
     
 }

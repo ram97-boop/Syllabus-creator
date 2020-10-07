@@ -2,11 +2,11 @@ package View;
 
 import model.Course;
 import model.CoursePart;
+import model.Goal;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 
 public class ExpectedResultPanel implements CoursePanel {
@@ -224,7 +224,27 @@ public class ExpectedResultPanel implements CoursePanel {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
+        if (!course.getGoals().isEmpty()) {
+            setFields(course);
+        }
         frame.keepSize();
+    }
+
+    private void setFields(Course course) {
+        ArrayList<Goal> goalsForCourse = course.getGoals();
+        IntStream.range(0, goalsForCourse.size()).forEach(index -> {
+            JTextField component = (JTextField) goalsPanel.getComponent(7 * index);
+            JRadioButton[] jRadioButtons = goals.get(component);
+            Goal goal = goalsForCourse.get(index);
+            IntStream.range(0, jRadioButtons.length).forEach(buttonIndex -> {
+                ArrayList<CoursePart> goalCourseParts = goal.getCourseParts();
+                boolean present = goalCourseParts.stream().anyMatch(part -> part.getName().toLowerCase().equals(partLabels[buttonIndex].getText().toLowerCase()));
+                if (present) {
+                    jRadioButtons[buttonIndex].setSelected(true);
+                }
+            });
+            component.setText(goal.getGoal());
+        });
     }
 
     private void updateCourseAttributes(Course course) {
@@ -256,6 +276,7 @@ public class ExpectedResultPanel implements CoursePanel {
         for (JRadioButton[] radioPanel : goals.values()) {
             for (int i = 0; i < radioPanel.length; i++) {
                 radioPanel[i].setVisible(!isConnectedToAll.isSelected() && i < nParts);
+                radioPanel[i].setSelected(false);
             }
         }
 

@@ -1,7 +1,6 @@
 package model;
 
-import View.CoursePanel;
-import java.util.*;
+import java.util.ArrayList;
 
 public class Course {
 	String name; // Name of the course
@@ -14,8 +13,7 @@ public class Course {
 	String language; // The language the course is taught in
 	ArrayList<Goal> goals = new ArrayList<Goal>(); // List of expected results from going the course
 	boolean thesis; // Whether this course has a thesis or not
-	transient CoursePanel[] panels; // Stores panels, may be able to use this to save panels to a file along with the course instance
-	
+
 	public Course() {
 		
 	}
@@ -69,11 +67,7 @@ public class Course {
 	public boolean hasThesis() {
 		return thesis;
 	}
-	
-	public CoursePanel[] getCoursePanels() {
-		return panels;
-	}
-	
+
 	// Basic setters
 	
 	public void setName(String name) {
@@ -134,7 +128,4 @@ public class Course {
 		return goals.remove(goal);
 	}
 	
-	public void setCoursePanels(CoursePanel[] panels) {
-		this.panels = panels;
-	}
 }
