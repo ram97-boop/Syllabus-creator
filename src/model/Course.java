@@ -1,12 +1,13 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Course {
 	String name; // Name of the course
 	String engName; // English name of the course
 	double credits; // Credits earned from completing the course
 	String code; // The course's code
+	String content; // Content covered in the course
 	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>(); // Parts that the course consists of
 	ArrayList<String> gradingScale; // 7-grade, 3-grade or 2-grade scale used for the course
 	boolean distance; // Whether the course is taught on campus or from a distance
@@ -42,6 +43,10 @@ public class Course {
 	
 	public String getCode() {
 		return code;
+	}
+	
+	public String getContent() {
+		return content;
 	}
 	
 	public ArrayList<CoursePart> getCourseParts() {
@@ -84,6 +89,10 @@ public class Course {
 	
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	public void setDistance(boolean distance) {
