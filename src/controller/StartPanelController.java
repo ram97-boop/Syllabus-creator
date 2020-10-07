@@ -34,7 +34,6 @@ public class StartPanelController {
         } else if (startPanel.getCreateNewCourseButton().isSelected()) {
             course = new Course();
             panels = getAllPanelsForNewCourse();
-            course.setCoursePanels(panels);
         } else {
             throw new RuntimeException("Måste välja ett av alternativen");
         }
