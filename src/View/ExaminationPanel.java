@@ -7,6 +7,7 @@ import model.GradingScale;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.stream.IntStream;
 
 // TODO Sätt ihop delar i printOut som examineras på samma sätt
 // TODO Sätt ihop delar i printOut som har samma betygskala
@@ -134,6 +135,37 @@ public class ExaminationPanel implements CoursePanel {
         setUpGradingScalesComboBoxes();
     }
 
+    private void setGradingScalesForCourseParts(Course course) {
+        int size = course.getCourseParts().size();
+
+        IntStream.range(0,size).forEach(i -> {
+            JComboBox<String> stringJComboBox = gradingScaleComboBoxes.get(i);
+            if (course.getCourseParts().get(i).getGradingScale() != null) {
+                ArrayList<String> gradingScale = course.getCourseParts().get(i).getGradingScale();
+                int lengthOfArray = gradingScale.size();
+                if (lengthOfArray==7) {
+                    stringJComboBox.setSelectedIndex(0);
+                } else if (lengthOfArray==3) {
+                    stringJComboBox.setSelectedIndex(1);
+                } else if (lengthOfArray==2) {
+                    stringJComboBox.setSelectedIndex(2);
+                }
+            }
+        });
+    }
+
+    private void setExaminationFieldsForCourseParts(Course course) {
+        int size = course.getCourseParts().size();
+
+        IntStream.range(0,size).forEach(i -> {
+            JTextField examinationField = examinationFields[i];
+            if (course.getCourseParts().get(i).getExamination() != null) {
+                String examination = course.getCourseParts().get(i).getExamination();
+                examinationField.setText(examination);
+            }
+        });
+    }
+
     private void setUpComponents() {
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
@@ -192,6 +224,10 @@ public class ExaminationPanel implements CoursePanel {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
+        if (!course.getCourseParts().isEmpty()) {
+            setExaminationFieldsForCourseParts(course);
+            setGradingScalesForCourseParts(course);
+        }
     }
 
     private void updateCourseAttributes(Course course) {

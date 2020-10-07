@@ -207,7 +207,7 @@ public class ExpectedResultPanel implements CoursePanel {
             Goal goal = goalsForCourse.get(index);
             IntStream.range(0, jRadioButtons.length).forEach(buttonIndex -> {
                 ArrayList<CoursePart> goalCourseParts = goal.getCourseParts();
-                boolean present = goalCourseParts.stream().anyMatch(part -> part.getName().equals(partLabels[buttonIndex].getText()));
+                boolean present = goalCourseParts.stream().anyMatch(part -> part.getName().toLowerCase().equals(partLabels[buttonIndex].getText().toLowerCase()));
                 if (present) {
                     jRadioButtons[buttonIndex].setSelected(true);
                 }

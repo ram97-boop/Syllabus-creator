@@ -1,3 +1,7 @@
+/*
+Created by: Sofia Ayata Karbin
+ */
+
 package controller;
 
 import View.ExaminationPanel;
@@ -14,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ExaminationControllerTest {
 
-    private final Course course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
+    private Course course;
     private ExaminationController examinationController;
     private final ExaminationPanel panel = new ExaminationPanel();
 
@@ -22,9 +26,12 @@ public class ExaminationControllerTest {
     private final CoursePart part1 = new CoursePart();
     private final CoursePart part2 = new CoursePart();
     private final CoursePart part3 = new CoursePart();
+    private final CoursePart part4 = new CoursePart();
+    private final CoursePart part5 = new CoursePart();
 
     @Before
     public void setUp(){
+        course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
         examinationController = new ExaminationController(course, panel);
 
         part1.setName("Course part 1");
@@ -33,6 +40,10 @@ public class ExaminationControllerTest {
         part2.setCredits(3);
         part3.setName("Course part 3");
         part3.setCredits(2.0);
+        part4.setName("Course part 4");
+        part4.setCredits(1);
+        part5.setName("Course part 5");
+        part5.setCredits(1.5);
 
         parts.add(part1);
         parts.add(part2);
@@ -80,6 +91,63 @@ public class ExaminationControllerTest {
     }
 
     @Test
+    public void updateModelForCourseWithFiveCoursePartsShouldResultInExaminationAndGradingScaleAreSetCorrectForAllParts() {
+        // add three course parts to course
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        courseParts.add(part5);
+        course.setCredits(10);
+        course.setCourseParts(courseParts);
+
+        setUpFiveExaminationTextFields();
+        setUpFiveGradingScales();
+
+        examinationController.updateModel();
+
+        CoursePart firstPart = course.getCourseParts().get(0);
+        ArrayList<String> firstPartGradingScale = firstPart.getGradingScale();
+        assertEquals(3, firstPartGradingScale.size());
+        assertEquals("V", firstPartGradingScale.get(0).substring(0, 1));
+        assertEquals("G", firstPartGradingScale.get(1).substring(0, 1));
+        assertEquals("U", firstPartGradingScale.get(2).substring(0, 1));
+        assertEquals("Examination 1", firstPart.getExamination());
+
+        CoursePart secondPart = course.getCourseParts().get(1);
+        ArrayList<String> secondPartGradingScale = secondPart.getGradingScale();
+        assertEquals(2, secondPartGradingScale.size());
+        assertEquals("G", secondPartGradingScale.get(0).substring(0, 1));
+        assertEquals("U", secondPartGradingScale.get(1).substring(0, 1));
+        assertEquals("Examination 2", secondPart.getExamination());
+
+        CoursePart thirdPart = course.getCourseParts().get(2);
+        ArrayList<String> thirdPartGradingScale = thirdPart.getGradingScale();
+        assertEquals(3, thirdPartGradingScale.size());
+        assertEquals("V", thirdPartGradingScale.get(0).substring(0, 1));
+        assertEquals("G", thirdPartGradingScale.get(1).substring(0, 1));
+        assertEquals("U", thirdPartGradingScale.get(2).substring(0, 1));
+        assertEquals("Examination 3", thirdPart.getExamination());
+
+        CoursePart fourthPart = course.getCourseParts().get(3);
+        ArrayList<String> fourthPartGradingScale = fourthPart.getGradingScale();
+        assertEquals(2, fourthPartGradingScale.size());
+        assertEquals("G", fourthPartGradingScale.get(0).substring(0, 1));
+        assertEquals("U", fourthPartGradingScale.get(1).substring(0, 1));
+        assertEquals("Examination 4", fourthPart.getExamination());
+
+        CoursePart fifthPart = course.getCourseParts().get(4);
+        ArrayList<String> fifthPartGradingScale = fifthPart.getGradingScale();
+        assertEquals(7, fifthPartGradingScale.size());
+        assertEquals("A", fifthPartGradingScale.get(0).substring(0, 1));
+        assertEquals("B", fifthPartGradingScale.get(1).substring(0, 1));
+        assertEquals("C", fifthPartGradingScale.get(2).substring(0, 1));
+        assertEquals("D", fifthPartGradingScale.get(3).substring(0, 1));
+        assertEquals("E", fifthPartGradingScale.get(4).substring(0, 1));
+        assertEquals("Fx", fifthPartGradingScale.get(5).substring(0, 2));
+        assertEquals("F", fifthPartGradingScale.get(6).substring(0, 1));
+        assertEquals("Examination 5", fifthPart.getExamination());
+    }
+
+    @Test
     public void updateModelForCourseWithNoCoursePartsShouldResultInNoAttributesAreSet() {
 
         // add empty course part to course
@@ -98,11 +166,29 @@ public class ExaminationControllerTest {
         examinationFields[2].setText("Examination 3");
     }
 
+    private void setUpFiveExaminationTextFields() {
+        JTextField[] examinationFields = panel.getExaminationFields();
+        examinationFields[0].setText("Examination 1");
+        examinationFields[1].setText("Examination 2");
+        examinationFields[2].setText("Examination 3");
+        examinationFields[3].setText("Examination 4");
+        examinationFields[4].setText("Examination 5");
+    }
+
     private void setUpThreeGradingScales() {
         ArrayList<JComboBox<String>> gradingScales = panel.getGradingScales();
         gradingScales.get(0).setSelectedItem(GradingScale.getGradingScaleStrings()[1]); // VG-U
         gradingScales.get(1).setSelectedItem(GradingScale.getGradingScaleStrings()[0]); // A-F
         gradingScales.get(2).setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
+    }
+
+    private void setUpFiveGradingScales() {
+        ArrayList<JComboBox<String>> gradingScales = panel.getGradingScales();
+        gradingScales.get(0).setSelectedItem(GradingScale.getGradingScaleStrings()[1]); // VG-U
+        gradingScales.get(1).setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
+        gradingScales.get(2).setSelectedItem(GradingScale.getGradingScaleStrings()[1]); // VG-U
+        gradingScales.get(3).setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
+        gradingScales.get(4).setSelectedItem(GradingScale.getGradingScaleStrings()[0]); // A-F
     }
 
 }
