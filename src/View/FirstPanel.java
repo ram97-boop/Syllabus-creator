@@ -1,9 +1,16 @@
 package View;
 
 import model.Course;
+import model.GradingScale;
 
 import javax.swing.*;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.stream.Collectors;
+
+// TODO skicka med värden eller hela components? Koden är inkonsekvent
 
 public class FirstPanel implements CoursePanel {
     private JButton nextPanelButton;
@@ -15,38 +22,79 @@ public class FirstPanel implements CoursePanel {
     private JCheckBox isDistanceCheckBox;
     private JComboBox<String> gradingScaleComboBox;
     private JCheckBox thesisCheckBox;
-    private final String[] gradingScaleStrings = {
-            "7-gradig (A-F)",
-            "3-gradig (VG-U)",
-            "2-gradig (G-U)"
-    };
+    private final String[] gradingScaleStrings = GradingScale.getGradingScaleStrings();
     private final HashMap<String, Integer> gradingScaleMap = new HashMap<>();
 
     private boolean isDistance = false;
     private int gradingScale;
     private boolean thesis;
 
+    Properties properties;
+
     // Constructors
-    private FirstPanel() {
+    public FirstPanel(MainFrame frame) {
+        setVisibilityOfComponents();
+        setUpComboBox();
+        addActionListeners();
+        properties = frame.getProperties();
+    }
+
+    public FirstPanel(MainFrame frame, Course course) {
+        setVisibilityOfComponents();
+        setUpComboBox();
+        addActionListeners();
+        properties = frame.getProperties();
+
+        // set text fields
+        courseName.setText(course.getName());
+        courseCode.setText(course.getCode());
+        coursePoints.setText(String.valueOf(course.getCredits()));
+        isDistanceCheckBox.setSelected(course.isDistance());
+        thesisCheckBox.setSelected(course.hasThesis());
+        int size = course.getGradingScale().size();
+
+        List<String> collect = gradingScaleMap.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(size))
+                .map(Map.Entry::getKey).collect(Collectors.toList());
+
+        Integer gradingScaleInt = gradingScaleMap.get(collect.get(0));
+        if (gradingScaleInt==7) {
+            gradingScaleComboBox.setSelectedIndex(0);
+        } else if (gradingScaleInt==3) {
+            gradingScaleComboBox.setSelectedIndex(1);
+        } else if (gradingScaleInt==2) {
+            gradingScaleComboBox.setSelectedIndex(2);
+        }
+    }
+
+    public FirstPanel() {
+        setUpComboBox();
+    }
+
+
+    private void setVisibilityOfComponents() {
         previousPanelButton.setEnabled(false);
         gradingScaleComboBox.setEditable(false);
+    }
 
+    private void setUpComboBox() {
         gradingScaleMap.put(gradingScaleStrings[0], 7);
         gradingScaleMap.put(gradingScaleStrings[1], 3);
         gradingScaleMap.put(gradingScaleStrings[2], 2);
 
         gradingScale = gradingScaleMap.get(gradingScaleStrings[0]);
 
-        gradingScaleComboBox.addActionListener(e -> updateGradingScale());
-        thesisCheckBox.addActionListener(e -> updateThesis());
-        isDistanceCheckBox.addActionListener(e -> updateIsDistance());
-
         for (String gradingScaleString : gradingScaleStrings) {
             gradingScaleComboBox.addItem(gradingScaleString);
         }
     }
-    private static final FirstPanel INSTANCE = new FirstPanel();
-    public static FirstPanel getInstance() {return INSTANCE;}
+
+    private void addActionListeners() {
+        gradingScaleComboBox.addActionListener(e -> updateGradingScale());
+        thesisCheckBox.addActionListener(e -> updateThesis());
+        isDistanceCheckBox.addActionListener(e -> updateIsDistance());
+    }
 
     // Interface methods
 
@@ -60,6 +108,10 @@ public class FirstPanel implements CoursePanel {
 
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
+    }
+
+    public String getFrameName() {
+        return properties.getProperty("FirstPanelTitle");
     }
 
     public void updateView(Course course) {
@@ -95,22 +147,20 @@ public class FirstPanel implements CoursePanel {
         return coursePoints;
     }
 
-    public int getGradingScale() {
-        return gradingScale;
+    public JComboBox<String> getGradingScaleComboBox() {
+        return gradingScaleComboBox;
     }
 
-    public boolean getThesis() {
-        return thesis;
+    public HashMap<String, Integer> getGradingScaleMap() {
+        return gradingScaleMap;
     }
 
-    public boolean getIsDistance() {
-        return isDistance;
+    public JCheckBox getIsDistanceCheckBox() {
+        return isDistanceCheckBox;
     }
 
-    // Print Out
-
-    public void printOut(Course course) {
-
+    public JCheckBox getThesisCheckBox() {
+        return thesisCheckBox;
     }
 
 }
