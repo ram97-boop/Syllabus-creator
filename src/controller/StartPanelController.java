@@ -62,7 +62,7 @@ public class StartPanelController {
     private CoursePanel[] getAllPanelsForSavedCourse(Course course) {
         return new CoursePanel[]{
                 new FirstPanel(frame, course),
-                new CourseContentPanel(frame),
+                new CourseContentPanel(frame, course),
                 new ExpectedResultPanel(frame),
                 new TeachingPanel(frame),
                 new ExaminationPanel(frame),
