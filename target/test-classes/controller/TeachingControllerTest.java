@@ -24,7 +24,6 @@ public class TeachingControllerTest {
         teachingController = new TeachingController(course, teachingPanel);
         teachingPanel.getOtherThanSwedishCheckBox().setSelected(false);
         teachingPanel.getRadioButtonCourseInEnglish().setSelected(false);
-        teachingPanel.getRadioButtonLanguageGivenAtStart().setSelected(false);
     }
 
     @Test
@@ -39,23 +38,11 @@ public class TeachingControllerTest {
     }
 
     @Test
-    public void radioButtonsPressedButNotOtherThanSwedishCheckBoxShouldResultInSwedishLanguage() {
+    public void radioButtonPressedButNotOtherThanSwedishCheckBoxShouldResultInSwedishLanguage() {
 
         String expectedString = "swedish";
 
         teachingPanel.getRadioButtonCourseInEnglish().setSelected(true);
-        teachingController.updateModel();
-
-        assertEquals(expectedString, course.getLanguage());
-
-        teachingPanel.getRadioButtonCourseInEnglish().setSelected(false);
-        teachingPanel.getRadioButtonLanguageGivenAtStart().setSelected(true);
-        teachingController.updateModel();
-
-        assertEquals(expectedString, course.getLanguage());
-
-        teachingPanel.getRadioButtonCourseInEnglish().setSelected(true);
-        teachingPanel.getRadioButtonLanguageGivenAtStart().setSelected(true);
         teachingController.updateModel();
 
         assertEquals(expectedString, course.getLanguage());
@@ -75,27 +62,12 @@ public class TeachingControllerTest {
         assertEquals(expectedString, course.getLanguage());
     }
 
-    @Test
-    public void radioButtonsPressedAndOtherThanSwedishCheckBoxShouldResultInEnglishLanguage() {
-        assertNull(course.getLanguage());
-
-        teachingPanel.getOtherThanSwedishCheckBox().setSelected(true);
-        teachingPanel.getRadioButtonCourseInEnglish().setSelected(true);
-        teachingPanel.getRadioButtonLanguageGivenAtStart().setSelected(true);
-
-        teachingController.updateModel();
-
-        String expectedString = "english";
-
-        assertEquals(expectedString, course.getLanguage());
-    }
 
     @Test
     public void updateModelForCourseLanguageGivenAtStartShouldResultInNotSpecified() {
         assertNull(course.getLanguage());
 
         teachingPanel.getOtherThanSwedishCheckBox().setSelected(true);
-        teachingPanel.getRadioButtonLanguageGivenAtStart().setSelected(true);
 
         teachingController.updateModel();
 
@@ -103,18 +75,4 @@ public class TeachingControllerTest {
 
         assertEquals(expectedString, course.getLanguage());
     }
-
-    @Test
-    public void updateModelForCourseWithUnspecifiedLanguageShouldResultInUnknownLanguage() {
-        assertNull(course.getLanguage());
-
-        teachingPanel.getOtherThanSwedishCheckBox().setSelected(true);
-
-        teachingController.updateModel();
-
-        String expectedString = "unknown";
-
-        assertEquals(expectedString, course.getLanguage());
-    }
-
 }

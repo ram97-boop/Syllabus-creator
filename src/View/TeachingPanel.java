@@ -47,7 +47,6 @@ public class TeachingPanel implements CoursePanel {
 
         if (language == null || language.equals(Language.SWEDISH.getLanguage())) {
             otherThanSwedishCheckBox.setSelected(false);
-            radio1.setSelected(false);
             radio2.setSelected(false);
         } else if (language.equals(Language.ENGLISH.getLanguage())) {
             otherThanSwedishCheckBox.setSelected(true);
@@ -59,11 +58,6 @@ public class TeachingPanel implements CoursePanel {
             languagePanel.setVisible(true);
             radio1.setSelected(false);
             radio2.setSelected(true);
-        } else if (language.equals(Language.UNKNOWN.getLanguage())) {
-            otherThanSwedishCheckBox.setSelected(true);
-            languagePanel.setVisible(true);
-            radio1.setSelected(false);
-            radio2.setSelected(false);
         }
 
     }
@@ -127,10 +121,6 @@ public class TeachingPanel implements CoursePanel {
         return radio1;
     }
 
-    public JRadioButton getRadioButtonLanguageGivenAtStart() {
-        return radio2;
-    }
-
     public JTextField getThesisSupervisedHoursField() {
         return thesisSupervisedHoursField;
     }
@@ -138,6 +128,7 @@ public class TeachingPanel implements CoursePanel {
     public JCheckBox getCanChangeSupervisorCheckBox() {
         return canChangeSupervisorCheckBox;
     }
+
 
     // PrintOut method
     public void printOut() {
