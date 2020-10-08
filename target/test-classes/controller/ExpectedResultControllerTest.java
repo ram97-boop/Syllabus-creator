@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 
 public class ExpectedResultControllerTest {
 
-    private final Course course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
+    private Course course;
     private ExpectedResultController expectedResultController;
-    private final ExpectedResultPanel panel = new ExpectedResultPanel();
+    private ExpectedResultPanel panel;
 
     private final ArrayList<CoursePart> parts = new ArrayList<>();
     private final CoursePart part1 = new CoursePart();
@@ -29,6 +29,8 @@ public class ExpectedResultControllerTest {
 
     @Before
     public void setUp(){
+        course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
+        panel = new ExpectedResultPanel();
         expectedResultController = new ExpectedResultController(course, panel);
 
         HashMap<JTextField, JRadioButton[]> goalsMap = panel.getGoals();
@@ -54,6 +56,28 @@ public class ExpectedResultControllerTest {
         parts.add(part3);
 
         course.setCourseParts(parts);
+    }
+
+    @Test
+    public void printAltOneButtonSelectedShouldResultInTrue() {
+        assertFalse(course.getPrintGoalsAlt1());
+
+        panel.getPrintAlt1Radio().setSelected(true);
+
+        expectedResultController.updateModel();
+
+        assertTrue(course.getPrintGoalsAlt1());
+    }
+
+    @Test
+    public void printAltOneButtonNotSelectedShouldResultInFalse() {
+        assertFalse(course.getPrintGoalsAlt1());
+
+        panel.getPrintAlt1Radio().setSelected(false);
+
+        expectedResultController.updateModel();
+
+        assertFalse(course.getPrintGoalsAlt1());
     }
 
     @Test

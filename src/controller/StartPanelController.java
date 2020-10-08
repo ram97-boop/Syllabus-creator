@@ -63,7 +63,7 @@ public class StartPanelController {
         return new CoursePanel[]{
                 new FirstPanel(frame, course),
                 new CourseContentPanel(frame, course),
-                new ExpectedResultPanel(frame),
+                new ExpectedResultPanel(frame, course),
                 new TeachingPanel(frame, course),
                 new ExaminationPanel(frame, course),
                 new LiteraturePanel(frame)};

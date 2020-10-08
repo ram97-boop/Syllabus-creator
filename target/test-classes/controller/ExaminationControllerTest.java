@@ -226,17 +226,17 @@ public class ExaminationControllerTest {
 
     private void setUpThreeGradingScales() {
         ArrayList<JComboBox<String>> gradingScales = panel.getGradingScales();
-        gradingScales.get(0).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // VG-U
+        gradingScales.get(0).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // (VG-U)
         gradingScales.get(1).setSelectedItem(GradingScale.getLongGradingScaleStrings()[0]); // A-F
-        gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // G-U
+        gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // (G-U)
     }
 
     private void setUpFiveGradingScales() {
         ArrayList<JComboBox<String>> gradingScales = panel.getGradingScales();
-        gradingScales.get(0).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // VG-U
-        gradingScales.get(1).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // G-U
-        gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // VG-U
-        gradingScales.get(3).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // G-U
+        gradingScales.get(0).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // (VG-U)
+        gradingScales.get(1).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // (G-U)
+        gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // (VG-U)
+        gradingScales.get(3).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // (G-U)
         gradingScales.get(4).setSelectedItem(GradingScale.getLongGradingScaleStrings()[0]); // A-F
     }
 

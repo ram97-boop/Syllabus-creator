@@ -172,6 +172,16 @@ public class ExpectedResultPanel implements CoursePanel {
         setUpGoalsMap();
     }
 
+    public ExpectedResultPanel(MainFrame frame, Course course) {
+        setUpGoalsMap();
+        addActionListeners();
+        printAlt1Radio.setSelected(course.getPrintGoalsAlt1());
+        printAlt2Radio.setSelected(!course.getPrintGoalsAlt1());
+        this.frame = frame;
+        properties = frame.getProperties();
+        setToolTips();
+    }
+
     private void setUpGoalsMap() {
         goals.put(goal01, new JRadioButton[]{r011, r012, r013, r014, r015, r016});
         goals.put(goal02, new JRadioButton[]{r021, r022, r023, r024, r025, r026});
@@ -225,12 +235,12 @@ public class ExpectedResultPanel implements CoursePanel {
         setVisibilityOfComponents();
         setLabelNames();
         if (!course.getGoals().isEmpty()) {
-            setFields(course);
+            setGoalFields(course);
         }
         frame.keepSize();
     }
 
-    private void setFields(Course course) {
+    private void setGoalFields(Course course) {
         ArrayList<Goal> goalsForCourse = course.getGoals();
         IntStream.range(0, goalsForCourse.size()).forEach(index -> {
             JTextField component = (JTextField) goalsPanel.getComponent(7 * index);

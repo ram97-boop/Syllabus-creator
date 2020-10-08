@@ -55,6 +55,7 @@ public class ExpectedResultController implements CourseController {
 
         course.setGoals(goalList);
 
+        course.setPrintGoalsAlt1(expectedResultPanel.getPrintAlt1Radio().isSelected());
     }
 
     private void setCoursePartForGoal(JRadioButton[] jRadioButtons, Goal goal) {
