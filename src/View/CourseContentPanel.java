@@ -147,7 +147,13 @@ public class CourseContentPanel implements CoursePanel {
 
     // Getters to Controller
 
-    public JComboBox<Integer> getnPartsComboBox() {return nPartsComboBox;}
+    public JTextPane getCourseContentTextPane() {
+        return courseContentTextPane;
+    }
+
+    public JComboBox<Integer> getnPartsComboBox() {
+        return nPartsComboBox;
+    }
 
     public JTextField[][] getPartFields() {
         return partFields;

@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 // TODO Sätt ihop delar i printOut som examineras på samma sätt
 // TODO Sätt ihop delar i printOut som har samma betygskala
 // TODO Slytbetyg sätts på annat sätt i printOut
-// TODO Slutbetyg beror på bara vissa delar
 // TODO Problem med vad som krävs på campus
 
 public class ExaminationPanel implements CoursePanel {
@@ -49,7 +48,7 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton totalGradeRadio2;
     private JRadioButton totalGradeRadio3;
     private JCheckBox otherActivitiesCheckBox;
-    private JTextPane otherActivitiesField;
+    private JTextPane otherActivitiesPane;
     private JPanel otherActivitiesGradePanel;
     private JButton printOutButton;
     private JTextPane printOutPane;
@@ -77,6 +76,14 @@ public class ExaminationPanel implements CoursePanel {
     private JTextPane ePane;
     private JTextPane examinationPane;
     private JComboBox<String> courseGradingScaleComboBox;
+    private JTextPane dPane;
+    private JRadioButton gradeCertainPart1;
+    private JRadioButton gradeCertainPart2;
+    private JRadioButton gradeCertainPart3;
+    private JRadioButton gradeCertainPart4;
+    private JRadioButton gradeCertainPart5;
+    private JRadioButton gradeCertainPart6;
+    private JPanel gradeCertainPartsPanel;
 
     Properties properties;
 
@@ -113,6 +120,15 @@ public class ExaminationPanel implements CoursePanel {
             supplementRadio3,
             noSupplementRadio1,
             noSupplementRadio2
+    };
+
+    private final JRadioButton[] gradeCertainPartsRadios = {
+            gradeCertainPart1,
+            gradeCertainPart2,
+            gradeCertainPart3,
+            gradeCertainPart4,
+            gradeCertainPart5,
+            gradeCertainPart6
     };
 
     private ArrayList<CoursePart> courseParts;
@@ -170,6 +186,7 @@ public class ExaminationPanel implements CoursePanel {
     private void setUpComponents() {
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
+        gradeCertainPartsPanel.setVisible(false);
     }
 
     private void addActionListeners() {
@@ -254,11 +271,12 @@ public class ExaminationPanel implements CoursePanel {
         noPartsExaminationPanel.setVisible(!hasParts);
         gradingPanel.setVisible(hasParts);
         otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
-        for (int i = 0; i < examinationLabels.length; i++) {
+        for (int i = 0; i < examinationLabels.length; i++) { // TODO global MaxParts?
             examinationLabels[i].setVisible(i < nParts);
             examinationFields[i].setVisible(i < nParts);
             gradingScalePartLabels[i].setVisible(i < nParts);
             gradingScaleComboBoxes.get(i).setVisible(i < nParts);
+            gradeCertainPartsRadios[i].setVisible(i < nParts);
         }
         if (thesis) {
             supplementCheckBox.setSelected(true);
@@ -269,9 +287,11 @@ public class ExaminationPanel implements CoursePanel {
 
     private void setLabelNames() {
         for (int i = 0; i < nParts; i++) {
-            String examinationLabelText = "Kunskapskontroll för " + courseParts.get(i).getName() + " sker genom ";
+            String partName = courseParts.get(i).getName();
+            String examinationLabelText = "Kunskapskontroll för " + partName + " sker genom ";
             examinationLabels[i].setText(examinationLabelText);
-            gradingScalePartLabels[i].setText(courseParts.get(i).getName());
+            gradingScalePartLabels[i].setText(partName);
+            gradeCertainPartsRadios[i].setText(partName);
         }
     }
 
@@ -310,6 +330,7 @@ public class ExaminationPanel implements CoursePanel {
     private void updateTotalGradeRadios(JRadioButton radio1, JRadioButton radio2) {
         radio1.setSelected(false);
         radio2.setSelected(false);
+        gradeCertainPartsPanel.setVisible(totalGradeRadio2.isSelected());
     }
 
     private void updateOtherActivitiesGradePanel() {
@@ -326,11 +347,65 @@ public class ExaminationPanel implements CoursePanel {
 
     // Getters to Controller
 
+    public JTextPane getExaminationPane() {
+        return examinationPane;
+    }
+
+    public JTextField[] getExaminationFields(){return examinationFields;}
+
+    public JCheckBox getHomeExamCheckBox() {
+        return homeExamCheckBox;
+    }
+
+    public JRadioButton getHomeExamRadio1() {
+        return homeExamRadio1;
+    }
+
+    public JCheckBox getExaminationOnEnglishCheckBox() {
+        return examinationOnEnglishCheckBox;
+    }
+
+    public JRadioButton getEnglishRadio1() {
+        return englishRadio1;
+    }
+
+    public JCheckBox getHasAttendanceCheckBox() {
+        return hasAttendanceCheckBox;
+    }
+
     public ArrayList<JComboBox<String>> getGradingScales() {
         return gradingScaleComboBoxes;
     }
 
-    public JTextField[] getExaminationFields(){return examinationFields;}
+    public JRadioButton getTotalGradeRadio1() {
+        return totalGradeRadio1;
+    }
+
+    public JRadioButton getTotalGradeRadio2() {
+        return totalGradeRadio2;
+    }
+
+    public JCheckBox getOtherActivitiesCheckBox() {
+        return otherActivitiesCheckBox;
+    }
+
+    public JTextPane getOtherActivitiesPane() {
+        return otherActivitiesPane;
+    }
+
+    public JCheckBox getSupplementCheckBox() {
+        return supplementCheckBox;
+    }
+
+    public JRadioButton[] getSupplementRadios() {
+        return new JRadioButton[]{
+                supplementRadio1,
+                supplementRadio2,
+                supplementRadio3,
+                noSupplementRadio1,
+                noSupplementRadio2
+        };
+    }
 
     // PrintOut methods
 
@@ -430,13 +505,26 @@ public class ExaminationPanel implements CoursePanel {
             outPutText += "Kursens slutbetyg sätts genom en sammanvägning av betygen på kursens delar, " +
                     "där de olika delarnas betyg viktas i förhållande till deras omfattning.\n\n";
         } else if (totalGradeRadio2.isSelected()) {
-            outPutText += "Kursens slutbetyg sätts utifrån betygsättning på del X\n\n";
-        } else if (totalGradeRadio3.isSelected()) {
-            outPutText += "";
+            outPutText += "Kursens slutbetyg sätts utifrån betygsättning på ";
+            int totalCount = 0;
+            for (JRadioButton radio : gradeCertainPartsRadios) if(radio.isSelected()) totalCount++;
+            int count = 0;
+            for (int i = 0; i < nParts; i++) {
+                if (gradeCertainPartsRadios[i].isSelected()) {
+                    outPutText += count > 0 && count < totalCount - 1 ? ", " : "";
+                    outPutText += count > 0 && count == totalCount - 1 ? " och " : "";
+                    outPutText += courseParts.get(i).getName();
+                    count++;
+                }
+            }
+            if (count > 1) {
+                outPutText += " där de olika delarnas betyg viktas i förhållande till deras omfattning.";
+            }
+            outPutText += "\n\n";
         }
 
         if (otherActivitiesCheckBox.isSelected()) {
-            outPutText += otherActivitiesField.getText() + "\n\n";
+            outPutText += otherActivitiesPane.getText() + "\n\n";
         }
 
         return outPutText;

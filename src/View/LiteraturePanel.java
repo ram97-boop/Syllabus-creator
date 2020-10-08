@@ -75,6 +75,10 @@ public class LiteraturePanel implements CoursePanel {
         radio2.setVisible(multipleInstitutionsCheckBox.isSelected());
     }
 
+    // Getters
+
+
+
     // PrintOut methods
 
     public void printOut() {

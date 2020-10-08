@@ -298,6 +298,10 @@ public class ExpectedResultPanel implements CoursePanel {
         return goals;
     }
 
+    public JRadioButton getPrintAlt1Radio() {
+        return printAlt1Radio;
+    }
+
 
     // Print out
     public void printOut() {
