@@ -65,8 +65,6 @@ public class ExaminationPanel implements CoursePanel {
     private JTextField partExaminationField4;
     private JTextField partExaminationField5;
     private JTextField partExaminationField6;
-    private JTextArea notDistanceAttendanceField;
-    private JTextArea distanceAttendanceField;
     private JRadioButton supplementRadio1;
     private JRadioButton supplementRadio2;
     private JRadioButton supplementRadio3;
@@ -85,6 +83,9 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton gradeCertainPart5;
     private JRadioButton gradeCertainPart6;
     private JPanel gradeCertainPartsPanel;
+    private JTextPane totalGradeAlt3TextPane;
+    private JTextPane notDistanceAttendancePane;
+    private JTextPane distanceAttendancePane;
 
     Properties properties;
 
@@ -373,6 +374,14 @@ public class ExaminationPanel implements CoursePanel {
         return hasAttendanceCheckBox;
     }
 
+    public JTextPane getDistanceAttendancePane() {
+        return distanceAttendancePane;
+    }
+
+    public JTextPane getNotDistanceAttendancePane() {
+        return notDistanceAttendancePane;
+    }
+
     public JComboBox<String> getCourseGradingScaleComboBox() {
         return courseGradingScaleComboBox;
     }
@@ -387,6 +396,10 @@ public class ExaminationPanel implements CoursePanel {
 
     public JRadioButton getTotalGradeRadio2() {
         return totalGradeRadio2;
+    }
+
+    public JTextPane getTotalGradeAlt3TextPane() {
+        return totalGradeAlt3TextPane;
     }
 
     public JCheckBox getOtherActivitiesCheckBox() {
@@ -473,12 +486,12 @@ public class ExaminationPanel implements CoursePanel {
         if (hasAttendanceCheckBox.isSelected()) {
             if (!isDistance) {
                 outPutText += "För godkänt slutbetyg krävs deltagande i ";
-                outPutText += notDistanceAttendanceField.getText() + ".";
+                outPutText += notDistanceAttendancePane.getText() + ".";
                 outPutText += "Om särskilda skäl föreligger kan examinator efter samråd " +
                         "med vederbörande lärare medge den studerande befrielse från skyldigheten " +
                         "att delta i viss obligatorisk undervisning.\n\n";
             } else {
-                outPutText += distanceAttendanceField.getText() + "\n\n";
+                outPutText += distanceAttendancePane.getText() + "\n\n";
             }
         } else {
             if (!isDistance) {
@@ -527,6 +540,8 @@ public class ExaminationPanel implements CoursePanel {
                 outPutText += " där de olika delarnas betyg viktas i förhållande till deras omfattning.";
             }
             outPutText += "\n\n";
+        } else if (totalGradeRadio3.isSelected()) {
+            outPutText += totalGradeAlt3TextPane.getText() + "\n\n";
         }
 
         if (otherActivitiesCheckBox.isSelected()) {
