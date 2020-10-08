@@ -43,6 +43,16 @@ public class TeachingPanel implements CoursePanel {
         addActionListeners();
         properties = frame.getProperties();
 
+        if (course.getTeaching() != null) {
+            teachingPane.setText(course.getTeaching());
+        }
+
+        if (course.getThesisSupervisedHours() !=null) {
+            thesisSupervisedHoursField.setText(course.getThesisSupervisedHours());
+        }
+
+        canChangeSupervisorCheckBox.setSelected(course.getCanChangeSupervisor());
+
         String language = course.getLanguage();
 
         if (language == null || language.equals(Language.SWEDISH.getLanguage())) {

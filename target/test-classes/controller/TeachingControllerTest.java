@@ -10,8 +10,7 @@ import model.Course;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class TeachingControllerTest {
 
@@ -74,5 +73,70 @@ public class TeachingControllerTest {
         String expectedString = "not specified";
 
         assertEquals(expectedString, course.getLanguage());
+    }
+
+    @Test
+    public void courseWithoutThesisShouldResultInThesisSupervisedHoursIsNullAndCanChangeSupervisorIsFalse() {
+        assertNull(course.getThesisSupervisedHours());
+        assertFalse(course.getCanChangeSupervisor());
+
+        teachingController.updateModel();
+
+        assertNull(course.getThesisSupervisedHours());
+        assertFalse(course.getCanChangeSupervisor());
+    }
+
+    @Test
+    public void courseWithThesisAndCanChangeSupervisorCheckedShouldResultInAttributesAreSetCorrect() {
+        course.setThesis(true);
+        teachingPanel.getCanChangeSupervisorCheckBox().setSelected(true);
+        teachingPanel.getThesisSupervisedHoursField().setText("40");
+
+        assertNull(course.getThesisSupervisedHours());
+        assertFalse(course.getCanChangeSupervisor());
+
+        teachingController.updateModel();
+
+        assertEquals("40", course.getThesisSupervisedHours());
+        assertTrue(course.getCanChangeSupervisor());
+    }
+
+    @Test
+    public void courseWithThesisAndCanChangeSupervisorNotCheckedShouldResultInAttributesAreSetCorrect() {
+        teachingPanel.getCanChangeSupervisorCheckBox().setSelected(false);
+        course.setThesis(true);
+        teachingPanel.getThesisSupervisedHoursField().setText("35");
+
+        assertNull(course.getThesisSupervisedHours());
+        assertFalse(course.getCanChangeSupervisor());
+
+        teachingController.updateModel();
+
+        assertEquals("35", course.getThesisSupervisedHours());
+        assertFalse(course.getCanChangeSupervisor());
+    }
+
+    @Test
+    public void courseThatIsNotDistanceShouldResultInTeachingIsSetCorrect() {
+        course.setDistance(false);
+        teachingPanel.getTeachingPane().setText("Teaching text");
+
+        assertNull(course.getTeaching());
+
+        teachingController.updateModel();
+
+        assertEquals("Teaching text", course.getTeaching());
+    }
+
+    @Test
+    public void courseThatIsDistanceShouldResultInTeachingIsNull() {
+        course.setDistance(true);
+        teachingPanel.getTeachingPane().setText("Teaching text");
+        
+        assertNull(course.getTeaching());
+
+        teachingController.updateModel();
+
+        assertNull(course.getTeaching());
     }
 }
