@@ -6,6 +6,7 @@ import model.Goal;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
@@ -242,6 +243,9 @@ public class ExpectedResultPanel implements CoursePanel {
 
     private void setGoalFields(Course course) {
         ArrayList<Goal> goalsForCourse = course.getGoals();
+
+        List<Goal> collect = goalsForCourse.stream().filter(goalArray -> goalArray.getCourseParts().size() < course.getCourseParts().size()).collect(Collectors.toList());
+
         IntStream.range(0, goalsForCourse.size()).forEach(index -> {
             JTextField component = (JTextField) goalsPanel.getComponent(7 * index);
             JRadioButton[] jRadioButtons = goals.get(component);
@@ -255,6 +259,13 @@ public class ExpectedResultPanel implements CoursePanel {
             });
             component.setText(goal.getGoal());
         });
+
+        if (collect.isEmpty()) {
+            isConnectedToAll.setSelected(true);
+            updatePartsLabelsAndRadioButtons();
+            updatePrintOutRadios();
+        }
+
     }
 
     private void updateCourseAttributes(Course course) {
