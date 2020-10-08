@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Course {
 	
-	// General
+	// General attributes
 	String name; // Name of the course
 	String engName; // English name of the course
 	double credits; // Credits earned from completing the course
@@ -100,10 +100,33 @@ public class Course {
 	public void setEngName(String engName) {this.engName = engName;}
 	public void setCredits(double credits) {this.credits = credits;}
 	public void setCode(String code) {this.code = code;}
-	public void setContent(String content) {this.content = content;}
 	public void setDistance(boolean distance) {this.distance = distance;}
 	public void setLanguage(String language) {this.language = language;}
+	
+	public void setPrintGoalsAlt1(boolean printGoalsAlt1) {this.printGoalsAlt1 = printGoalsAlt1;}
+
+	public void setContent(String content) {this.content = content;}
+	public void setCourseContentText(String courseContentText) {this.courseContentText = courseContentText;}
+	public void setTeaching(String teaching) {this.teaching = teaching;}
 	public void setThesis(boolean thesis) {this.thesis = thesis;}
+	public void setThesisSupervisedHours(String supervisedHours) {this.thesisSupervisedHours = supervisedHours;}
+	public void setCanChangeSupervisor(boolean canChangeSupervisor) {this.canChangeSupervisor = canChangeSupervisor;}
+	
+	public void setExamination(String examination) {this.examination = examination;}
+	public void setHomeExam(boolean homeExam) {this.homeExam = homeExam;}
+	public void setLateHomeExamNotExamined(boolean notExamined) {this.lateHomeExamNotExamined = notExamined;}
+	public void setExaminationPartiallyInEnglish(boolean partEng) {this.examinationPartiallyInEnglish = partEng;}
+	public void setExaminationInEnglish(boolean fullEng) {this.examinationInEnglish = fullEng;}
+	public void setAttendanceRequired(boolean attendanceRequired) {this.attendanceRequired = attendanceRequired;}
+	public void setDistanceAttendanceText(String distText) {this.distanceAttendanceText = distText;}
+	public void setNotDistanceAttendanceText(String notDistText) {this.notDistanceAttendanceText = notDistText;}
+	public void setTotalGradeFromAllParts(boolean fromAllParts) {this.totalGradeFromAllParts = fromAllParts;}
+	public void setTotalGradeFromSomeParts(boolean fromSomeParts) {this.totalGradeFromSomeParts = fromSomeParts;}
+	public void setTotalGradeAlt3Text(String totalGradeAlt3Text) {this.totalGradeAlt3Text = totalGradeAlt3Text;}
+	public void setOtherActivitiesAffectGrade(boolean otherAffected) {this.otherActivitiesAffectGrade = otherAffected;}
+	public void setOtherActivitiesThatAffectGrade(String others) {this.otherActivitiesThatAffectGrade = others;}
+	public void setSupplementsAllowed(boolean supplementsAllowed) {this.supplementsAllowed = supplementsAllowed;}
+	public void setSupplementAlternative(int supplementAlternative) {this.supplementAlternative = supplementAlternative;}
 	
 	
 	
