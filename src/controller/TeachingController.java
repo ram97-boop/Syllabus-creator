@@ -22,8 +22,22 @@ public class TeachingController implements CourseController {
         return teachingPanel;
     }
 
-
     public void updateModel() {
+
+        setCourseLanguage();
+
+        if (!course.isDistance()) {
+            course.setTeaching(teachingPanel.getTeachingPane().getText());
+        }
+
+        if (course.hasThesis()) {
+            course.setThesisSupervisedHours(teachingPanel.getThesisSupervisedHoursField().getText());
+            course.setCanChangeSupervisor(teachingPanel.getCanChangeSupervisorCheckBox().isSelected());
+        }
+
+    }
+
+    private void setCourseLanguage() {
         JCheckBox otherThanSwedishCheckBox = teachingPanel.getOtherThanSwedishCheckBox();
         JRadioButton radioButtonCourseInEnglish = teachingPanel.getRadioButtonCourseInEnglish();
 
@@ -34,7 +48,6 @@ public class TeachingController implements CourseController {
         } else {
             course.setLanguage(Language.SWEDISH.getLanguage());
         }
-
     }
 
 }
