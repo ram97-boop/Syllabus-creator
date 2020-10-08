@@ -247,7 +247,14 @@ public class ExpectedResultPanel implements CoursePanel {
         List<Goal> collect = goalsForCourse.stream().filter(goalArray -> goalArray.getCourseParts().size() < course.getCourseParts().size()).collect(Collectors.toList());
 
         IntStream.range(0, goalsForCourse.size()).forEach(index -> {
-            JTextField component = (JTextField) goalsPanel.getComponent(7 * index);
+            JTextField component;
+
+            if (index < 12) {
+                component = (JTextField) goalsPanel.getComponent(7 * index);
+            } else {
+                component = (JTextField)goalsPanel.getComponent(7 * (index + 1));
+            }
+
             JRadioButton[] jRadioButtons = goals.get(component);
             Goal goal = goalsForCourse.get(index);
             IntStream.range(0, jRadioButtons.length).forEach(buttonIndex -> {
