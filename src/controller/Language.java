@@ -3,8 +3,7 @@ package controller;
 public enum Language {
     SWEDISH("swedish"),
     ENGLISH("english"),
-    NOT_SPECIFIED("not specified"),
-    UNKNOWN("unknown");
+    NOT_SPECIFIED("not specified");
 
     private final String language;
 
