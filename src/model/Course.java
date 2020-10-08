@@ -40,7 +40,7 @@ public class Course {
 	String totalGradeAlt3Text;
 	boolean otherActivitiesAffectGrade; // Whether the grade is affected by other activities specified below
 	String otherActivitiesThatAffectGrade; // Other activities that affect affect grade
-	boolean supplementsAllowed; // Whether additional supplements are allowed during examination
+	boolean supplementsAllowed; // Whether supplements are allowed during examination
 	int supplementAlternative; // Types of supplements allowed
 
 	public Course() {
@@ -57,49 +57,40 @@ public class Course {
 	
 	// Getters
 	
-	public String getName() {
-		return name;
-	}
+	public String getName() {return name;}
+	public String getEngName() {return engName;}
+	public double getCredits() {return credits;}
+	public String getCode() {return code;}
+	public ArrayList<CoursePart> getCourseParts() {return courseParts;}
+	public ArrayList<String> getGradingScale() {return gradingScale;}
+	public boolean isDistance() {return distance;}
+	public String getLanguage() {return language;}
+
+	public ArrayList<Goal> getGoals() {return goals;}
+	public boolean getPrintGoalsAlt1() {return printGoalsAlt1;}
+
+	public String getContent() {return content;}
+	public String getCourseContentText() {return courseContentText;}
+	public String getTeaching() {return teaching;}
+	public boolean hasThesis() {return thesis;}
+	public String getThesisSupervisedHours() {return thesisSupervisedHours;}
+	public boolean getCanChangeSupervisor() {return canChangeSupervisor;}
 	
-	public String getEngName() {
-		return engName;
-	}
-	
-	public double getCredits() {
-		return credits;
-	}
-	
-	public String getCode() {
-		return code;
-	}
-	
-	public String getContent() {
-		return content;
-	}
-	
-	public ArrayList<CoursePart> getCourseParts() {
-		return courseParts;
-	}
-	
-	public ArrayList<String> getGradingScale() {
-		return gradingScale;
-	}
-	
-	public boolean isDistance() {
-		return distance;
-	}
-	
-	public String getLanguage() {
-		return language;
-	}
-	
-	public ArrayList<Goal> getGoals() {
-		return goals;
-	}
-	
-	public boolean hasThesis() {
-		return thesis;
-	}
+	public String getExamination() {return examination;}
+	public boolean hasHomeExam() {return homeExam;}
+	public boolean isLateHomeExamNotExamined() {return lateHomeExamNotExamined;}
+	public boolean isExaminationPartiallyInEnglish() {return examinationPartiallyInEnglish;}
+	public boolean isExaminationInEnglish() {return examinationInEnglish;}
+	public boolean isAttendanceRequired() {return attendanceRequired;}
+	public String getDisanceAttendanceText() {return distanceAttendanceText;}
+	public String getNotDistanceAttendanceText() {return notDistanceAttendanceText;}
+	public boolean isTotalGradeFromAllParts() {return totalGradeFromAllParts;}
+	public boolean isTotalGradeFromSomeParts() {return totalGradeFromSomeParts;}
+	public String getTotalGradeAlt3Text() {return totalGradeAlt3Text;}
+	public boolean getOtherActivitiesAffectGrade() {return otherActivitiesAffectGrade;}
+	public String getOtherActivitiesThatAffectGrade() {return otherActivitiesThatAffectGrade;}
+	public boolean areSupplementsAllowed() {return supplementsAllowed;}
+	public int getSupplementAlternative() {return supplementAlternative;}
 	
 	
 	
