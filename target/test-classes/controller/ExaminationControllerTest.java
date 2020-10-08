@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ExaminationControllerTest {
 
@@ -49,6 +50,54 @@ public class ExaminationControllerTest {
         parts.add(part2);
         parts.add(part3);
 
+    }
+
+    @Test
+    public void updateModelWithGradingScaleAToFForCourseShouldResultInGradingScaleSetCorrectForCourse() {
+        panel.getCourseGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[0]);
+
+        assertNull(course.getGradingScale());
+
+        examinationController.updateModel();
+
+        ArrayList<String> courseGradingScale = course.getGradingScale();
+        assertEquals(7, courseGradingScale.size());
+        assertEquals("A", courseGradingScale.get(0).substring(0, 1));
+        assertEquals("B", courseGradingScale.get(1).substring(0, 1));
+        assertEquals("C", courseGradingScale.get(2).substring(0, 1));
+        assertEquals("D", courseGradingScale.get(3).substring(0, 1));
+        assertEquals("E", courseGradingScale.get(4).substring(0, 1));
+        assertEquals("Fx", courseGradingScale.get(5).substring(0, 2));
+        assertEquals("F", courseGradingScale.get(6).substring(0, 1));
+    }
+
+    @Test
+    public void updateModelWithGradingScaleVGToUForCourseShouldResultInGradingScaleSetCorrectForCourse() {
+        panel.getCourseGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[1]);
+
+        assertNull(course.getGradingScale());
+
+        examinationController.updateModel();
+
+        ArrayList<String> courseGradingScale = course.getGradingScale();
+        assertEquals(3, courseGradingScale.size());
+        assertEquals("V", courseGradingScale.get(0).substring(0, 1));
+        assertEquals("G", courseGradingScale.get(1).substring(0, 1));
+        assertEquals("U", courseGradingScale.get(2).substring(0, 1));
+    }
+
+    @Test
+    public void updateModelWithGradingScaleUToUForCourseShouldResultInGradingScaleSetCorrectForCourse() {
+        panel.getCourseGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[2]);
+
+        assertNull(course.getGradingScale());
+
+        examinationController.updateModel();
+
+        ArrayList<String> courseGradingScale = course.getGradingScale();
+        assertEquals(2, courseGradingScale.size());
+        assertEquals("G", courseGradingScale.get(0).substring(0, 1));
+        assertEquals("U", courseGradingScale.get(1).substring(0, 1));
     }
 
     @Test
@@ -177,18 +226,18 @@ public class ExaminationControllerTest {
 
     private void setUpThreeGradingScales() {
         ArrayList<JComboBox<String>> gradingScales = panel.getGradingScales();
-        gradingScales.get(0).setSelectedItem(GradingScale.getGradingScaleStrings()[1]); // VG-U
-        gradingScales.get(1).setSelectedItem(GradingScale.getGradingScaleStrings()[0]); // A-F
-        gradingScales.get(2).setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
+        gradingScales.get(0).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // VG-U
+        gradingScales.get(1).setSelectedItem(GradingScale.getLongGradingScaleStrings()[0]); // A-F
+        gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // G-U
     }
 
     private void setUpFiveGradingScales() {
         ArrayList<JComboBox<String>> gradingScales = panel.getGradingScales();
-        gradingScales.get(0).setSelectedItem(GradingScale.getGradingScaleStrings()[1]); // VG-U
-        gradingScales.get(1).setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
-        gradingScales.get(2).setSelectedItem(GradingScale.getGradingScaleStrings()[1]); // VG-U
-        gradingScales.get(3).setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
-        gradingScales.get(4).setSelectedItem(GradingScale.getGradingScaleStrings()[0]); // A-F
+        gradingScales.get(0).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // VG-U
+        gradingScales.get(1).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // G-U
+        gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // VG-U
+        gradingScales.get(3).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // G-U
+        gradingScales.get(4).setSelectedItem(GradingScale.getLongGradingScaleStrings()[0]); // A-F
     }
 
 }

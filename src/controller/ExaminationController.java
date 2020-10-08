@@ -31,6 +31,23 @@ public class ExaminationController implements CourseController {
     }
 
     public void updateModel() {
+
+        setGradingScaleForCourse();
+        setGradingScaleAndExaminationFieldForCourseParts();
+
+    }
+
+    private void setGradingScaleForCourse() {
+        GradingScale gradingScale = new GradingScale();
+
+        String selectedItem = (String) examinationPanel.getCourseGradingScaleComboBox().getSelectedItem();
+        ArrayList<String> gradingScaleList = gradingScale.userGetGradingScale(selectedItem);
+
+        course.setGradingScale(gradingScaleList);
+    }
+
+
+    private void setGradingScaleAndExaminationFieldForCourseParts() {
         ArrayList<JComboBox<String>> gradingScales = examinationPanel.getGradingScales();
         JTextField[] examinationFields = examinationPanel.getExaminationFields();
 
@@ -48,5 +65,5 @@ public class ExaminationController implements CourseController {
 
         });
     }
-    
+
 }
