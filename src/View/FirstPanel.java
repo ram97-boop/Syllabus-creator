@@ -5,10 +5,7 @@ import model.GradingScale;
 
 import javax.swing.*;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 // TODO om fönstret är för litet
 
@@ -51,21 +48,6 @@ public class FirstPanel implements CoursePanel {
         coursePoints.setText(String.valueOf(course.getCredits()));
         isDistanceCheckBox.setSelected(course.isDistance());
         thesisCheckBox.setSelected(course.hasThesis());
-        int size = course.getGradingScale().size();
-
-        List<String> collect = gradingScaleMap.entrySet()
-                .stream()
-                .filter(entry -> entry.getValue().equals(size))
-                .map(Map.Entry::getKey).collect(Collectors.toList());
-
-        Integer gradingScaleInt = gradingScaleMap.get(collect.get(0));
-        if (gradingScaleInt==7) {
-            gradingScaleComboBox.setSelectedIndex(0);
-        } else if (gradingScaleInt==3) {
-            gradingScaleComboBox.setSelectedIndex(1);
-        } else if (gradingScaleInt==2) {
-            gradingScaleComboBox.setSelectedIndex(2);
-        }
     }
 
     public FirstPanel() {
