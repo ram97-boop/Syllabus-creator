@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.stream.IntStream;
 
-// TODO Add more parts
-// TODO Ta bort alla delar om man väljer 0 delar efter att ha fyllt i delar
-// TODO Sätt - i printOut innan Del 1, 2 osv
+
 
 
 public class CourseContentPanel implements CoursePanel {
@@ -149,7 +147,13 @@ public class CourseContentPanel implements CoursePanel {
 
     // Getters to Controller
 
-    public JComboBox<Integer> getnPartsComboBox() {return nPartsComboBox;}
+    public JTextPane getCourseContentTextPane() {
+        return courseContentTextPane;
+    }
+
+    public JComboBox<Integer> getnPartsComboBox() {
+        return nPartsComboBox;
+    }
 
     public JTextField[][] getPartFields() {
         return partFields;

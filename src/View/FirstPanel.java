@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-// TODO skicka med värden eller hela components? Koden är inkonsekvent
+// TODO om fönstret är för litet
 
 public class FirstPanel implements CoursePanel {
     private JButton nextPanelButton;

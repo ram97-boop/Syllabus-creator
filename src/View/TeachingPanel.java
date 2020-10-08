@@ -10,9 +10,8 @@ public class TeachingPanel implements CoursePanel {
     private JPanel mainPanel;
     private JButton nextPanelButton;
     private JButton previousPanelButton;
-    private JTextArea teachingField;
     private JCheckBox otherThanSwedishCheckBox;
-    private JTextField thesisHoursField;
+    private JTextField thesisSupervisedHoursField;
     private JCheckBox canChangeSupervisorCheckBox;
     private JPanel languagePanel;
     private JPanel thesisPanel;
@@ -22,6 +21,7 @@ public class TeachingPanel implements CoursePanel {
     private JRadioButton radio2;
     private JTextPane printOutPane;
     private JButton printOutButton;
+    private JTextPane teachingPane;
 
     boolean isDistance = false;
     boolean thesis = false;
@@ -109,6 +109,10 @@ public class TeachingPanel implements CoursePanel {
     }
 
     // Getters
+    public JTextPane getTeachingPane() {
+        return teachingPane;
+    }
+
     public JCheckBox getOtherThanSwedishCheckBox() {
         return otherThanSwedishCheckBox;
     }
@@ -116,6 +120,15 @@ public class TeachingPanel implements CoursePanel {
     public JRadioButton getRadioButtonCourseInEnglish() {
         return radio1;
     }
+
+    public JTextField getThesisSupervisedHoursField() {
+        return thesisSupervisedHoursField;
+    }
+
+    public JCheckBox getCanChangeSupervisorCheckBox() {
+        return canChangeSupervisorCheckBox;
+    }
+
 
     // PrintOut method
     public void printOut() {
@@ -133,7 +146,7 @@ public class TeachingPanel implements CoursePanel {
         String outPutText = "";
         if (thesis) {
             outPutText += "Studenten har rätt till minst ";
-            outPutText += thesisHoursField.getText();
+            outPutText += thesisSupervisedHoursField.getText();
             outPutText += " timmars handledning, där individuell handledning ska " +
                     "utgöra minst en tredjedel av tiden.\n\n";
 
@@ -165,7 +178,7 @@ public class TeachingPanel implements CoursePanel {
         String outPutText = "";
         if (!isDistance) {
             outPutText += "Undervisningen består av ";
-            outPutText += teachingField.getText() + "\n\n";
+            outPutText += teachingPane.getText() + "\n\n";
         } else {
             outPutText += "Undervisningen sker på distans.\n\n";
         }
