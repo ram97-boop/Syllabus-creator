@@ -154,6 +154,25 @@ public class ExaminationPanel implements CoursePanel {
         setUpGradingScalesComboBoxes();
     }
 
+    public ExaminationPanel(MainFrame frame, Course course) {
+        setUpComponents();
+        setUpGradingScalesComboBoxes();
+        addActionListeners();
+        properties = frame.getProperties();
+        setToolTips();
+
+        if (course.getGradingScale() != null) {
+            int lengthOfArray = course.getGradingScale().size();
+            if (lengthOfArray==7) {
+                courseGradingScaleComboBox.setSelectedIndex(0);
+            } else if (lengthOfArray==3) {
+                courseGradingScaleComboBox.setSelectedIndex(1);
+            } else if (lengthOfArray==2) {
+                courseGradingScaleComboBox.setSelectedIndex(2);
+            }
+        }
+    }
+
     private void setGradingScalesForCourseParts(Course course) {
         int size = course.getCourseParts().size();
 
