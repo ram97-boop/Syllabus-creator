@@ -30,8 +30,8 @@ public class Course {
 	String examination; // The method of examination used for a course not divided into parts
 	boolean homeExam; // Whether examination is done from a distance
 	boolean lateHomeExamNotExamined; // Whether late home exam hand-ins are accepted
-	boolean examinationOnEnglish; // Whether the examination is done in english
-	boolean examinationDefinitelyOnEnglish;
+	boolean examinationPartiallyInEnglish; // Whether the examination is partially done in english
+	boolean examinationInEnglish; // Whether the examination is fully done in english
 	boolean attendanceRequired; // Whether students are required to attend to pass
 	String distanceAttendanceText;
 	String notDistanceAttendanceText;
