@@ -85,6 +85,7 @@ public class ExaminationPanel implements CoursePanel {
     private JRadioButton gradeCertainPart5;
     private JRadioButton gradeCertainPart6;
     private JPanel gradeCertainPartsPanel;
+    private JTextPane totalGradeAlt3TextPane;
 
     Properties properties;
 
@@ -389,6 +390,10 @@ public class ExaminationPanel implements CoursePanel {
         return totalGradeRadio2;
     }
 
+    public JTextPane getTotalGradeAlt3TextPane() {
+        return totalGradeAlt3TextPane;
+    }
+
     public JCheckBox getOtherActivitiesCheckBox() {
         return otherActivitiesCheckBox;
     }
@@ -527,6 +532,8 @@ public class ExaminationPanel implements CoursePanel {
                 outPutText += " där de olika delarnas betyg viktas i förhållande till deras omfattning.";
             }
             outPutText += "\n\n";
+        } else if (totalGradeRadio3.isSelected()) {
+            outPutText += totalGradeAlt3TextPane.getText() + "\n\n";
         }
 
         if (otherActivitiesCheckBox.isSelected()) {
