@@ -28,6 +28,11 @@ public class CourseContentController implements CourseController {
     }
 
     public void updateModel() {
+
+        JTextPane courseContentTextPane = courseContentPanel.getCourseContentTextPane();
+
+        course.setCourseContentText(courseContentTextPane.getText());
+
         ArrayList<CoursePart> enteredCourseParts = setUpArrayListOfCoursePartsFromUserInput();
 
         if (!enteredCourseParts.isEmpty()) {
