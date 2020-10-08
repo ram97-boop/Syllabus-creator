@@ -3,17 +3,45 @@ package model;
 import java.util.*;
 
 public class Course {
+	
+	// General
 	String name; // Name of the course
 	String engName; // English name of the course
 	double credits; // Credits earned from completing the course
 	String code; // The course's code
-	String content; // Content covered in the course
 	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>(); // Parts that the course consists of
 	ArrayList<String> gradingScale; // 7-grade, 3-grade or 2-grade scale used for the course
 	boolean distance; // Whether the course is taught on campus or from a distance
 	String language; // The language the course is taught in
+	
+	// Expected results
 	ArrayList<Goal> goals = new ArrayList<Goal>(); // List of expected results from going the course
+	boolean printGoalsAlt1;
+	
+	// Content, teaching
+	String content; // Content covered in the course
+	String courseContentText; // Description of the course content
+	String teaching; // How the course content is covered
 	boolean thesis; // Whether this course has a thesis or not
+	String thesisSupervisedHours; // Number of hours alotted to thesis supervision
+	boolean canChangeSupervisor; // Whether changing supervisor is allowed
+	
+	// Examination
+	String examination; // The method of examination used for a course not divided into parts
+	boolean homeExam; // Whether examination is done from a distance
+	boolean lateHomeExamNotExamined; // Whether late home exam hand-ins are accepted
+	boolean examinationOnEnglish; // Whether the examination is done in english
+	boolean examinationDefinitelyOnEnglish;
+	boolean attendanceRequired; // Whether students are required to attend to pass
+	String distanceAttendanceText;
+	String notDistanceAttendanceText;
+	boolean totalGradeFromAllParts; // Whether the total grade is determined from the grading on all parts
+	boolean totalGradeFromSomeParts; // Whether the total grade is determined from the grading on some parts
+	String totalGradeAlt3Text;
+	boolean otherActivitiesAffectGrade; // Whether the grade is affected by other activities specified below
+	String otherActivitiesThatAffectGrade; // Other activities that affect affect grade
+	boolean supplementsAllowed; // Whether additional supplements are allowed during examination
+	int supplementAlternative; // Types of supplements allowed
 
 	public Course() {
 		
@@ -72,7 +100,9 @@ public class Course {
 	public boolean hasThesis() {
 		return thesis;
 	}
-
+	
+	
+	
 	// Basic setters
 	
 	public void setName(String name) {
@@ -106,6 +136,8 @@ public class Course {
 	public void setThesis(boolean thesis) {
 		this.thesis = thesis;
 	}
+	
+	
 	
 	// Container setters
 	
