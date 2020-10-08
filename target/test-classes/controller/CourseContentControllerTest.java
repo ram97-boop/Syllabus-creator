@@ -88,6 +88,29 @@ public class CourseContentControllerTest {
     }
 
     @Test
+    public void noEnteredTextInCourseContentTextPaneShouldResultInEmptyStringForCourseContentText() {
+        String expectedResult  = "";
+
+        assertNull(course.getCourseContentText());
+
+        courseContentController.updateModel();
+
+        assertEquals(expectedResult, course.getCourseContentText());
+    }
+
+    @Test
+    public void enteredTextInCourseContentTextPaneShouldResultInCorrectCourseContentTextIsSet() {
+        String expectedResult  = "Text Content For Course";
+        panel.getCourseContentTextPane().setText(expectedResult);
+
+        assertNull(course.getCourseContentText());
+
+        courseContentController.updateModel();
+
+        assertEquals(expectedResult, course.getCourseContentText());
+    }
+
+    @Test
     public void threeEnteredCoursePartsShouldResultInCoursePartArrayIsSetForCourse() {
         setUpThreeTextFields();
 
