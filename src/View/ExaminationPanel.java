@@ -6,6 +6,7 @@ import model.GradingScale;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.IntStream;
 
@@ -135,7 +136,7 @@ public class ExaminationPanel implements CoursePanel {
     private int nParts = 0;
     private boolean hasParts = false;
     private boolean isDistance = false;
-    private ArrayList<String> gradingScale;
+    private final GradingScale gradingScale = new GradingScale();
     private boolean thesis = false;
 
     // Constructors
@@ -257,7 +258,6 @@ public class ExaminationPanel implements CoursePanel {
         nParts = courseParts.size();
         hasParts = nParts > 0;
         isDistance = course.isDistance();
-        gradingScale = course.getGradingScale();
         thesis = course.hasThesis();
     }
 
@@ -371,6 +371,10 @@ public class ExaminationPanel implements CoursePanel {
 
     public JCheckBox getHasAttendanceCheckBox() {
         return hasAttendanceCheckBox;
+    }
+
+    public JComboBox<String> getCourseGradingScaleComboBox() {
+        return courseGradingScaleComboBox;
     }
 
     public ArrayList<JComboBox<String>> getGradingScales() {
@@ -489,7 +493,9 @@ public class ExaminationPanel implements CoursePanel {
     private String cPrintOut() {
         String outPutText = "c. Betygsättning: Kursens slutbetyg sätts enligt ";
         outPutText += courseGradingScaleComboBox.getSelectedItem() + "\n";
-        for (String grade : gradingScale) {
+        ArrayList<String> grades = gradingScale.userGetGradingScale(
+                (String) Objects.requireNonNull(courseGradingScaleComboBox.getSelectedItem()));
+        for (String grade : grades) {
             outPutText += grade + "\n";
         }
         outPutText += "\n";
