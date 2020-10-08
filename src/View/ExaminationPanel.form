@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="1031" height="1582"/>
+      <xy x="20" y="20" width="1031" height="1692"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -315,7 +315,7 @@
                           <text value="För godkänt slutbetyg krävs deltagande i"/>
                         </properties>
                       </component>
-                      <component id="82054" class="javax.swing.JTextArea" binding="notDistanceAttendanceField">
+                      <component id="85a18" class="javax.swing.JTextPane" binding="notDistanceAttendancePane">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="50"/>
@@ -341,7 +341,7 @@
                           <text value="Kursen innehåller följande moment som kräver närvaro"/>
                         </properties>
                       </component>
-                      <component id="d6494" class="javax.swing.JTextArea" binding="distanceAttendanceField">
+                      <component id="5586b" class="javax.swing.JTextPane" binding="distanceAttendancePane">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="50"/>
