@@ -77,6 +77,10 @@ public class CourseContentPanel implements CoursePanel {
         nPartsComboBox.setSelectedItem(course.getCourseParts().size());
         updatePartFields();
 
+        if (course.getCourseContentText() != null) {
+            courseContentTextPane.setText(course.getCourseContentText());
+        }
+
         IntStream.range(0, course.getCourseParts().size()).forEach(index -> {
             JTextField[] row = partFields[index];
             ArrayList<CoursePart> courseParts = course.getCourseParts();
