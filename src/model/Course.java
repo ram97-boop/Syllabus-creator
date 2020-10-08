@@ -96,68 +96,27 @@ public class Course {
 	
 	// Basic setters
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void setEngName(String engName) {
-		this.engName = engName;
-	}
-	
-	public void setCredits(double credits) {
-		this.credits = credits;
-	}
-	
-	public void setCode(String code) {
-		this.code = code;
-	}
-	
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
-	public void setDistance(boolean distance) {
-		this.distance = distance;
-	}
-	
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	
-	public void setThesis(boolean thesis) {
-		this.thesis = thesis;
-	}
+	public void setName(String name) {this.name = name;}
+	public void setEngName(String engName) {this.engName = engName;}
+	public void setCredits(double credits) {this.credits = credits;}
+	public void setCode(String code) {this.code = code;}
+	public void setContent(String content) {this.content = content;}
+	public void setDistance(boolean distance) {this.distance = distance;}
+	public void setLanguage(String language) {this.language = language;}
+	public void setThesis(boolean thesis) {this.thesis = thesis;}
 	
 	
 	
 	// Container setters
 	
-	public void setCourseParts(ArrayList<CoursePart> parts) {
-		courseParts = parts;
-	}
+	public void setCourseParts(ArrayList<CoursePart> parts) {courseParts = parts;}
+	public void addCoursePart(CoursePart part) {courseParts.add(part);}
+	public boolean removeCoursePart(CoursePart part) {return courseParts.remove(part);}
 	
-	public void addCoursePart(CoursePart part) {
-		courseParts.add(part);
-	}
+	public void setGradingScale(ArrayList<String> gradingScale) {this.gradingScale = gradingScale;}
 	
-	public boolean removeCoursePart(CoursePart part) {
-		return courseParts.remove(part);
-	}
-	
-	public void setGradingScale(ArrayList<String> gradingScale) {
-		this.gradingScale = gradingScale;
-	}
-	
-	public void setGoals(ArrayList<Goal> goals) {
-		this.goals = goals;
-	}
-	
-	public void addGoal(Goal goal) {
-		goals.add(goal);
-	}
-	
-	public boolean removeGoal(Goal goal) {
-		return goals.remove(goal);
-	}
+	public void setGoals(ArrayList<Goal> goals) {this.goals = goals;}
+	public void addGoal(Goal goal) {goals.add(goal);}
+	public boolean removeGoal(Goal goal) {return goals.remove(goal);}
 	
 }
