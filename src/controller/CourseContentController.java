@@ -3,7 +3,6 @@ package controller;
 import View.CourseContentPanel;
 import model.Course;
 import model.CoursePart;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,15 +28,20 @@ public class CourseContentController implements CourseController {
     }
 
     public void updateModel() {
-
         ArrayList<CoursePart> enteredCourseParts = setUpArrayListOfCoursePartsFromUserInput();
 
+        if (!enteredCourseParts.isEmpty()) {
+            if (Math.abs(sumCourseParts(enteredCourseParts)-course.getCredits()) > 1e-8) {
+                throw new RuntimeException("Summan av kursdelarna är inte samma som totala poängen för kursen ("
+                        + course.getCredits() + ").");
+            }
+        }
+
         if (course.getCourseParts().isEmpty()) {
-            setCoursePartsForCourse(enteredCourseParts);
+            course.setCourseParts(enteredCourseParts);
         } else {
             updateCoursePartsForCourse(enteredCourseParts);
         }
-
     }
 
     private void updateCoursePartsForCourse(ArrayList<CoursePart> enteredCourseParts) {
@@ -67,11 +71,9 @@ public class CourseContentController implements CourseController {
                     coursePart.setEngName(coursePartEntered.getEngName());
                     coursePart.setCredits(coursePartEntered.getCredits());
                 });
-
     }
 
     private ArrayList<CoursePart> setUpArrayListOfCoursePartsFromUserInput() {
-
         ArrayList<CoursePart> courseParts = new ArrayList<>();
         JTextField[][] textFields = courseContentPanel.getPartFields();
 
@@ -96,20 +98,6 @@ public class CourseContentController implements CourseController {
             return courseParts;
         } catch (RuntimeException e) {
             throw new RuntimeException("Fel i inmatning! Vänligen kontrollera att inmatning är korrekt.");
-        }
-    }
-
-    private void setCoursePartsForCourse(ArrayList<CoursePart> courseParts) {
-        if (!courseParts.isEmpty()){
-            if (Math.abs(sumCourseParts(courseParts)-course.getCredits()) < 1e-8) {
-                course.setCourseParts(courseParts);
-            } else {
-                throw new RuntimeException("" +
-                        "Summan av kursdelarna är inte samma som totala poängen för kursen ("
-                        + course.getCredits() + ").");
-            }
-        } else {
-            course.setCourseParts(courseParts);
         }
     }
 
