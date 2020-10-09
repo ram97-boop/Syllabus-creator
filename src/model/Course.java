@@ -53,6 +53,25 @@ public class Course {
 		setCode(code);
 	}
 	
+	/**
+	 * Swaps two elements of courseParts.
+	 * @param part0 - First part to swap.
+	 * @param part1 - Second part to swap.
+	 */
+	public void swapCourseParts(CoursePart part0, CoursePart part1) throws Exception {
+		CoursePart[] parts = {part0,part1};
+		int[] index = {courseParts.indexOf(part0),courseParts.indexOf(part1)};
+		
+		for (int i = 0; i <= 1; i++) {
+			if (index[i] == -1) {
+				throw new Exception(parts[i].name + " (param " + Integer.toString(i + 1) + ") not found in courseParts.");
+			}
+		}
+		
+		courseParts.set(index[0], part1);
+		courseParts.set(index[1], part0);
+	}
+	
 	
 	
 	// Getters
