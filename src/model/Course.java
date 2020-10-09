@@ -57,6 +57,7 @@ public class Course {
 	 * Swaps two elements of courseParts.
 	 * @param part0 - First part to swap.
 	 * @param part1 - Second part to swap.
+	 * @throws Exception if either part does not exist in courseParts.
 	 */
 	public void swapCourseParts(CoursePart part0, CoursePart part1) throws Exception {
 		CoursePart[] parts = {part0,part1};
