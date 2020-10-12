@@ -5,9 +5,13 @@ import model.CoursePart;
 import model.GradingScale;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 // TODO Problem med vad som krävs på campus
@@ -208,37 +212,6 @@ public class ExaminationPanel implements CoursePanel {
         }
     }
 
-    private void setGradingScalesForCourseParts(Course course) {
-        int size = course.getCourseParts().size();
-
-        IntStream.range(0,size).forEach(i -> {
-            JComboBox<String> stringJComboBox = gradingScaleComboBoxes.get(i);
-            if (course.getCourseParts().get(i).getGradingScale() != null) {
-                ArrayList<String> gradingScale = course.getCourseParts().get(i).getGradingScale();
-                int lengthOfArray = gradingScale.size();
-                if (lengthOfArray==7) {
-                    stringJComboBox.setSelectedIndex(0);
-                } else if (lengthOfArray==3) {
-                    stringJComboBox.setSelectedIndex(1);
-                } else if (lengthOfArray==2) {
-                    stringJComboBox.setSelectedIndex(2);
-                }
-            }
-        });
-    }
-
-    private void setExaminationFieldsForCourseParts(Course course) {
-        int size = course.getCourseParts().size();
-
-        IntStream.range(0,size).forEach(i -> {
-            JTextField examinationField = examinationFields[i];
-            if (course.getCourseParts().get(i).getExamination() != null) {
-                String examination = course.getCourseParts().get(i).getExamination();
-                examinationField.setText(examination);
-            }
-        });
-    }
-
     private void setUpComponents() {
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
@@ -310,6 +283,65 @@ public class ExaminationPanel implements CoursePanel {
             setExaminationFieldsForCourseParts(course);
             setGradingScalesForCourseParts(course);
         }
+
+        if (course.isTotalGradeFromAllParts() || course.isTotalGradeFromSomeParts() || course.getTotalGradeAlt3Text() != null) {
+            setTotalGradeForCourse(course);
+        }
+    }
+
+    private void setGradingScalesForCourseParts(Course course) {
+        int size = course.getCourseParts().size();
+
+        IntStream.range(0,size).forEach(i -> {
+            JComboBox<String> stringJComboBox = gradingScaleComboBoxes.get(i);
+            if (course.getCourseParts().get(i).getGradingScale() != null) {
+                ArrayList<String> gradingScale = course.getCourseParts().get(i).getGradingScale();
+                int lengthOfArray = gradingScale.size();
+                if (lengthOfArray==7) {
+                    stringJComboBox.setSelectedIndex(0);
+                } else if (lengthOfArray==3) {
+                    stringJComboBox.setSelectedIndex(1);
+                } else if (lengthOfArray==2) {
+                    stringJComboBox.setSelectedIndex(2);
+                }
+            }
+        });
+    }
+
+    private void setExaminationFieldsForCourseParts(Course course) {
+        int size = course.getCourseParts().size();
+
+        IntStream.range(0,size).forEach(i -> {
+            JTextField examinationField = examinationFields[i];
+            if (course.getCourseParts().get(i).getExamination() != null) {
+                String examination = course.getCourseParts().get(i).getExamination();
+                examinationField.setText(examination);
+            }
+        });
+    }
+
+    private void setTotalGradeForCourse(Course course) {
+
+        totalGradeRadio1.setSelected(course.isTotalGradeFromAllParts());
+        totalGradeRadio2.setVisible(!course.getCourseParts().isEmpty());
+        totalGradeRadio2.setSelected((totalGradeRadio2.isVisible() && course.isTotalGradeFromSomeParts()));
+        gradeCertainPartsPanel.setVisible((totalGradeRadio2.isVisible() && totalGradeRadio2.isSelected()));
+        totalGradeRadio3.setSelected((!course.isTotalGradeFromAllParts() && !course.isTotalGradeFromSomeParts()));
+        totalGradeAlt3TextPane.setVisible(totalGradeRadio3.isSelected());
+
+        if (totalGradeRadio2.isSelected()) {
+            Arrays.stream(gradeCertainPartsRadios).filter(Component::isVisible).forEach(jRadioButton -> {
+                List<CoursePart> collect = course.getCourseParts().stream()
+                        .filter(part -> part.getName().toLowerCase().equals(jRadioButton.getText().toLowerCase()))
+                        .collect(Collectors.toList());
+                jRadioButton.setSelected(collect.get(0).getDecidesTotalGrade());
+            });
+        }
+
+        if (totalGradeAlt3TextPane.isVisible() && course.getTotalGradeAlt3Text() != null) {
+            totalGradeAlt3TextPane.setText(course.getTotalGradeAlt3Text());
+        }
+
     }
 
     private void updateCourseAttributes(Course course) {

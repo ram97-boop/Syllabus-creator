@@ -374,6 +374,83 @@ public class ExaminationControllerTest {
         assertEquals("Presentation", course.getNotDistanceAttendanceText());
     }
 
+    @Test
+    public void allPartsAffectingGradeShouldResultInTotalGradeFromAllPartsTrue() {
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        course.setCredits(8.5);
+        course.setCourseParts(courseParts);
+
+        panel.getTotalGradeRadio1().setSelected(true);
+        panel.getTotalGradeRadio2().setSelected(false);
+        panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        course.getCourseParts().forEach(part -> assertFalse(part.getDecidesTotalGrade()));
+    }
+
+    @Test
+    public void gradeIsSetInOtherWayShouldResultInTotalGradeFromAllPartsAndSomePartsAreFalseAndAlt3TextIsNotNull() {
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        course.setCredits(8.5);
+        course.setCourseParts(courseParts);
+
+        panel.getTotalGradeRadio1().setSelected(false);
+        panel.getTotalGradeRadio2().setSelected(false);
+        panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertEquals("Grade is only pass or fail", course.getTotalGradeAlt3Text());
+
+        course.getCourseParts().forEach(part -> assertFalse(part.getDecidesTotalGrade()));
+    }
+
+    @Test
+    public void somePartsAffectingGradeShouldResultInTotalGradeFromSomePartsTrueAndDecidesTotalGradeForEachPartIsSetCorrect() {
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        course.setCourseParts(courseParts);
+        course.setCredits(8.5);
+
+        setUpFourGradeCertainPartsRadios();
+        panel.getTotalGradeRadio1().setSelected(false);
+        panel.getTotalGradeRadio2().setSelected(true);
+        panel.getTotalGradeRadio2().setVisible(true);
+        panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertTrue(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        assertTrue(course.getCourseParts().get(0).getDecidesTotalGrade());
+        assertFalse(course.getCourseParts().get(1).getDecidesTotalGrade());
+        assertFalse(course.getCourseParts().get(2).getDecidesTotalGrade());
+        assertTrue(course.getCourseParts().get(3).getDecidesTotalGrade());
+    }
+
     private void setUpThreeExaminationTextFields() {
         JTextField[] examinationFields = panel.getExaminationFields();
         examinationFields[0].setText("Examination 1");
@@ -404,6 +481,28 @@ public class ExaminationControllerTest {
         gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // (VG-U)
         gradingScales.get(3).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // (G-U)
         gradingScales.get(4).setSelectedItem(GradingScale.getLongGradingScaleStrings()[0]); // A-F
+    }
+
+    private void setUpFourGradeCertainPartsRadios() {
+        JRadioButton[] gradeCertainPartsRadios = panel.getGradeCertainPartsRadios();
+
+        // set part 1 and 4 to affect total grade
+        gradeCertainPartsRadios[0].setVisible(true);
+        gradeCertainPartsRadios[0].setSelected(true);
+        gradeCertainPartsRadios[0].setText(part1.getName());
+
+        gradeCertainPartsRadios[1].setVisible(true);
+        gradeCertainPartsRadios[1].setSelected(false);
+        gradeCertainPartsRadios[1].setText(part2.getName());
+
+        gradeCertainPartsRadios[2].setVisible(true);
+        gradeCertainPartsRadios[2].setSelected(false);
+        gradeCertainPartsRadios[2].setText(part3.getName());
+
+        gradeCertainPartsRadios[3].setVisible(true);
+        gradeCertainPartsRadios[3].setSelected(true);
+        gradeCertainPartsRadios[3].setText(part4.getName());
+
     }
 
 }

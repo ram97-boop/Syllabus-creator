@@ -6,7 +6,11 @@ import model.CoursePart;
 import model.GradingScale;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ExaminationController implements CourseController {
@@ -36,6 +40,7 @@ public class ExaminationController implements CourseController {
         setIfExaminationInEnglish();
         setGradingScaleForCourse();
         setAttendanceRequired();
+        setTotalGradeImpact();
 
         if (course.getCourseParts().isEmpty()) {
             JTextPane examination = examinationPanel.getExaminationPane();
@@ -44,6 +49,30 @@ public class ExaminationController implements CourseController {
             setGradingScaleAndExaminationFieldForCourseParts();
         }
 
+    }
+
+    private void setTotalGradeImpact() {
+        JRadioButton totalGradeRadio1 = examinationPanel.getTotalGradeRadio1();
+        JRadioButton totalGradeRadio2 = examinationPanel.getTotalGradeRadio2();
+
+        course.setTotalGradeFromAllParts(totalGradeRadio1.isSelected());
+        course.setTotalGradeFromSomeParts((totalGradeRadio2.isSelected() && totalGradeRadio2.isVisible()));
+
+        if (course.isTotalGradeFromSomeParts()) {
+            ArrayList<CoursePart> courseParts = course.getCourseParts();
+            JRadioButton[] gradeCertainPartsRadios = examinationPanel.getGradeCertainPartsRadios();
+
+            Arrays.stream(gradeCertainPartsRadios).filter(Component::isVisible).forEach(jRadioButton -> {
+                String text = jRadioButton.getText();
+                List<CoursePart> collect = courseParts.stream().filter(coursePart -> coursePart.getName().toLowerCase().equals(text.toLowerCase())).collect(Collectors.toList());
+                if (collect.size() == 1) {
+                    collect.get(0).setDecidesTotalGrade(jRadioButton.isSelected());
+                }
+            });
+        } else if (!course.isTotalGradeFromAllParts() && !course.isTotalGradeFromSomeParts()) {
+            JTextPane totalGradeAlt3TextPane = examinationPanel.getTotalGradeAlt3TextPane();
+            course.setTotalGradeAlt3Text(totalGradeAlt3TextPane.getText());
+        }
     }
 
     private void setAttendanceRequired() {
