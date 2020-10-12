@@ -57,15 +57,13 @@ public class ExaminationController implements CourseController {
         JCheckBox supplementCheckBox = examinationPanel.getSupplementCheckBox();
         course.setSupplementsAllowed(supplementCheckBox.isSelected());
 
-        if (supplementCheckBox.isSelected()) {
-            JRadioButton[] supplementRadios = examinationPanel.getSupplementRadios();
+        JRadioButton[] supplementRadios = examinationPanel.getSupplementRadios();
 
-            IntStream.range(0, supplementRadios.length).forEach(i -> {
-                if (supplementRadios[i].isSelected()) {
-                    course.setSupplementAlternative(i);
-                }
-            });
-        }
+        IntStream.range(0, supplementRadios.length).forEach(i -> {
+            if (supplementRadios[i].isSelected()) {
+                course.setSupplementAlternative(i);
+            }
+        });
     }
 
     private void setOtherActivitiesAffectGrade() {
@@ -81,8 +79,9 @@ public class ExaminationController implements CourseController {
     private void setTotalGradeImpact() {
         JRadioButton totalGradeRadio1 = examinationPanel.getTotalGradeRadio1();
         JRadioButton totalGradeRadio2 = examinationPanel.getTotalGradeRadio2();
+        JRadioButton totalGradeRadio3 = examinationPanel.getTotalGradeRadio3();
 
-        course.setTotalGradeFromAllParts(totalGradeRadio1.isSelected());
+        course.setTotalGradeFromAllParts((totalGradeRadio1.isSelected() && totalGradeRadio1.isVisible()));
         course.setTotalGradeFromSomeParts((totalGradeRadio2.isSelected() && totalGradeRadio2.isVisible()));
 
         if (course.isTotalGradeFromSomeParts()) {
@@ -96,9 +95,9 @@ public class ExaminationController implements CourseController {
                     collect.get(0).setDecidesTotalGrade(jRadioButton.isSelected());
                 }
             });
-        } else if (!course.isTotalGradeFromAllParts() && !course.isTotalGradeFromSomeParts()) {
-            JTextPane totalGradeAlt3TextPane = examinationPanel.getTotalGradeAlt3TextPane();
-            course.setTotalGradeAlt3Text(totalGradeAlt3TextPane.getText());
+        } else if (totalGradeRadio3.isSelected()) {
+            String text = examinationPanel.getTotalGradeAlt3TextPane().getText();
+            course.setTotalGradeAlt3Text(text);
         }
     }
 
