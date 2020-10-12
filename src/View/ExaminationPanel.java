@@ -180,15 +180,13 @@ public class ExaminationPanel implements CoursePanel {
         supplementCheckBox.setSelected(course.areSupplementsAllowed());
         updateSupplementRadios();
 
-        if (supplementCheckBox.isSelected()) {
-            int supplementAlternative = course.getSupplementAlternative();
-            IntStream.range(0, supplementRadios.length).forEach(i -> {
-                supplementRadios[i].setSelected(false);
-                if (i == supplementAlternative) {
-                    supplementRadios[i].setSelected(true);
-                }
-            });
-        }
+        int supplementAlternative = course.getSupplementAlternative();
+        IntStream.range(0, supplementRadios.length).forEach(i -> {
+            supplementRadios[i].setSelected(false);
+            if (i == supplementAlternative) {
+                supplementRadios[i].setSelected(true);
+            }
+        });
 
     }
 
@@ -360,11 +358,12 @@ public class ExaminationPanel implements CoursePanel {
 
     private void setTotalGradeForCourse(Course course) {
 
+        totalGradeRadio1.setVisible(!course.getCourseParts().isEmpty());
         totalGradeRadio1.setSelected(course.isTotalGradeFromAllParts());
         totalGradeRadio2.setVisible(!course.getCourseParts().isEmpty());
         totalGradeRadio2.setSelected((totalGradeRadio2.isVisible() && course.isTotalGradeFromSomeParts()));
         gradeCertainPartsPanel.setVisible((totalGradeRadio2.isVisible() && totalGradeRadio2.isSelected()));
-        totalGradeRadio3.setSelected((!course.isTotalGradeFromAllParts() && !course.isTotalGradeFromSomeParts()));
+        totalGradeRadio3.setSelected((course.getTotalGradeAlt3Text() != null && !course.getTotalGradeAlt3Text().isEmpty()));
         totalGradeAlt3TextPane.setVisible(totalGradeRadio3.isSelected());
 
         if (totalGradeRadio2.isSelected()) {

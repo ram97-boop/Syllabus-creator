@@ -416,6 +416,7 @@ public class ExaminationControllerTest {
 
         panel.getTotalGradeRadio1().setSelected(true);
         panel.getTotalGradeRadio2().setSelected(false);
+        panel.getTotalGradeRadio3().setSelected(false);
         panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
 
         assertFalse(course.isTotalGradeFromAllParts());
@@ -440,6 +441,7 @@ public class ExaminationControllerTest {
 
         panel.getTotalGradeRadio1().setSelected(false);
         panel.getTotalGradeRadio2().setSelected(false);
+        panel.getTotalGradeRadio3().setSelected(true);
         panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
 
         assertFalse(course.isTotalGradeFromAllParts());
@@ -456,6 +458,31 @@ public class ExaminationControllerTest {
     }
 
     @Test
+    public void noTotalGradeRadioButtonSelectedShouldResultInTotalGradeFromAllPartsAndSomePartsAreFalseAndAlt3TextIsNull() {
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        course.setCredits(8.5);
+        course.setCourseParts(courseParts);
+
+        panel.getTotalGradeRadio1().setSelected(false);
+        panel.getTotalGradeRadio2().setSelected(false);
+        panel.getTotalGradeRadio3().setSelected(false);
+        panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        course.getCourseParts().forEach(part -> assertFalse(part.getDecidesTotalGrade()));
+    }
+
+    @Test
     public void somePartsAffectingGradeShouldResultInTotalGradeFromSomePartsTrueAndDecidesTotalGradeForEachPartIsSetCorrect() {
         ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
         courseParts.add(part4);
@@ -465,7 +492,6 @@ public class ExaminationControllerTest {
         setUpFourGradeCertainPartsRadios();
         panel.getTotalGradeRadio1().setSelected(false);
         panel.getTotalGradeRadio2().setSelected(true);
-        panel.getTotalGradeRadio2().setVisible(true);
         panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
 
         assertFalse(course.isTotalGradeFromAllParts());
@@ -525,14 +551,16 @@ public class ExaminationControllerTest {
         assertTrue(course.areSupplementsAllowed());
         assertEquals(2, course.getSupplementAlternative());
 
+        panel.getSupplementCheckBox().setSelected(false);
         Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
         panel.getSupplementRadios()[4].setSelected(true); // set fifth option selected
 
         examinationController.updateModel();
 
-        assertTrue(course.areSupplementsAllowed());
+        assertFalse(course.areSupplementsAllowed());
         assertEquals(4, course.getSupplementAlternative());
 
+        panel.getSupplementCheckBox().setSelected(true);
         Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
         panel.getSupplementRadios()[1].setSelected(true); // set second option selected
 
