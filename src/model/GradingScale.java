@@ -17,9 +17,9 @@ public class GradingScale {
 	};
 	
 	private static String[] longGradingScaleStrings = {
-		"sjugradig målrelaterad skala.",
-		"tregradig skala underkänd (U), godkänd (G), väl godkänd (VG).",
-		"tvågradig betygsskala: underkänd (U) eller godkänd (G)."
+		"sjugradig målrelaterad skala",
+		"tregradig skala underkänd (U), godkänd (G), väl godkänd (VG)",
+		"tvågradig betygsskala: underkänd (U) eller godkänd (G)"
 	};
 	
 	private void createGradingScales() {

@@ -78,7 +78,17 @@ public class LiteraturePanel implements CoursePanel {
 
     // Getters
 
+    public JTextField getInstitutionField() {
+        return institutionField;
+    }
 
+    public JCheckBox getMultipleInstitutionsCheckBox() {
+        return multipleInstitutionsCheckBox;
+    }
+
+    public JRadioButton getRadio1() {
+        return radio1;
+    }
 
     // PrintOut methods
 
