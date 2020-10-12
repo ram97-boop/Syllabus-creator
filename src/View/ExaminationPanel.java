@@ -5,9 +5,13 @@ import model.CoursePart;
 import model.GradingScale;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 // TODO Problem med vad som krävs på campus
@@ -158,6 +162,76 @@ public class ExaminationPanel implements CoursePanel {
         properties = frame.getProperties();
         setToolTips();
 
+        setGradingScaleForCourse(course);
+
+        if (course.getCourseParts().isEmpty() && course.getExamination() != null) {
+            examinationPane.setText(course.getExamination());
+        }
+
+        setHomeExamButtonsForCourse(course);
+        setExaminationLanguageButtonsForCourse(course);
+        setOtherActivitiesForCourse(course);
+        setAttendanceFieldsForCourse(course);
+        setSupplementsForCourse(course);
+
+    }
+
+    private void setSupplementsForCourse(Course course) {
+        supplementCheckBox.setSelected(course.areSupplementsAllowed());
+        updateSupplementRadios();
+
+        if (supplementCheckBox.isSelected()) {
+            int supplementAlternative = course.getSupplementAlternative();
+            IntStream.range(0, supplementRadios.length).forEach(i -> {
+                supplementRadios[i].setSelected(false);
+                if (i == supplementAlternative) {
+                    supplementRadios[i].setSelected(true);
+                }
+            });
+        }
+
+    }
+
+    private void setHomeExamButtonsForCourse(Course course) {
+        homeExamCheckBox.setSelected(course.hasHomeExam());
+        if (homeExamCheckBox.isSelected()) {
+            homeExamRadio1.setSelected(course.isLateHomeExamNotExamined());
+            homeExamRadio2.setSelected(!course.isLateHomeExamNotExamined());
+        }
+    }
+
+    private void setExaminationLanguageButtonsForCourse(Course course) {
+        examinationOnEnglishCheckBox.setSelected(course.isExaminationPartiallyInEnglish());
+        if (examinationOnEnglishCheckBox.isSelected()) {
+            englishRadio1.setSelected(course.isExaminationInEnglish());
+            englishRadio2.setSelected(!course.isExaminationInEnglish());
+        }
+    }
+
+    private void setOtherActivitiesForCourse(Course course) {
+        otherActivitiesCheckBox.setSelected(course.getOtherActivitiesAffectGrade());
+        otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
+        if (otherActivitiesCheckBox.isSelected() && course.getOtherActivitiesThatAffectGrade() != null) {
+            otherActivitiesPane.setText(course.getOtherActivitiesThatAffectGrade());
+        }
+    }
+
+    private void setAttendanceFieldsForCourse(Course course) {
+        hasAttendanceCheckBox.setSelected(course.isAttendanceRequired());
+        attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
+
+        if (hasAttendanceCheckBox.isSelected()) {
+            distanceAttendancePanel.setVisible(isDistance);
+            notDistanceAttendancePanel.setVisible(!isDistance);
+            if (course.isDistance() && course.getDisanceAttendanceText() != null) {
+                distanceAttendancePane.setText(course.getDisanceAttendanceText());
+            } else if (!course.isDistance() && course.getNotDistanceAttendanceText() != null) {
+                notDistanceAttendancePane.setText(course.getNotDistanceAttendanceText());
+            }
+        }
+    }
+
+    private void setGradingScaleForCourse(Course course) {
         if (course.getGradingScale() != null) {
             int lengthOfArray = course.getGradingScale().size();
             if (lengthOfArray==7) {
@@ -168,37 +242,6 @@ public class ExaminationPanel implements CoursePanel {
                 courseGradingScaleComboBox.setSelectedIndex(2);
             }
         }
-    }
-
-    private void setGradingScalesForCourseParts(Course course) {
-        int size = course.getCourseParts().size();
-
-        IntStream.range(0,size).forEach(i -> {
-            JComboBox<String> stringJComboBox = gradingScaleComboBoxes.get(i);
-            if (course.getCourseParts().get(i).getGradingScale() != null) {
-                ArrayList<String> gradingScale = course.getCourseParts().get(i).getGradingScale();
-                int lengthOfArray = gradingScale.size();
-                if (lengthOfArray==7) {
-                    stringJComboBox.setSelectedIndex(0);
-                } else if (lengthOfArray==3) {
-                    stringJComboBox.setSelectedIndex(1);
-                } else if (lengthOfArray==2) {
-                    stringJComboBox.setSelectedIndex(2);
-                }
-            }
-        });
-    }
-
-    private void setExaminationFieldsForCourseParts(Course course) {
-        int size = course.getCourseParts().size();
-
-        IntStream.range(0,size).forEach(i -> {
-            JTextField examinationField = examinationFields[i];
-            if (course.getCourseParts().get(i).getExamination() != null) {
-                String examination = course.getCourseParts().get(i).getExamination();
-                examinationField.setText(examination);
-            }
-        });
     }
 
     private void setUpComponents() {
@@ -279,6 +322,65 @@ public class ExaminationPanel implements CoursePanel {
             setExaminationFieldsForCourseParts(course);
             setGradingScalesForCourseParts(course);
         }
+
+        if (course.isTotalGradeFromAllParts() || course.isTotalGradeFromSomeParts() || course.getTotalGradeAlt3Text() != null) {
+            setTotalGradeForCourse(course);
+        }
+    }
+
+    private void setGradingScalesForCourseParts(Course course) {
+        int size = course.getCourseParts().size();
+
+        IntStream.range(0,size).forEach(i -> {
+            JComboBox<String> stringJComboBox = gradingScaleComboBoxes.get(i);
+            if (course.getCourseParts().get(i).getGradingScale() != null) {
+                ArrayList<String> gradingScale = course.getCourseParts().get(i).getGradingScale();
+                int lengthOfArray = gradingScale.size();
+                if (lengthOfArray==7) {
+                    stringJComboBox.setSelectedIndex(0);
+                } else if (lengthOfArray==3) {
+                    stringJComboBox.setSelectedIndex(1);
+                } else if (lengthOfArray==2) {
+                    stringJComboBox.setSelectedIndex(2);
+                }
+            }
+        });
+    }
+
+    private void setExaminationFieldsForCourseParts(Course course) {
+        int size = course.getCourseParts().size();
+
+        IntStream.range(0,size).forEach(i -> {
+            JTextField examinationField = examinationFields[i];
+            if (course.getCourseParts().get(i).getExamination() != null) {
+                String examination = course.getCourseParts().get(i).getExamination();
+                examinationField.setText(examination);
+            }
+        });
+    }
+
+    private void setTotalGradeForCourse(Course course) {
+
+        totalGradeRadio1.setSelected(course.isTotalGradeFromAllParts());
+        totalGradeRadio2.setVisible(!course.getCourseParts().isEmpty());
+        totalGradeRadio2.setSelected((totalGradeRadio2.isVisible() && course.isTotalGradeFromSomeParts()));
+        gradeCertainPartsPanel.setVisible((totalGradeRadio2.isVisible() && totalGradeRadio2.isSelected()));
+        totalGradeRadio3.setSelected((!course.isTotalGradeFromAllParts() && !course.isTotalGradeFromSomeParts()));
+        totalGradeAlt3TextPane.setVisible(totalGradeRadio3.isSelected());
+
+        if (totalGradeRadio2.isSelected()) {
+            Arrays.stream(gradeCertainPartsRadios).filter(Component::isVisible).forEach(jRadioButton -> {
+                List<CoursePart> collect = course.getCourseParts().stream()
+                        .filter(part -> part.getName().toLowerCase().equals(jRadioButton.getText().toLowerCase()))
+                        .collect(Collectors.toList());
+                jRadioButton.setSelected(collect.get(0).getDecidesTotalGrade());
+            });
+        }
+
+        if (totalGradeAlt3TextPane.isVisible() && course.getTotalGradeAlt3Text() != null) {
+            totalGradeAlt3TextPane.setText(course.getTotalGradeAlt3Text());
+        }
+
     }
 
     private void updateCourseAttributes(Course course) {
@@ -330,6 +432,7 @@ public class ExaminationPanel implements CoursePanel {
     private void updateHomeExamPanel() {
         homeExamPanel.setVisible(homeExamCheckBox.isSelected());
         homeExamRadio1.setSelected(true);
+        homeExamRadio2.setSelected(false);
     }
 
     private void updateHomeExamRadios(JRadioButton radio) {
@@ -339,6 +442,7 @@ public class ExaminationPanel implements CoursePanel {
     private void updateEnglishExaminationPanel() {
         englishExaminationPanel.setVisible(examinationOnEnglishCheckBox.isSelected());
         englishRadio1.setSelected(true);
+        englishRadio2.setSelected(false);
     }
 
     private void updateEnglishRadios(JRadioButton radio) {

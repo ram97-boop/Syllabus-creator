@@ -13,15 +13,15 @@ import org.junit.Test;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class ExaminationControllerTest {
 
     private Course course;
     private ExaminationController examinationController;
-    private final ExaminationPanel panel = new ExaminationPanel();
+    private ExaminationPanel panel;
 
     private final ArrayList<CoursePart> parts = new ArrayList<>();
     private final CoursePart part1 = new CoursePart();
@@ -33,6 +33,7 @@ public class ExaminationControllerTest {
     @Before
     public void setUp(){
         course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
+        panel = new ExaminationPanel();
         examinationController = new ExaminationController(course, panel);
 
         part1.setName("Course part 1");
@@ -50,6 +51,39 @@ public class ExaminationControllerTest {
         parts.add(part2);
         parts.add(part3);
 
+        panel.getHomeExamCheckBox().setSelected(false);
+        panel.getExaminationOnEnglishCheckBox().setSelected(false);
+
+    }
+
+    @Test
+    public void updateModelForCourseWithoutCoursePartsShouldResultInExaminationIsSet() {
+        assertNull(course.getExamination());
+
+        examinationController.updateModel();
+
+        assertEquals("", course.getExamination());
+
+        String expectedResult = "Written examination";
+        panel.getExaminationPane().setText(expectedResult);
+
+        examinationController.updateModel();
+
+        assertEquals(expectedResult, course.getExamination());
+    }
+
+    @Test
+    public void updateModelForCourseWithCoursePartsShouldResultInExaminationIsNull() {
+        String expectedResult = "Written examination";
+        panel.getExaminationPane().setText(expectedResult);
+
+        course.setCourseParts(parts);
+
+        assertNull(course.getExamination());
+
+        examinationController.updateModel();
+
+        assertNull(course.getExamination());
     }
 
     @Test
@@ -208,6 +242,306 @@ public class ExaminationControllerTest {
 
     }
 
+    @Test
+    public void courseWithoutHomeExamShouldResultInHomeExamAndLateHomeExamNotExaminedAreFalse() {
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+
+        examinationController.updateModel();
+
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+    }
+
+    @Test
+    public void courseWithHomeExamAndLateHomeExamMightBeExaminedShouldResultInHomeExamIsTrueAndLateHomeExamNotExaminedIsFalse() {
+        panel.getHomeExamCheckBox().setSelected(true);
+        panel.getHomeExamRadio1().setSelected(false);
+
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+
+        examinationController.updateModel();
+
+        assertTrue(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+    }
+
+    @Test
+    public void courseWithHomeExamAndLateHomeExamNotExaminedShouldResultInHomeExamAndLateHomeExamNotExaminedAreTrue() {
+        panel.getHomeExamCheckBox().setSelected(true);
+        panel.getHomeExamRadio1().setSelected(true);
+
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+
+        examinationController.updateModel();
+
+        assertTrue(course.hasHomeExam());
+        assertTrue(course.isLateHomeExamNotExamined());
+    }
+
+    @Test
+    public void courseWithExaminationNotInEnglishShouldResultInExaminationInEnglishAndDefinitelyInEnglishAreFalse() {
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+    }
+
+    @Test
+    public void courseWithExaminationPartiallyInEnglishShouldResultInExaminationPartiallyInEnglishIsTrueAndDefinitelyInEnglishIsFalse() {
+        panel.getExaminationOnEnglishCheckBox().setSelected(true);
+        panel.getEnglishRadio1().setSelected(false);
+
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+    }
+
+    @Test
+    public void courseWithExaminationInEnglishShouldResultInExaminationPartiallyInEnglishAndDefinitelyInEnglishAreTrue() {
+        panel.getExaminationOnEnglishCheckBox().setSelected(true);
+        panel.getEnglishRadio1().setSelected(true);
+
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isExaminationPartiallyInEnglish());
+        assertTrue(course.isExaminationInEnglish());
+    }
+
+    @Test
+    public void noAttendanceRequiredShouldResultInAttendanceRequiredFalseAndAttendanceTextsAreNull() {
+        panel.getHasAttendanceCheckBox().setSelected(false);
+        panel.getDistanceAttendancePane().setText("Seminar attendance");
+        panel.getNotDistanceAttendancePane().setText("Presentation");
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+    }
+
+    @Test
+    public void attendanceRequiredForDistanceCourseShouldResultInAttendanceRequiredTrueAndDistanceAttendanceTextIsSetCorrect() {
+        course.setDistance(true);
+
+        panel.getHasAttendanceCheckBox().setSelected(true);
+        panel.getDistanceAttendancePane().setText("Seminar attendance");
+        panel.getNotDistanceAttendancePane().setText("Presentation");
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isAttendanceRequired());
+        assertEquals("Seminar attendance", course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+    }
+
+    @Test
+    public void attendanceRequiredForNotDistanceCourseShouldResultInAttendanceRequiredTrueAndNotDistanceAttendanceTextIsSetCorrect() {
+        course.setDistance(false);
+
+        panel.getHasAttendanceCheckBox().setSelected(true);
+        panel.getDistanceAttendancePane().setText("Seminar attendance");
+        panel.getNotDistanceAttendancePane().setText("Presentation");
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertEquals("Presentation", course.getNotDistanceAttendanceText());
+    }
+
+    @Test
+    public void otherActivitiesNotAffectingGradeShouldResultInOtherActivitiesAffectingGradeBoolIsFalseAndStringIsNull() {
+
+        panel.getOtherActivitiesCheckBox().setSelected(false);
+        panel.getOtherActivitiesPane().setText("Active during seminar");
+
+        assertFalse(course.getOtherActivitiesAffectGrade());
+        assertNull(course.getOtherActivitiesThatAffectGrade());
+
+        examinationController.updateModel();
+
+        assertFalse(course.getOtherActivitiesAffectGrade());
+        assertNull(course.getOtherActivitiesThatAffectGrade());
+
+    }
+
+    @Test
+    public void otherActivitiesIsAffectingGradeShouldResultInOtherActivitiesAffectingGradeBoolIsTrueAndStringIsNotNull() {
+
+        panel.getOtherActivitiesCheckBox().setSelected(true);
+        panel.getOtherActivitiesPane().setText("Active during seminar");
+
+        assertFalse(course.getOtherActivitiesAffectGrade());
+        assertNull(course.getOtherActivitiesThatAffectGrade());
+
+        examinationController.updateModel();
+
+        assertTrue(course.getOtherActivitiesAffectGrade());
+        assertEquals("Active during seminar", course.getOtherActivitiesThatAffectGrade());
+
+    }
+
+    @Test
+    public void allPartsAffectingGradeShouldResultInTotalGradeFromAllPartsTrue() {
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        course.setCredits(8.5);
+        course.setCourseParts(courseParts);
+
+        panel.getTotalGradeRadio1().setSelected(true);
+        panel.getTotalGradeRadio2().setSelected(false);
+        panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        course.getCourseParts().forEach(part -> assertFalse(part.getDecidesTotalGrade()));
+    }
+
+    @Test
+    public void gradeIsSetInOtherWayShouldResultInTotalGradeFromAllPartsAndSomePartsAreFalseAndAlt3TextIsNotNull() {
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        course.setCredits(8.5);
+        course.setCourseParts(courseParts);
+
+        panel.getTotalGradeRadio1().setSelected(false);
+        panel.getTotalGradeRadio2().setSelected(false);
+        panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertEquals("Grade is only pass or fail", course.getTotalGradeAlt3Text());
+
+        course.getCourseParts().forEach(part -> assertFalse(part.getDecidesTotalGrade()));
+    }
+
+    @Test
+    public void somePartsAffectingGradeShouldResultInTotalGradeFromSomePartsTrueAndDecidesTotalGradeForEachPartIsSetCorrect() {
+        ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
+        courseParts.add(part4);
+        course.setCourseParts(courseParts);
+        course.setCredits(8.5);
+
+        setUpFourGradeCertainPartsRadios();
+        panel.getTotalGradeRadio1().setSelected(false);
+        panel.getTotalGradeRadio2().setSelected(true);
+        panel.getTotalGradeRadio2().setVisible(true);
+        panel.getTotalGradeAlt3TextPane().setText("Grade is only pass or fail");
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertFalse(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isTotalGradeFromAllParts());
+        assertTrue(course.isTotalGradeFromSomeParts());
+        assertNull(course.getTotalGradeAlt3Text());
+
+        assertTrue(course.getCourseParts().get(0).getDecidesTotalGrade());
+        assertFalse(course.getCourseParts().get(1).getDecidesTotalGrade());
+        assertFalse(course.getCourseParts().get(2).getDecidesTotalGrade());
+        assertTrue(course.getCourseParts().get(3).getDecidesTotalGrade());
+    }
+
+    @Test
+    public void noSupplementsAllowedShouldResultInSupplementsAllowedIsFalseAndSupplementAlternativeIs0() {
+        panel.getSupplementCheckBox().setSelected(false);
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+
+        examinationController.updateModel();
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+    }
+
+    @Test
+    public void supplementsAllowedWithoutAlternativeSelectedShouldResultInSupplementsAllowedIsTrueAndSupplementAlternativeIs0() {
+        panel.getSupplementCheckBox().setSelected(true);
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+    }
+
+    @Test
+    public void supplementsAllowedWithAlternativeSelectedShouldResultInSupplementsAllowedIsTrueAndSupplementAlternativeIsSetCorrect() {
+        panel.getSupplementCheckBox().setSelected(true);
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+        panel.getSupplementRadios()[2].setSelected(true); // set third option selected
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(2, course.getSupplementAlternative());
+
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+        panel.getSupplementRadios()[4].setSelected(true); // set fifth option selected
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(4, course.getSupplementAlternative());
+
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+        panel.getSupplementRadios()[1].setSelected(true); // set second option selected
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(1, course.getSupplementAlternative());
+    }
+
     private void setUpThreeExaminationTextFields() {
         JTextField[] examinationFields = panel.getExaminationFields();
         examinationFields[0].setText("Examination 1");
@@ -238,6 +572,28 @@ public class ExaminationControllerTest {
         gradingScales.get(2).setSelectedItem(GradingScale.getLongGradingScaleStrings()[1]); // (VG-U)
         gradingScales.get(3).setSelectedItem(GradingScale.getLongGradingScaleStrings()[2]); // (G-U)
         gradingScales.get(4).setSelectedItem(GradingScale.getLongGradingScaleStrings()[0]); // A-F
+    }
+
+    private void setUpFourGradeCertainPartsRadios() {
+        JRadioButton[] gradeCertainPartsRadios = panel.getGradeCertainPartsRadios();
+
+        // set part 1 and 4 to affect total grade
+        gradeCertainPartsRadios[0].setVisible(true);
+        gradeCertainPartsRadios[0].setSelected(true);
+        gradeCertainPartsRadios[0].setText(part1.getName());
+
+        gradeCertainPartsRadios[1].setVisible(true);
+        gradeCertainPartsRadios[1].setSelected(false);
+        gradeCertainPartsRadios[1].setText(part2.getName());
+
+        gradeCertainPartsRadios[2].setVisible(true);
+        gradeCertainPartsRadios[2].setSelected(false);
+        gradeCertainPartsRadios[2].setText(part3.getName());
+
+        gradeCertainPartsRadios[3].setVisible(true);
+        gradeCertainPartsRadios[3].setSelected(true);
+        gradeCertainPartsRadios[3].setText(part4.getName());
+
     }
 
 }
