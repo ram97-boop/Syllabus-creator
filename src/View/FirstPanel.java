@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Properties;
 
-// TODO om fönstret är för litet
 
 public class FirstPanel implements CoursePanel {
     private JButton nextPanelButton;
@@ -30,6 +29,7 @@ public class FirstPanel implements CoursePanel {
 
     public FirstPanel(MainFrame frame, Course course) {
         setVisibilityOfComponents();
+        setToolTips();
         properties = frame.getProperties();
 
         // set text fields
@@ -47,6 +47,10 @@ public class FirstPanel implements CoursePanel {
 
     private void setVisibilityOfComponents() {
         previousPanelButton.setEnabled(false);
+    }
+
+    private void setToolTips() {
+        coursePoints.setToolTipText("Använd punkt som kommatecken.");
     }
 
     // Interface methods

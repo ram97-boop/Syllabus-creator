@@ -205,6 +205,7 @@ public class ExaminationPanel implements CoursePanel {
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
         gradeCertainPartsPanel.setVisible(false);
+        totalGradeRadio1.setSelected(true);
         totalGradeAlt3TextPane.setVisible(false);
     }
 
@@ -218,10 +219,7 @@ public class ExaminationPanel implements CoursePanel {
         englishRadio2.addActionListener(e -> updateEnglishRadios(englishRadio1));
         totalGradeRadio1.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio2, totalGradeRadio3));
         totalGradeRadio2.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio3, totalGradeRadio1));
-        totalGradeRadio3.addActionListener(e -> {
-            totalGradeAlt3TextPane.setVisible(totalGradeRadio3.isSelected());
-            updateTotalGradeRadios(totalGradeRadio1, totalGradeRadio2);
-        });
+        totalGradeRadio3.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio1, totalGradeRadio2));
         otherActivitiesCheckBox.addActionListener(e -> updateOtherActivitiesGradePanel());
         supplementCheckBox.addActionListener(e -> updateSupplementRadios());
         for (JRadioButton radio : supplementRadios) radio.addActionListener(e -> {
@@ -249,6 +247,15 @@ public class ExaminationPanel implements CoursePanel {
                 gradingScale.addItem(gradingScaleString);
             }
         }
+    }
+
+    private void setToolTips() {
+        ePane.setToolTipText(properties.getProperty("examinationEPaneToolTip"));
+        supplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt1ToolTip"));
+        supplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt2ToolTip"));
+        supplementRadio3.setToolTipText(properties.getProperty("examinationFPaneAlt3ToolTip"));
+        noSupplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt4ToolTip"));
+        noSupplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt5ToolTip"));
     }
 
     // Interface methods
@@ -291,6 +298,7 @@ public class ExaminationPanel implements CoursePanel {
         partsExaminationPanel.setVisible(hasParts);
         noPartsExaminationPanel.setVisible(!hasParts);
         gradingPanel.setVisible(hasParts);
+        totalGradeRadio2.setVisible(hasParts);
         otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
         for (int i = 0; i < examinationLabels.length; i++) { // TODO global MaxParts?
             examinationLabels[i].setVisible(i < nParts);
@@ -316,14 +324,7 @@ public class ExaminationPanel implements CoursePanel {
         }
     }
 
-    private void setToolTips() {
-        ePane.setToolTipText(properties.getProperty("examinationEPaneToolTip"));
-        supplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt1ToolTip"));
-        supplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt2ToolTip"));
-        supplementRadio3.setToolTipText(properties.getProperty("examinationFPaneAlt3ToolTip"));
-        noSupplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt4ToolTip"));
-        noSupplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt5ToolTip"));
-    }
+
 
     // Action listeners methods
     private void updateHomeExamPanel() {
@@ -352,6 +353,7 @@ public class ExaminationPanel implements CoursePanel {
         radio1.setSelected(false);
         radio2.setSelected(false);
         gradeCertainPartsPanel.setVisible(totalGradeRadio2.isSelected());
+        totalGradeAlt3TextPane.setVisible(totalGradeRadio3.isSelected());
     }
 
     private void updateOtherActivitiesGradePanel() {
