@@ -55,6 +55,36 @@ public class ExaminationControllerTest {
     }
 
     @Test
+    public void updateModelForCourseWithoutCoursePartsShouldResultInExaminationIsSet() {
+        assertNull(course.getExamination());
+
+        examinationController.updateModel();
+
+        assertEquals("", course.getExamination());
+
+        String expectedResult = "Written examination";
+        panel.getExaminationPane().setText(expectedResult);
+
+        examinationController.updateModel();
+
+        assertEquals(expectedResult, course.getExamination());
+    }
+
+    @Test
+    public void updateModelForCourseWithCoursePartsShouldResultInExaminationIsNull() {
+        String expectedResult = "Written examination";
+        panel.getExaminationPane().setText(expectedResult);
+
+        course.setCourseParts(parts);
+
+        assertNull(course.getExamination());
+
+        examinationController.updateModel();
+
+        assertNull(course.getExamination());
+    }
+
+    @Test
     public void updateModelWithGradingScaleAToFForCourseShouldResultInGradingScaleSetCorrectForCourse() {
         panel.getCourseGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[0]);
 

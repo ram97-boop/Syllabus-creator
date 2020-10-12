@@ -163,6 +163,10 @@ public class ExaminationPanel implements CoursePanel {
 
         setGradingScaleForCourse(course);
 
+        if (course.getCourseParts().isEmpty() && course.getExamination() != null) {
+            examinationPane.setText(course.getExamination());
+        }
+
         homeExamCheckBox.setSelected(course.hasHomeExam());
         if (homeExamCheckBox.isSelected()) {
             homeExamRadio1.setSelected(course.isLateHomeExamNotExamined());

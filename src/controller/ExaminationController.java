@@ -34,7 +34,13 @@ public class ExaminationController implements CourseController {
 
         setIfHomeExam();
         setGradingScaleForCourse();
-        setGradingScaleAndExaminationFieldForCourseParts();
+
+        if (course.getCourseParts().isEmpty()) {
+            JTextPane examination = examinationPanel.getExaminationPane();
+            course.setExamination(examination.getText());
+        } else {
+            setGradingScaleAndExaminationFieldForCourseParts();
+        }
 
     }
 
@@ -42,7 +48,7 @@ public class ExaminationController implements CourseController {
         JCheckBox homeExamCheckBox = examinationPanel.getHomeExamCheckBox();
         JRadioButton homeExamRadio1 = examinationPanel.getHomeExamRadio1();
         course.setHomeExam(homeExamCheckBox.isSelected());
-        
+
         if (homeExamCheckBox.isSelected()) {
             course.setLateHomeExamNotExamined(homeExamRadio1.isSelected());
         }
