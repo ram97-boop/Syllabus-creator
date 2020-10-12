@@ -267,7 +267,7 @@ public class ExpectedResultPanel implements CoursePanel {
             component.setText(goal.getGoal());
         });
 
-        if (collect.isEmpty()) {
+        if (collect.isEmpty() && !course.getCourseParts().isEmpty()) {
             isConnectedToAll.setSelected(true);
             updatePartsLabelsAndRadioButtons();
             updatePrintOutRadios();
