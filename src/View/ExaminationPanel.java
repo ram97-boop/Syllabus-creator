@@ -178,6 +178,24 @@ public class ExaminationPanel implements CoursePanel {
             englishRadio1.setSelected(course.isExaminationInEnglish());
             englishRadio2.setSelected(!course.isExaminationInEnglish());
         }
+
+        setAttendanceFieldsForCourse(course);
+
+    }
+
+    private void setAttendanceFieldsForCourse(Course course) {
+        hasAttendanceCheckBox.setSelected(course.isAttendanceRequired());
+        attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
+
+        if (hasAttendanceCheckBox.isSelected()) {
+            distanceAttendancePanel.setVisible(isDistance);
+            notDistanceAttendancePanel.setVisible(!isDistance);
+            if (course.isDistance() && course.getDisanceAttendanceText() != null) {
+                distanceAttendancePane.setText(course.getDisanceAttendanceText());
+            } else if (!course.isDistance() && course.getNotDistanceAttendanceText() != null) {
+                notDistanceAttendancePane.setText(course.getNotDistanceAttendanceText());
+            }
+        }
     }
 
     private void setGradingScaleForCourse(Course course) {

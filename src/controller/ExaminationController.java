@@ -35,6 +35,7 @@ public class ExaminationController implements CourseController {
         setIfHomeExam();
         setIfExaminationInEnglish();
         setGradingScaleForCourse();
+        setAttendanceRequired();
 
         if (course.getCourseParts().isEmpty()) {
             JTextPane examination = examinationPanel.getExaminationPane();
@@ -43,6 +44,20 @@ public class ExaminationController implements CourseController {
             setGradingScaleAndExaminationFieldForCourseParts();
         }
 
+    }
+
+    private void setAttendanceRequired() {
+        JCheckBox hasAttendanceCheckBox = examinationPanel.getHasAttendanceCheckBox();
+
+        course.setAttendanceRequired(hasAttendanceCheckBox.isSelected());
+
+        if (hasAttendanceCheckBox.isSelected() && course.isDistance()) {
+            JTextPane distanceAttendancePane = examinationPanel.getDistanceAttendancePane();
+            course.setDistanceAttendanceText(distanceAttendancePane.getText());
+        } else if (hasAttendanceCheckBox.isSelected() && !course.isDistance()) {
+            JTextPane notDistanceAttendancePane = examinationPanel.getNotDistanceAttendancePane();
+            course.setNotDistanceAttendanceText(notDistanceAttendancePane.getText());
+        }
     }
 
     private void setIfExaminationInEnglish() {

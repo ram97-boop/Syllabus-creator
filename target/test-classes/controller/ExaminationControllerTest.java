@@ -319,6 +319,61 @@ public class ExaminationControllerTest {
         assertTrue(course.isExaminationInEnglish());
     }
 
+    @Test
+    public void noAttendanceRequiredShouldResultInAttendanceRequiredFalseAndAttendanceTextsAreNull() {
+        panel.getHasAttendanceCheckBox().setSelected(false);
+        panel.getDistanceAttendancePane().setText("Seminar attendance");
+        panel.getNotDistanceAttendancePane().setText("Presentation");
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+    }
+
+    @Test
+    public void attendanceRequiredForDistanceCourseShouldResultInAttendanceRequiredTrueAndDistanceAttendanceTextIsSetCorrect() {
+        course.setDistance(true);
+
+        panel.getHasAttendanceCheckBox().setSelected(true);
+        panel.getDistanceAttendancePane().setText("Seminar attendance");
+        panel.getNotDistanceAttendancePane().setText("Presentation");
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isAttendanceRequired());
+        assertEquals("Seminar attendance", course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+    }
+
+    @Test
+    public void attendanceRequiredForNotDistanceCourseShouldResultInAttendanceRequiredTrueAndNotDistanceAttendanceTextIsSetCorrect() {
+        course.setDistance(false);
+
+        panel.getHasAttendanceCheckBox().setSelected(true);
+        panel.getDistanceAttendancePane().setText("Seminar attendance");
+        panel.getNotDistanceAttendancePane().setText("Presentation");
+
+        assertFalse(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertNull(course.getNotDistanceAttendanceText());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isAttendanceRequired());
+        assertNull(course.getDisanceAttendanceText());
+        assertEquals("Presentation", course.getNotDistanceAttendanceText());
+    }
+
     private void setUpThreeExaminationTextFields() {
         JTextField[] examinationFields = panel.getExaminationFields();
         examinationFields[0].setText("Examination 1");
