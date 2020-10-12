@@ -76,6 +76,15 @@ public class CourseContentController implements CourseController {
                     coursePart.setEngName(coursePartEntered.getEngName());
                     coursePart.setCredits(coursePartEntered.getCredits());
                 });
+
+        ArrayList<CoursePart> sortedList = new ArrayList<>();
+
+        enteredCourseParts.forEach(part -> {
+            List<CoursePart> collect2 = courseParts.stream().filter(coursePart -> coursePart.getName().toLowerCase().equals(part.getName().toLowerCase())).collect(Collectors.toList());
+            sortedList.add(collect2.get(0));
+        });
+
+        course.setCourseParts(sortedList);
     }
 
     private ArrayList<CoursePart> setUpArrayListOfCoursePartsFromUserInput() {
