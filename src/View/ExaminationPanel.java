@@ -651,15 +651,16 @@ public class ExaminationPanel implements CoursePanel {
         for (int i = 0; i < nParts; i++) {
             outPutText += "Betygsättning av " + courseParts.get(i).getName() + " sker enligt " +
                     gradingScaleComboBoxes.get(i).getSelectedItem() + ".\n";
+            outPutText += i == nParts - 1 ? "\n" : "";
         }
 
         if (hasParts) {
-            outPutText += "\nFör godkänt slutbetyg krävs godkänt betyg på samtliga ingående delar. ";
+            outPutText += "För godkänt slutbetyg krävs godkänt betyg på samtliga ingående delar.\n\n";
         }
 
         if (totalGradeRadio1.isSelected()) {
             outPutText += "Kursens slutbetyg sätts genom en sammanvägning av betygen på kursens delar, " +
-                    "där de olika delarnas betyg viktas i förhållande till deras omfattning.";
+                    "där de olika delarnas betyg viktas i förhållande till deras omfattning.\n\n";
         } else if (totalGradeRadio2.isSelected()) {
             outPutText += "Kursens slutbetyg sätts utifrån betygsättning på ";
             int totalCount = 0;
@@ -676,10 +677,10 @@ public class ExaminationPanel implements CoursePanel {
             if (count > 1) {
                 outPutText += " där de olika delarnas betyg viktas i förhållande till deras omfattning.";
             }
+            outPutText += "\n\n";
         } else if (totalGradeRadio3.isSelected()) {
-            outPutText += totalGradeAlt3TextPane.getText();
+            outPutText += totalGradeAlt3TextPane.getText() + "\n\n";
         }
-        outPutText += "\n\n";
 
         if (otherActivitiesCheckBox.isSelected()) {
             outPutText += otherActivitiesPane.getText() + "\n\n";

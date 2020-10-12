@@ -11,38 +11,38 @@ public class GradingScale {
 	// An array of strings that the user will see
 	// when choosing a grading scale.
 	private static String[] gradingScaleStrings = {
-			"sjugradig målrelaterad skala",
-			"tregradig målrelaterad skala",
-			"tvågradig målrelaterad skala"
+			"sjugradig mÃ¥lrelaterad skala",
+			"tregradig mÃ¥lrelaterad skala",
+			"tvÃ¥gradig mÃ¥lrelaterad skala"
 	};
 	
 	private static String[] longGradingScaleStrings = {
-		"sjugradig målrelaterad skala",
-		"tregradig skala underkänd (U), godkänd (G), väl godkänd (VG)",
-		"tvågradig betygsskala: underkänd (U) eller godkänd (G)"
+		"sjugradig mÃ¥lrelaterad skala",
+		"tregradig skala underkÃ¤nd (U), godkÃ¤nd (G), vÃ¤l godkÃ¤nd (VG)",
+		"tvÃ¤gradig betygsskala: underkÃ¤nd (U) eller godkÃ¤nd (G)"
 	};
 	
 	private void createGradingScales() {
 		// ArrayList of A-F grading scale.
 		ArrayList<String> seven = new ArrayList<String>();
-		seven.add("A = Utmärkt");
+		seven.add("A = UtmÃ¤rkt");
 		seven.add("B = Mycket bra");
 		seven.add("C = Bra");
-		seven.add("D = Tillfredsställande");
-		seven.add("E = Tillräckligt");
-		seven.add("Fx = Underkänd, något mer arbete krävs");
-		seven.add("F = Underkänd, mycket mer arbete krävs");
+		seven.add("D = TillfredsstÃ¤llande");
+		seven.add("E = TillrÃ¤ckligt");
+		seven.add("Fx = UnderkÃ¤nd, nÃ¥got mer arbete krÃ¤vs");
+		seven.add("F = UnderkÃ¤nd, mycket mer arbete krÃ¤vs");
 	
 		// ArrayList of VG-G-U
 		ArrayList<String> three = new ArrayList<String>();
-		three.add("V = Väl godkänd");
-		three.add("G = Godkänd");
-		three.add("U = Underkänd");
+		three.add("V = VÃ¤l godkÃ¤nd");
+		three.add("G = GodkÃ¤nd");
+		three.add("U = UnderkÃ¤nd");
 	
 		// ArrayList of G-U
 		ArrayList<String> two = new ArrayList<String>();
-		two.add("G = Tillfredsställande");
-		two.add("U = Underkänd"); 
+		two.add("G = TillfredsstÃ¤llande");
+		two.add("U = UnderkÃ¤nd");
 	
 		// Insert grading scales into gradingScaleMap
 		gradingScaleMap.put(7, seven);
