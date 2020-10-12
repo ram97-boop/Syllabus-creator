@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 
 // TODO Sätt ihop delar i printOut som examineras på samma sätt
 // TODO Sätt ihop delar i printOut som har samma betygskala
-// TODO Slytbetyg sätts på annat sätt i printOut
+// TODO Slytbetyg sätts på annat sätt i printOut, ta bort Pane om inte används
 // TODO Problem med vad som krävs på campus
 
 public class ExaminationPanel implements CoursePanel {
@@ -455,6 +455,10 @@ public class ExaminationPanel implements CoursePanel {
 
     public JRadioButton getTotalGradeRadio2() {
         return totalGradeRadio2;
+    }
+
+    public JRadioButton[] getGradeCertainPartsRadios() {
+        return gradeCertainPartsRadios;
     }
 
     public JTextPane getTotalGradeAlt3TextPane() {
