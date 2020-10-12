@@ -387,6 +387,7 @@ public class ExpectedResultPanel implements CoursePanel {
                 }
             }
             i++;
+            outPutText += "\n";
         }
         return outPutText;
     }

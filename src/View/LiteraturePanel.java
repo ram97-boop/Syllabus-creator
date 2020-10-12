@@ -14,6 +14,7 @@ public class LiteraturePanel implements CoursePanel {
     private JCheckBox multipleInstitutionsCheckBox;
     private JRadioButton radio1;
     private JRadioButton radio2;
+    private JTextField institutionField;
 
     private boolean thesis = false;
 
@@ -94,15 +95,20 @@ public class LiteraturePanel implements CoursePanel {
     private String printOutMultipleInstitutions() {
         String outPutText = "";
         if (!multipleInstitutionsCheckBox.isSelected()) {
-            outPutText += "Kurslitteratur beslutas av institutionsstyrelsen och publiceras på " +
-                    "Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
+            outPutText += "Kurslitteratur beslutas av institutionsstyrelsen och publiceras på ";
+            outPutText += institutionField.getText();
+            outPutText += "s webbplats senast 2 månader före kursstart.\n\n";
         } else {
             if (radio1.isSelected()) {
                 outPutText += "Kurslitteratur beslutas av institutionsstyrelse där kursen är inrättad " +
-                        "och publiceras på Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
+                        "och publiceras på ";
+                outPutText += institutionField.getText();
+                outPutText += "s webbplats senast 2 månader före kursstart.\n\n";
             } else if (radio2.isSelected()) {
                 outPutText += "Kurslitteratur beslutas av respektive ansvarig institutionsstyrelse " +
-                        "och publiceras på Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
+                        "och publiceras på ";
+                outPutText += institutionField.getText();
+                outPutText += "s webbplats senast 2 månader före kursstart.\n\n";
             }
         }
         return outPutText;
