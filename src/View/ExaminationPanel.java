@@ -10,9 +10,6 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.IntStream;
 
-// TODO Sätt ihop delar i printOut som examineras på samma sätt
-// TODO Sätt ihop delar i printOut som har samma betygskala
-// TODO Slytbetyg sätts på annat sätt i printOut, ta bort Pane om inte används
 // TODO Problem med vad som krävs på campus
 
 public class ExaminationPanel implements CoursePanel {
@@ -208,6 +205,7 @@ public class ExaminationPanel implements CoursePanel {
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
         gradeCertainPartsPanel.setVisible(false);
+        totalGradeAlt3TextPane.setVisible(false);
     }
 
     private void addActionListeners() {
@@ -220,7 +218,10 @@ public class ExaminationPanel implements CoursePanel {
         englishRadio2.addActionListener(e -> updateEnglishRadios(englishRadio1));
         totalGradeRadio1.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio2, totalGradeRadio3));
         totalGradeRadio2.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio3, totalGradeRadio1));
-        totalGradeRadio3.addActionListener(e -> updateTotalGradeRadios(totalGradeRadio1, totalGradeRadio2));
+        totalGradeRadio3.addActionListener(e -> {
+            totalGradeAlt3TextPane.setVisible(totalGradeRadio3.isSelected());
+            updateTotalGradeRadios(totalGradeRadio1, totalGradeRadio2);
+        });
         otherActivitiesCheckBox.addActionListener(e -> updateOtherActivitiesGradePanel());
         supplementCheckBox.addActionListener(e -> updateSupplementRadios());
         for (JRadioButton radio : supplementRadios) radio.addActionListener(e -> {
