@@ -42,6 +42,11 @@ public class Course {
 	String otherActivitiesThatAffectGrade; // Other activities that affect affect grade
 	boolean supplementsAllowed; // Whether supplements are allowed during examination
 	int supplementAlternative; // Types of supplements allowed
+	
+	// Literature
+	String institution; // Where the course is taught
+	boolean multipleInstitutions; // Whether there are multiple insitutions involved
+	boolean printMultipleInstitutionsAlt1;
 
 	public Course() {
 		
@@ -112,6 +117,10 @@ public class Course {
 	public boolean areSupplementsAllowed() {return supplementsAllowed;}
 	public int getSupplementAlternative() {return supplementAlternative;}
 	
+	public String getInstitution() {return institution;}
+	public boolean hasMultipleInstitutions() {return multipleInstitutions;}
+	public boolean getPrintMultipleInstitutionsAlt1() {return printMultipleInstitutionsAlt1;}
+	
 	
 	
 	// Basic setters
@@ -147,6 +156,10 @@ public class Course {
 	public void setOtherActivitiesThatAffectGrade(String others) {this.otherActivitiesThatAffectGrade = others;}
 	public void setSupplementsAllowed(boolean supplementsAllowed) {this.supplementsAllowed = supplementsAllowed;}
 	public void setSupplementAlternative(int supplementAlternative) {this.supplementAlternative = supplementAlternative;}
+	
+	public void setInstitution(String institution) {this.institution = institution;}
+	public void setMultipleInstitutions(boolean multipleInstitutions) {this.multipleInstitutions = multipleInstitutions;}
+	public void setPrintMultipleInstitutionsAlt1(boolean printAlt1) {this.printMultipleInstitutionsAlt1 = printAlt1;}
 	
 	
 	
