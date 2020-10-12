@@ -32,8 +32,20 @@ public class ExaminationController implements CourseController {
 
     public void updateModel() {
 
+        setIfHomeExam();
         setGradingScaleForCourse();
         setGradingScaleAndExaminationFieldForCourseParts();
+
+    }
+
+    private void setIfHomeExam() {
+        JCheckBox homeExamCheckBox = examinationPanel.getHomeExamCheckBox();
+        JRadioButton homeExamRadio1 = examinationPanel.getHomeExamRadio1();
+        course.setHomeExam(homeExamCheckBox.isSelected());
+        
+        if (homeExamCheckBox.isSelected()) {
+            course.setLateHomeExamNotExamined(homeExamRadio1.isSelected());
+        }
 
     }
 

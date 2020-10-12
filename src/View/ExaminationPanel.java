@@ -161,6 +161,16 @@ public class ExaminationPanel implements CoursePanel {
         properties = frame.getProperties();
         setToolTips();
 
+        setGradingScaleForCourse(course);
+
+        homeExamCheckBox.setSelected(course.hasHomeExam());
+        if (homeExamCheckBox.isSelected()) {
+            homeExamRadio1.setSelected(course.isLateHomeExamNotExamined());
+            homeExamRadio2.setSelected(!course.isLateHomeExamNotExamined());
+        }
+    }
+
+    private void setGradingScaleForCourse(Course course) {
         if (course.getGradingScale() != null) {
             int lengthOfArray = course.getGradingScale().size();
             if (lengthOfArray==7) {
@@ -328,6 +338,7 @@ public class ExaminationPanel implements CoursePanel {
     private void updateHomeExamPanel() {
         homeExamPanel.setVisible(homeExamCheckBox.isSelected());
         homeExamRadio1.setSelected(true);
+        homeExamRadio2.setSelected(false);
     }
 
     private void updateHomeExamRadios(JRadioButton radio) {

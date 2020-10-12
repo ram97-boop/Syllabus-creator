@@ -14,14 +14,13 @@ import org.junit.Test;
 import javax.swing.*;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class ExaminationControllerTest {
 
     private Course course;
     private ExaminationController examinationController;
-    private final ExaminationPanel panel = new ExaminationPanel();
+    private ExaminationPanel panel;
 
     private final ArrayList<CoursePart> parts = new ArrayList<>();
     private final CoursePart part1 = new CoursePart();
@@ -33,6 +32,7 @@ public class ExaminationControllerTest {
     @Before
     public void setUp(){
         course = new Course("Mjuvaruutveckling", 7.5, "DA4002");
+        panel = new ExaminationPanel();
         examinationController = new ExaminationController(course, panel);
 
         part1.setName("Course part 1");
@@ -49,6 +49,8 @@ public class ExaminationControllerTest {
         parts.add(part1);
         parts.add(part2);
         parts.add(part3);
+
+        panel.getHomeExamCheckBox().setSelected(false);
 
     }
 
@@ -206,6 +208,45 @@ public class ExaminationControllerTest {
 
         assertEquals(0, course.getCourseParts().size());
 
+    }
+
+    @Test
+    public void updateModelForCourseWithoutHomeExamShouldResultInHomeExamIsFalse() {
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+
+        examinationController.updateModel();
+
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+    }
+
+    @Test
+    public void updateModelForCourseWithHomeExamAndLateHomeExamMightBeExaminedShouldResultInAttributesSetCorrect() {
+        panel.getHomeExamCheckBox().setSelected(true);
+        panel.getHomeExamRadio1().setSelected(false);
+
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+
+        examinationController.updateModel();
+
+        assertTrue(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+    }
+
+    @Test
+    public void updateModelForCourseWithHomeExamAndLateHomeExamNotExaminedShouldResultInAttributesSetCorrect() {
+        panel.getHomeExamCheckBox().setSelected(true);
+        panel.getHomeExamRadio1().setSelected(true);
+
+        assertFalse(course.hasHomeExam());
+        assertFalse(course.isLateHomeExamNotExamined());
+
+        examinationController.updateModel();
+
+        assertTrue(course.hasHomeExam());
+        assertTrue(course.isLateHomeExamNotExamined());
     }
 
     private void setUpThreeExaminationTextFields() {
