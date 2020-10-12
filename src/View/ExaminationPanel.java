@@ -205,7 +205,6 @@ public class ExaminationPanel implements CoursePanel {
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
         gradeCertainPartsPanel.setVisible(false);
-        totalGradeRadio1.setSelected(true);
         totalGradeAlt3TextPane.setVisible(false);
     }
 
@@ -298,6 +297,7 @@ public class ExaminationPanel implements CoursePanel {
         partsExaminationPanel.setVisible(hasParts);
         noPartsExaminationPanel.setVisible(!hasParts);
         gradingPanel.setVisible(hasParts);
+        totalGradeRadio1.setVisible(hasParts);
         totalGradeRadio2.setVisible(hasParts);
         otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
         for (int i = 0; i < examinationLabels.length; i++) { // TODO global MaxParts?
@@ -420,6 +420,10 @@ public class ExaminationPanel implements CoursePanel {
         return totalGradeRadio2;
     }
 
+    public JRadioButton getTotalGradeRadio3() {
+        return totalGradeRadio3;
+    }
+
     public JRadioButton[] getGradeCertainPartsRadios() {
         return gradeCertainPartsRadios;
     }
@@ -480,9 +484,10 @@ public class ExaminationPanel implements CoursePanel {
                 outPutText += examinationLabels[i].getText();
                 outPutText += examinationFields[i].getText() + "\n";
             }
+            outPutText += "\n";
         }
 
-        outPutText += "\nExaminator har möjlighet att besluta om anpassad eller alternativ examination " +
+        outPutText += "Examinator har möjlighet att besluta om anpassad eller alternativ examination " +
                 "för studenter med funktionsnedsättning.\n\n";
 
         if (homeExamCheckBox.isSelected()) {
@@ -512,7 +517,7 @@ public class ExaminationPanel implements CoursePanel {
         if (hasAttendanceCheckBox.isSelected()) {
             if (!isDistance) {
                 outPutText += "För godkänt slutbetyg krävs deltagande i ";
-                outPutText += notDistanceAttendancePane.getText() + ".";
+                outPutText += notDistanceAttendancePane.getText() + ". ";
                 outPutText += "Om särskilda skäl föreligger kan examinator efter samråd " +
                         "med vederbörande lärare medge den studerande befrielse från skyldigheten " +
                         "att delta i viss obligatorisk undervisning.\n\n";
@@ -544,11 +549,13 @@ public class ExaminationPanel implements CoursePanel {
                     gradingScaleComboBoxes.get(i).getSelectedItem() + ".\n";
         }
 
-        outPutText += "\nFör godkänt slutbetyg krävs godkänt betyg på samtliga ingående delar. ";
+        if (hasParts) {
+            outPutText += "\nFör godkänt slutbetyg krävs godkänt betyg på samtliga ingående delar. ";
+        }
 
         if (totalGradeRadio1.isSelected()) {
             outPutText += "Kursens slutbetyg sätts genom en sammanvägning av betygen på kursens delar, " +
-                    "där de olika delarnas betyg viktas i förhållande till deras omfattning.\n\n";
+                    "där de olika delarnas betyg viktas i förhållande till deras omfattning.";
         } else if (totalGradeRadio2.isSelected()) {
             outPutText += "Kursens slutbetyg sätts utifrån betygsättning på ";
             int totalCount = 0;
@@ -565,10 +572,10 @@ public class ExaminationPanel implements CoursePanel {
             if (count > 1) {
                 outPutText += " där de olika delarnas betyg viktas i förhållande till deras omfattning.";
             }
-            outPutText += "\n\n";
         } else if (totalGradeRadio3.isSelected()) {
-            outPutText += totalGradeAlt3TextPane.getText() + "\n\n";
+            outPutText += totalGradeAlt3TextPane.getText();
         }
+        outPutText += "\n\n";
 
         if (otherActivitiesCheckBox.isSelected()) {
             outPutText += otherActivitiesPane.getText() + "\n\n";
