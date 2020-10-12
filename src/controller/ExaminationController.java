@@ -41,6 +41,7 @@ public class ExaminationController implements CourseController {
         setGradingScaleForCourse();
         setAttendanceRequired();
         setTotalGradeImpact();
+        setOtherActivitiesAffectGrade();
 
         if (course.getCourseParts().isEmpty()) {
             JTextPane examination = examinationPanel.getExaminationPane();
@@ -49,6 +50,16 @@ public class ExaminationController implements CourseController {
             setGradingScaleAndExaminationFieldForCourseParts();
         }
 
+    }
+
+    private void setOtherActivitiesAffectGrade() {
+        JCheckBox otherActivitiesCheckBox = examinationPanel.getOtherActivitiesCheckBox();
+        course.setOtherActivitiesAffectGrade(otherActivitiesCheckBox.isSelected());
+
+        if (otherActivitiesCheckBox.isSelected()) {
+            JTextPane otherActivitiesPane = examinationPanel.getOtherActivitiesPane();
+            course.setOtherActivitiesThatAffectGrade(otherActivitiesPane.getText());
+        }
     }
 
     private void setTotalGradeImpact() {

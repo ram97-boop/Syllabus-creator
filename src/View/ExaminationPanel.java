@@ -168,20 +168,35 @@ public class ExaminationPanel implements CoursePanel {
             examinationPane.setText(course.getExamination());
         }
 
+        setHomeExamButtonsForCourse(course);
+        setExaminationLanguageButtonsForCourse(course);
+        setOtherActivitiesForCourse(course);
+        setAttendanceFieldsForCourse(course);
+
+    }
+
+    private void setHomeExamButtonsForCourse(Course course) {
         homeExamCheckBox.setSelected(course.hasHomeExam());
         if (homeExamCheckBox.isSelected()) {
             homeExamRadio1.setSelected(course.isLateHomeExamNotExamined());
             homeExamRadio2.setSelected(!course.isLateHomeExamNotExamined());
         }
+    }
 
+    private void setExaminationLanguageButtonsForCourse(Course course) {
         examinationOnEnglishCheckBox.setSelected(course.isExaminationPartiallyInEnglish());
         if (examinationOnEnglishCheckBox.isSelected()) {
             englishRadio1.setSelected(course.isExaminationInEnglish());
             englishRadio2.setSelected(!course.isExaminationInEnglish());
         }
+    }
 
-        setAttendanceFieldsForCourse(course);
-
+    private void setOtherActivitiesForCourse(Course course) {
+        otherActivitiesCheckBox.setSelected(course.getOtherActivitiesAffectGrade());
+        otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
+        if (otherActivitiesCheckBox.isSelected() && course.getOtherActivitiesThatAffectGrade() != null) {
+            otherActivitiesPane.setText(course.getOtherActivitiesThatAffectGrade());
+        }
     }
 
     private void setAttendanceFieldsForCourse(Course course) {

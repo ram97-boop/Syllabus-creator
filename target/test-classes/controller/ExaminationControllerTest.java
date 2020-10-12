@@ -375,6 +375,38 @@ public class ExaminationControllerTest {
     }
 
     @Test
+    public void otherActivitiesNotAffectingGradeShouldResultInOtherActivitiesAffectingGradeBoolIsFalseAndStringIsNull() {
+
+        panel.getOtherActivitiesCheckBox().setSelected(false);
+        panel.getOtherActivitiesPane().setText("Active during seminar");
+
+        assertFalse(course.getOtherActivitiesAffectGrade());
+        assertNull(course.getOtherActivitiesThatAffectGrade());
+
+        examinationController.updateModel();
+
+        assertFalse(course.getOtherActivitiesAffectGrade());
+        assertNull(course.getOtherActivitiesThatAffectGrade());
+
+    }
+
+    @Test
+    public void otherActivitiesIsAffectingGradeShouldResultInOtherActivitiesAffectingGradeBoolIsTrueAndStringIsNotNull() {
+
+        panel.getOtherActivitiesCheckBox().setSelected(true);
+        panel.getOtherActivitiesPane().setText("Active during seminar");
+
+        assertFalse(course.getOtherActivitiesAffectGrade());
+        assertNull(course.getOtherActivitiesThatAffectGrade());
+
+        examinationController.updateModel();
+
+        assertTrue(course.getOtherActivitiesAffectGrade());
+        assertEquals("Active during seminar", course.getOtherActivitiesThatAffectGrade());
+
+    }
+
+    @Test
     public void allPartsAffectingGradeShouldResultInTotalGradeFromAllPartsTrue() {
         ArrayList<CoursePart> courseParts = new ArrayList<>(parts);
         courseParts.add(part4);
