@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -481,6 +482,64 @@ public class ExaminationControllerTest {
         assertFalse(course.getCourseParts().get(1).getDecidesTotalGrade());
         assertFalse(course.getCourseParts().get(2).getDecidesTotalGrade());
         assertTrue(course.getCourseParts().get(3).getDecidesTotalGrade());
+    }
+
+    @Test
+    public void noSupplementsAllowedShouldResultInSupplementsAllowedIsFalseAndSupplementAlternativeIs0() {
+        panel.getSupplementCheckBox().setSelected(false);
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+
+        examinationController.updateModel();
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+    }
+
+    @Test
+    public void supplementsAllowedWithoutAlternativeSelectedShouldResultInSupplementsAllowedIsTrueAndSupplementAlternativeIs0() {
+        panel.getSupplementCheckBox().setSelected(true);
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+    }
+
+    @Test
+    public void supplementsAllowedWithAlternativeSelectedShouldResultInSupplementsAllowedIsTrueAndSupplementAlternativeIsSetCorrect() {
+        panel.getSupplementCheckBox().setSelected(true);
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+        panel.getSupplementRadios()[2].setSelected(true); // set third option selected
+
+        assertFalse(course.areSupplementsAllowed());
+        assertEquals(0, course.getSupplementAlternative());
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(2, course.getSupplementAlternative());
+
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+        panel.getSupplementRadios()[4].setSelected(true); // set fifth option selected
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(4, course.getSupplementAlternative());
+
+        Arrays.stream(panel.getSupplementRadios()).forEach(jRadioButton -> jRadioButton.setSelected(false));
+        panel.getSupplementRadios()[1].setSelected(true); // set second option selected
+
+        examinationController.updateModel();
+
+        assertTrue(course.areSupplementsAllowed());
+        assertEquals(1, course.getSupplementAlternative());
     }
 
     private void setUpThreeExaminationTextFields() {

@@ -172,6 +172,23 @@ public class ExaminationPanel implements CoursePanel {
         setExaminationLanguageButtonsForCourse(course);
         setOtherActivitiesForCourse(course);
         setAttendanceFieldsForCourse(course);
+        setSupplementsForCourse(course);
+
+    }
+
+    private void setSupplementsForCourse(Course course) {
+        supplementCheckBox.setSelected(course.areSupplementsAllowed());
+        updateSupplementRadios();
+
+        if (supplementCheckBox.isSelected()) {
+            int supplementAlternative = course.getSupplementAlternative();
+            IntStream.range(0, supplementRadios.length).forEach(i -> {
+                supplementRadios[i].setSelected(false);
+                if (i == supplementAlternative) {
+                    supplementRadios[i].setSelected(true);
+                }
+            });
+        }
 
     }
 
