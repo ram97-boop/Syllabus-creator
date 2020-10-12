@@ -51,6 +51,7 @@ public class ExaminationControllerTest {
         parts.add(part3);
 
         panel.getHomeExamCheckBox().setSelected(false);
+        panel.getExaminationOnEnglishCheckBox().setSelected(false);
 
     }
 
@@ -241,7 +242,7 @@ public class ExaminationControllerTest {
     }
 
     @Test
-    public void updateModelForCourseWithoutHomeExamShouldResultInHomeExamIsFalse() {
+    public void courseWithoutHomeExamShouldResultInHomeExamAndLateHomeExamNotExaminedAreFalse() {
         assertFalse(course.hasHomeExam());
         assertFalse(course.isLateHomeExamNotExamined());
 
@@ -252,7 +253,7 @@ public class ExaminationControllerTest {
     }
 
     @Test
-    public void updateModelForCourseWithHomeExamAndLateHomeExamMightBeExaminedShouldResultInAttributesSetCorrect() {
+    public void courseWithHomeExamAndLateHomeExamMightBeExaminedShouldResultInHomeExamIsTrueAndLateHomeExamNotExaminedIsFalse() {
         panel.getHomeExamCheckBox().setSelected(true);
         panel.getHomeExamRadio1().setSelected(false);
 
@@ -266,7 +267,7 @@ public class ExaminationControllerTest {
     }
 
     @Test
-    public void updateModelForCourseWithHomeExamAndLateHomeExamNotExaminedShouldResultInAttributesSetCorrect() {
+    public void courseWithHomeExamAndLateHomeExamNotExaminedShouldResultInHomeExamAndLateHomeExamNotExaminedAreTrue() {
         panel.getHomeExamCheckBox().setSelected(true);
         panel.getHomeExamRadio1().setSelected(true);
 
@@ -277,6 +278,45 @@ public class ExaminationControllerTest {
 
         assertTrue(course.hasHomeExam());
         assertTrue(course.isLateHomeExamNotExamined());
+    }
+
+    @Test
+    public void courseWithExaminationNotInEnglishShouldResultInExaminationInEnglishAndDefinitelyInEnglishAreFalse() {
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+
+        examinationController.updateModel();
+
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+    }
+
+    @Test
+    public void courseWithExaminationPartiallyInEnglishShouldResultInExaminationPartiallyInEnglishIsTrueAndDefinitelyInEnglishIsFalse() {
+        panel.getExaminationOnEnglishCheckBox().setSelected(true);
+        panel.getEnglishRadio1().setSelected(false);
+
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+    }
+
+    @Test
+    public void courseWithExaminationInEnglishShouldResultInExaminationPartiallyInEnglishAndDefinitelyInEnglishAreTrue() {
+        panel.getExaminationOnEnglishCheckBox().setSelected(true);
+        panel.getEnglishRadio1().setSelected(true);
+
+        assertFalse(course.isExaminationPartiallyInEnglish());
+        assertFalse(course.isExaminationInEnglish());
+
+        examinationController.updateModel();
+
+        assertTrue(course.isExaminationPartiallyInEnglish());
+        assertTrue(course.isExaminationInEnglish());
     }
 
     private void setUpThreeExaminationTextFields() {

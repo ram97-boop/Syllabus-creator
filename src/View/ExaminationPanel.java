@@ -172,6 +172,12 @@ public class ExaminationPanel implements CoursePanel {
             homeExamRadio1.setSelected(course.isLateHomeExamNotExamined());
             homeExamRadio2.setSelected(!course.isLateHomeExamNotExamined());
         }
+
+        examinationOnEnglishCheckBox.setSelected(course.isExaminationPartiallyInEnglish());
+        if (examinationOnEnglishCheckBox.isSelected()) {
+            englishRadio1.setSelected(course.isExaminationInEnglish());
+            englishRadio2.setSelected(!course.isExaminationInEnglish());
+        }
     }
 
     private void setGradingScaleForCourse(Course course) {
@@ -352,6 +358,7 @@ public class ExaminationPanel implements CoursePanel {
     private void updateEnglishExaminationPanel() {
         englishExaminationPanel.setVisible(examinationOnEnglishCheckBox.isSelected());
         englishRadio1.setSelected(true);
+        englishRadio2.setSelected(false);
     }
 
     private void updateEnglishRadios(JRadioButton radio) {

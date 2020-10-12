@@ -33,6 +33,7 @@ public class ExaminationController implements CourseController {
     public void updateModel() {
 
         setIfHomeExam();
+        setIfExaminationInEnglish();
         setGradingScaleForCourse();
 
         if (course.getCourseParts().isEmpty()) {
@@ -42,6 +43,17 @@ public class ExaminationController implements CourseController {
             setGradingScaleAndExaminationFieldForCourseParts();
         }
 
+    }
+
+    private void setIfExaminationInEnglish() {
+        JCheckBox examinationOnEnglishCheckBox = examinationPanel.getExaminationOnEnglishCheckBox();
+        JRadioButton englishRadio1 = examinationPanel.getEnglishRadio1();
+
+        course.setExaminationPartiallyInEnglish(examinationOnEnglishCheckBox.isSelected());
+
+        if (examinationOnEnglishCheckBox.isSelected()) {
+            course.setExaminationInEnglish(englishRadio1.isSelected());
+        }
     }
 
     private void setIfHomeExam() {
