@@ -15,6 +15,7 @@ public class LiteraturePanel implements CoursePanel {
     private JRadioButton radio1;
     private JRadioButton radio2;
     private JTextField institutionField;
+    private JSplitPane splitPane;
 
     private boolean thesis = false;
 
@@ -57,6 +58,10 @@ public class LiteraturePanel implements CoursePanel {
 
     public String getFrameName() {
         return properties.getProperty("LiteratureTitle");
+    }
+
+    public JSplitPane getSplitPane() {
+        return splitPane;
     }
 
     public void updateView(Course course) {

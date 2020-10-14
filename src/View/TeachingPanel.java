@@ -22,6 +22,7 @@ public class TeachingPanel implements CoursePanel {
     private JTextPane printOutPane;
     private JButton printOutButton;
     private JTextPane teachingPane;
+    private JSplitPane splitPane;
 
     boolean isDistance = false;
     boolean thesis = false;
@@ -96,6 +97,9 @@ public class TeachingPanel implements CoursePanel {
     }
     public String getFrameName() {
         return properties.getProperty("TeachingTitle");
+    }
+    public JSplitPane getSplitPane() {
+        return splitPane;
     }
     public void updateView(Course course) {
         updateCourseAttributes(course);

@@ -1,163 +1,185 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="View.FirstPanel">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="541" height="400"/>
+      <xy x="20" y="20" width="541" height="412"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="4fdd" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+      <splitpane id="e43d0" binding="splitPane">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="100" height="-1"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <dividerSize value="5"/>
+          <orientation value="0"/>
+        </properties>
         <border type="none"/>
         <children>
-          <component id="6dd0d" class="javax.swing.JButton" binding="previousPanelButton">
+          <grid id="f64b6" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="120" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <contentAreaFilled value="true"/>
-              <text resource-bundle="View/res" key="Previous_Panel_Button"/>
-              <verticalAlignment value="0"/>
-              <visible value="true"/>
-            </properties>
-          </component>
-          <vspacer id="f8129">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
-          <component id="b884d" class="javax.swing.JButton" binding="nextPanelButton">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="120" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text resource-bundle="View/res" key="Next_Panel_Button"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="7972b" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="true">
-            <preferred-size width="-1" height="550"/>
-          </grid>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <vspacer id="b8d22">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
-          <grid id="6a6db" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="4" left="4" bottom="4" right="4"/>
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <splitpane position="right"/>
             </constraints>
             <properties/>
-            <border type="line">
-              <color color="-11711155"/>
-            </border>
+            <border type="none"/>
             <children>
-              <component id="32bbc" class="javax.swing.JLabel">
+              <grid id="4fdd" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Kursnamn"/>
-                </properties>
-              </component>
-              <component id="1590c" class="javax.swing.JTextField" binding="courseName">
-                <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
-              </component>
-              <component id="6526b" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="40" height="16"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="100" height="-1"/>
                   </grid>
                 </constraints>
-                <properties>
-                  <text value="Kurskod"/>
-                </properties>
-              </component>
-              <component id="9a534" class="javax.swing.JTextField" binding="courseCode">
-                <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
                 <properties/>
-              </component>
-              <component id="1d0e2" class="javax.swing.JLabel">
+                <border type="none"/>
+                <children>
+                  <component id="6dd0d" class="javax.swing.JButton" binding="previousPanelButton">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <contentAreaFilled value="true"/>
+                      <text resource-bundle="View/res" key="Previous_Panel_Button"/>
+                      <verticalAlignment value="0"/>
+                      <visible value="true"/>
+                    </properties>
+                  </component>
+                  <vspacer id="f8129">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <component id="b884d" class="javax.swing.JButton" binding="nextPanelButton">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="120" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text resource-bundle="View/res" key="Next_Panel_Button"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="e3d65" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="40" height="16"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="450" height="-1"/>
                   </grid>
                 </constraints>
-                <properties>
-                  <text value="Antal poäng"/>
-                </properties>
-              </component>
-              <component id="fc1ff" class="javax.swing.JTextField" binding="coursePoints">
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+          <grid id="7972b" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <splitpane position="left"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <vspacer id="b8d22">
                 <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <grid id="6a6db" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="4" left="4" bottom="4" right="4"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
-              </component>
-              <component id="d3b08" class="javax.swing.JCheckBox" binding="thesisCheckBox">
-                <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Kursen har ett självständigt arbete"/>
-                </properties>
-              </component>
-              <component id="57d78" class="javax.swing.JCheckBox" binding="isDistanceCheckBox">
-                <constraints>
-                  <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Kursen ges på distans"/>
-                </properties>
-              </component>
-              <component id="d83c1" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Kursinformation"/>
-                </properties>
-              </component>
+                <border type="line">
+                  <color color="-11711155"/>
+                </border>
+                <children>
+                  <component id="32bbc" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Kursnamn"/>
+                    </properties>
+                  </component>
+                  <component id="1590c" class="javax.swing.JTextField" binding="courseName">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="6526b" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="40" height="16"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Kurskod"/>
+                    </properties>
+                  </component>
+                  <component id="9a534" class="javax.swing.JTextField" binding="courseCode">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="1d0e2" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="40" height="16"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Antal poäng"/>
+                    </properties>
+                  </component>
+                  <component id="fc1ff" class="javax.swing.JTextField" binding="coursePoints">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="d3b08" class="javax.swing.JCheckBox" binding="thesisCheckBox">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Kursen har ett självständigt arbete"/>
+                    </properties>
+                  </component>
+                  <component id="57d78" class="javax.swing.JCheckBox" binding="isDistanceCheckBox">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Kursen ges på distans"/>
+                    </properties>
+                  </component>
+                  <component id="d83c1" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Kursinformation"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
             </children>
           </grid>
         </children>
-      </grid>
-      <grid id="e3d65" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="450" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
+      </splitpane>
     </children>
   </grid>
 </form>

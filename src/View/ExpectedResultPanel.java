@@ -139,6 +139,7 @@ public class ExpectedResultPanel implements CoursePanel {
     private JRadioButton r164;
     private JRadioButton r165;
     private JRadioButton r166;
+    private JSplitPane splitPane;
 
     MainFrame frame;
     Properties properties;
@@ -231,6 +232,9 @@ public class ExpectedResultPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("ExpectedResultsTitle");
     }
+    public JSplitPane getSplitPane() {
+        return splitPane;
+    }
     public void updateView(Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
@@ -238,7 +242,7 @@ public class ExpectedResultPanel implements CoursePanel {
         if (!course.getGoals().isEmpty()) {
             setGoalFields(course);
         }
-        frame.keepSize();
+//        frame.keepSize(getSplitPane());
     }
 
     private void setGoalFields(Course course) {

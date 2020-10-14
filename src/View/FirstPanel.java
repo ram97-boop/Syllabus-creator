@@ -17,13 +17,15 @@ public class FirstPanel implements CoursePanel {
     private JTextField coursePoints;
     private JCheckBox isDistanceCheckBox;
     private JCheckBox thesisCheckBox;
+    private JSplitPane splitPane;
 
-
+    MainFrame frame;
     Properties properties;
 
     // Constructors
     public FirstPanel(MainFrame frame) {
         setVisibilityOfComponents();
+        this.frame = frame;
         properties = frame.getProperties();
     }
 
@@ -71,8 +73,13 @@ public class FirstPanel implements CoursePanel {
         return properties.getProperty("FirstPanelTitle");
     }
 
-    public void updateView(Course course) {
+    public JSplitPane getSplitPane() {
+        return splitPane;
+    }
 
+    public void updateView(Course course) {
+        splitPane.setDividerLocation(0.5);
+        System.out.println(splitPane.getDividerLocation());
     }
 
     // Action listeners methods
