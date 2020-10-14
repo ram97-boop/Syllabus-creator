@@ -14,12 +14,10 @@ public class CourseTest {
 	static void init() {
 		
 		// mock-up Course
-		c.setEngName("testCourse");
 		c.setDistance(true);
 		c.setLanguage("svenska");
 		c.setPrintGoalsAlt1(true);
-		c.setContent("innehåll");
-		c.setCourseContentText("kursinnehåll");
+		c.setCourseContentText("kursinnehÃ¥ll");
 		c.setTeaching("teachingTestString");
 		c.setThesis(true);
 		c.setThesisSupervisedHours("thesisSupervisedHourseTestString");
@@ -49,12 +47,10 @@ public class CourseTest {
 				c.getName().equals("testkurs") &&
 				c.getCredits() == 7.5 &&
 				c.getCode().equals("TE101") &&
-				c.getEngName().equals("testCourse") &&
 				c.isDistance() == true &&
 				c.getLanguage().equals("svenska") &&
 				c.getPrintGoalsAlt1() == true &&
-				c.getContent().equals("innehåll") &&
-				c.getCourseContentText().equals("kursinnehåll") &&
+				c.getCourseContentText().equals("kursinnehÃ¥ll") &&
 				c.getTeaching().equals("teachingTestString") &&
 				c.hasThesis() == true &&
 				c.getThesisSupervisedHours().equals("thesisSupervisedHourseTestString") &&
@@ -188,39 +184,6 @@ public class CourseTest {
 		
 		//getGoals() is also tested here.
 		assertTrue(c.getGoals().equals(goalsTest));
-	}
-	
-	
-	@Test
-	void testAddGoal() {
-		
-		// making sure courseParts in c is empty before the test.
-		ArrayList<Goal> emptyGoalArray = new ArrayList<Goal>();
-		c.setGoals(emptyGoalArray);
-		
-		Goal go1 = new Goal();
-		c.addGoal(go1);
-		
-		assertEquals(c.getGoals().get(0), go1);
-	}
-	
-	
-	@Test
-	void testRemoveGoal() {
-		
-		// making sure courseParts in c is empty before the test.
-		ArrayList<Goal> emptyGoalArray = new ArrayList<Goal>();
-		c.setGoals(emptyGoalArray);
-		
-		Goal go1 = new Goal();
-		Goal go2 = new Goal();
-		ArrayList<Goal> goalsTest = new ArrayList<Goal>();
-		goalsTest.add(go1);
-		goalsTest.add(go2);
-		c.setGoals(goalsTest);
-		c.removeGoal(go1);
-		
-		assertFalse(c.getGoals().remove(go1));
 	}
 
 }

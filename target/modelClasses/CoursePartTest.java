@@ -15,7 +15,6 @@ public class CoursePartTest {
 		cp.setName("kursDelNamn");
 		cp.setEngName("coursePartName");
 		cp.setCredits(2.5);
-		cp.setPartCode("TE");
 		cp.setExamination("examinationTestString");
 		ArrayList<String> g = new ArrayList<String>();
 		g.add("gradingScaleTestString");
@@ -31,7 +30,6 @@ public class CoursePartTest {
 				cp.getName().equals("kursDelNamn") &&
 				cp.getEngName().equals("coursePartName") &&
 				cp.getCredits() == 2.5 &&
-				cp.getPartCode().equals("TE") &&
 				cp.getExamination().equals("examinationTestString") &&
 				cp.getGradingScale().get(0).equals("gradingScaleTestString") &&
 				cp.getDecidesTotalGrade() == true);
