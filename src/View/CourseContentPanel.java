@@ -1,13 +1,14 @@
 package View;
 
 import model.Course;
+import model.CoursePart;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.stream.IntStream;
 
-// TODO Add more parts
-// TODO Ta bort alla delar om man väljer 0 delar efter att ha fyllt i delar
-// TODO Sätt - i printOut innan Del 1, 2 osv
+
 
 
 public class CourseContentPanel implements CoursePanel {
@@ -40,6 +41,8 @@ public class CourseContentPanel implements CoursePanel {
     private JPanel partsPanel;
     private JLabel courseContentLabel;
     private JLabel creditsLabel;
+    private JSplitPane splitPane;
+    private JButton saveButton;
 
 
     private JTextField[][] partFields = {
@@ -63,6 +66,30 @@ public class CourseContentPanel implements CoursePanel {
         this.frame = frame;
         properties = frame.getProperties();
         setToolTips();
+    }
+
+    public CourseContentPanel(MainFrame frame, Course course) {
+        setVisibilityOfComponents();
+        setUpComboBox();
+        addActionListeners();
+        this.frame = frame;
+        properties = frame.getProperties();
+        setToolTips();
+
+        nPartsComboBox.setSelectedItem(course.getCourseParts().size());
+        updatePartFields();
+
+        if (course.getCourseContentText() != null) {
+            courseContentTextPane.setText(course.getCourseContentText());
+        }
+
+        IntStream.range(0, course.getCourseParts().size()).forEach(index -> {
+            JTextField[] row = partFields[index];
+            ArrayList<CoursePart> courseParts = course.getCourseParts();
+            row[0].setText(courseParts.get(index).getName());
+            row[1].setText(courseParts.get(index).getEngName());
+            row[2].setText(String.valueOf(courseParts.get(index).getCredits()));
+        });
     }
 
     public CourseContentPanel() {
@@ -97,14 +124,19 @@ public class CourseContentPanel implements CoursePanel {
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
+    public JButton getSaveButton() {return saveButton;}
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
     public String getFrameName() {
         return properties.getProperty("CourseContentTitle");
     }
+    public JSplitPane getSplitPane() {
+        return splitPane;
+    }
     public void updateView(Course course) {
-
+        System.out.println(splitPane.getLastDividerLocation());
+        splitPane.setDividerLocation(splitPane.getLastDividerLocation());
     }
 
     // Action listener methods
@@ -120,13 +152,19 @@ public class CourseContentPanel implements CoursePanel {
             }
         }
         if (frame != null) {
-            frame.keepSize();
+            frame.keepSize(splitPane);
         }
     }
 
     // Getters to Controller
 
-    public JComboBox<Integer> getnPartsComboBox() {return nPartsComboBox;}
+    public JTextPane getCourseContentTextPane() {
+        return courseContentTextPane;
+    }
+
+    public JComboBox<Integer> getnPartsComboBox() {
+        return nPartsComboBox;
+    }
 
     public JTextField[][] getPartFields() {
         return partFields;

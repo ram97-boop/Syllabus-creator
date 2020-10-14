@@ -22,20 +22,32 @@ public class TeachingController implements CourseController {
         return teachingPanel;
     }
 
-
     public void updateModel() {
-        JCheckBox otherThanSwedishCheckBox = teachingPanel.getOtherThanSwedishCheckBox();
-        JRadioButton radioButtonCourseInEnglish = teachingPanel.getRadioButtonCourseInEnglish();
-        JRadioButton radioButtonLanguageGivenAtStart = teachingPanel.getRadioButtonLanguageGivenAtStart();
 
-        if (otherThanSwedishCheckBox.isSelected() && radioButtonCourseInEnglish.isSelected()) {
-            course.setLanguage("english");
-        } else if (otherThanSwedishCheckBox.isSelected() && radioButtonLanguageGivenAtStart.isSelected()) {
-            course.setLanguage("unknown");
-        } else {
-            course.setLanguage("swedish");
+        setCourseLanguage();
+
+        if (!course.isDistance()) {
+            course.setTeaching(teachingPanel.getTeachingPane().getText());
         }
 
+        if (course.hasThesis()) {
+            course.setThesisSupervisedHours(teachingPanel.getThesisSupervisedHoursField().getText());
+            course.setCanChangeSupervisor(teachingPanel.getCanChangeSupervisorCheckBox().isSelected());
+        }
+
+    }
+
+    private void setCourseLanguage() {
+        JCheckBox otherThanSwedishCheckBox = teachingPanel.getOtherThanSwedishCheckBox();
+        JRadioButton radioButtonCourseInEnglish = teachingPanel.getRadioButtonCourseInEnglish();
+
+        if (otherThanSwedishCheckBox.isSelected() && radioButtonCourseInEnglish.isSelected()) {
+            course.setLanguage(Language.ENGLISH.getLanguage());
+        } else if (otherThanSwedishCheckBox.isSelected() && !radioButtonCourseInEnglish.isSelected()) {
+            course.setLanguage(Language.NOT_SPECIFIED.getLanguage());
+        } else {
+            course.setLanguage(Language.SWEDISH.getLanguage());
+        }
     }
 
 }

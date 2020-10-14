@@ -17,7 +17,7 @@ public class CourseTest {
 		c.setDistance(true);
 		c.setLanguage("svenska");
 		c.setPrintGoalsAlt1(true);
-		c.setCourseContentText("kursinnehåll");
+		c.setCourseContentText("kursinnehÃ¥ll");
 		c.setTeaching("teachingTestString");
 		c.setThesis(true);
 		c.setThesisSupervisedHours("thesisSupervisedHourseTestString");
@@ -50,7 +50,7 @@ public class CourseTest {
 				c.isDistance() == true &&
 				c.getLanguage().equals("svenska") &&
 				c.getPrintGoalsAlt1() == true &&
-				c.getCourseContentText().equals("kursinnehåll") &&
+				c.getCourseContentText().equals("kursinnehÃ¥ll") &&
 				c.getTeaching().equals("teachingTestString") &&
 				c.hasThesis() == true &&
 				c.getThesisSupervisedHours().equals("thesisSupervisedHourseTestString") &&

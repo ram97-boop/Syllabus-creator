@@ -5,7 +5,6 @@ Created by: Sofia Ayata Karbin
 package controller;
 import View.FirstPanel;
 import model.Course;
-import model.GradingScale;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,8 +26,6 @@ public class FirstControllerTest {
         panel.getIsDistanceCheckBox().setSelected(false);
         panel.getThesisCheckBox().setSelected(false);
 
-        panel.getGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[0]);
-
     }
 
     @Test
@@ -46,16 +43,8 @@ public class FirstControllerTest {
         assertFalse(course.isDistance());
         assertFalse(course.hasThesis());
 
-        assertEquals(7, course.getGradingScale().size());
-        assertEquals("A", course.getGradingScale().get(0).substring(0,1));
-        assertEquals("B", course.getGradingScale().get(1).substring(0,1));
-        assertEquals("C", course.getGradingScale().get(2).substring(0,1));
-        assertEquals("D", course.getGradingScale().get(3).substring(0,1));
-        assertEquals("E", course.getGradingScale().get(4).substring(0,1));
-        assertEquals("Fx", course.getGradingScale().get(5).substring(0,2));
-        assertEquals("F", course.getGradingScale().get(6).substring(0,1));
-
         // assert have not been set
+        assertNull(course.getGradingScale());
         assertTrue(course.getCourseParts().isEmpty());
         assertTrue(course.getGoals().isEmpty());
         assertNull(course.getLanguage());
@@ -71,9 +60,6 @@ public class FirstControllerTest {
         panel.getIsDistanceCheckBox().setSelected(true);
         panel.getThesisCheckBox().setSelected(true);
 
-        panel.getGradingScaleComboBox().setSelectedItem(GradingScale.getGradingScaleStrings()[2]); // G-U
-
-
         firstController.updateModel();
 
         assertEquals(panel.getCourseName().getText(), course.getName());
@@ -82,11 +68,8 @@ public class FirstControllerTest {
         assertTrue(course.isDistance());
         assertTrue(course.hasThesis());
 
-        assertEquals(2, course.getGradingScale().size());
-        assertEquals("G", course.getGradingScale().get(0).substring(0,1));
-        assertEquals("U", course.getGradingScale().get(1).substring(0,1));
-
         // assert have not been set
+        assertNull(course.getGradingScale());
         assertTrue(course.getCourseParts().isEmpty());
         assertTrue(course.getGoals().isEmpty());
         assertNull(course.getLanguage());

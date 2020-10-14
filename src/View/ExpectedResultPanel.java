@@ -2,13 +2,13 @@ package View;
 
 import model.Course;
 import model.CoursePart;
+import model.Goal;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-// TODO Fler mål
 
 public class ExpectedResultPanel implements CoursePanel {
     private JPanel mainPanel;
@@ -111,6 +111,36 @@ public class ExpectedResultPanel implements CoursePanel {
     private JRadioButton printAlt1Radio;
     private JRadioButton printAlt2Radio;
     private JLabel goalsLabel;
+    private JTextField goal13;
+    private JTextField goal14;
+    private JTextField goal15;
+    private JTextField goal16;
+    private JRadioButton r131;
+    private JRadioButton r132;
+    private JRadioButton r133;
+    private JRadioButton r134;
+    private JRadioButton r135;
+    private JRadioButton r136;
+    private JRadioButton r141;
+    private JRadioButton r142;
+    private JRadioButton r143;
+    private JRadioButton r144;
+    private JRadioButton r145;
+    private JRadioButton r146;
+    private JRadioButton r151;
+    private JRadioButton r152;
+    private JRadioButton r153;
+    private JRadioButton r154;
+    private JRadioButton r155;
+    private JRadioButton r156;
+    private JRadioButton r161;
+    private JRadioButton r162;
+    private JRadioButton r163;
+    private JRadioButton r164;
+    private JRadioButton r165;
+    private JRadioButton r166;
+    private JSplitPane splitPane;
+    private JButton saveButton;
 
     MainFrame frame;
     Properties properties;
@@ -145,6 +175,16 @@ public class ExpectedResultPanel implements CoursePanel {
         setUpGoalsMap();
     }
 
+    public ExpectedResultPanel(MainFrame frame, Course course) {
+        setUpGoalsMap();
+        addActionListeners();
+        printAlt1Radio.setSelected(course.getPrintGoalsAlt1());
+        printAlt2Radio.setSelected(!course.getPrintGoalsAlt1());
+        this.frame = frame;
+        properties = frame.getProperties();
+        setToolTips();
+    }
+
     private void setUpGoalsMap() {
         goals.put(goal01, new JRadioButton[]{r011, r012, r013, r014, r015, r016});
         goals.put(goal02, new JRadioButton[]{r021, r022, r023, r024, r025, r026});
@@ -158,6 +198,10 @@ public class ExpectedResultPanel implements CoursePanel {
         goals.put(goal10, new JRadioButton[]{r101, r102, r103, r104, r105, r106});
         goals.put(goal11, new JRadioButton[]{r111, r112, r113, r114, r115, r116});
         goals.put(goal12, new JRadioButton[]{r121, r122, r123, r124, r125, r126});
+        goals.put(goal13, new JRadioButton[]{r131, r132, r133, r134, r135, r136});
+        goals.put(goal14, new JRadioButton[]{r141, r142, r143, r144, r145, r146});
+        goals.put(goal15, new JRadioButton[]{r151, r152, r153, r154, r155, r156});
+        goals.put(goal16, new JRadioButton[]{r161, r162, r163, r164, r165, r166});
     }
 
     private void addActionListeners() {
@@ -186,14 +230,55 @@ public class ExpectedResultPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public JButton getSaveButton() {return saveButton;}
     public String getFrameName() {
         return properties.getProperty("ExpectedResultsTitle");
+    }
+    public JSplitPane getSplitPane() {
+        return splitPane;
     }
     public void updateView(Course course) {
         updateCourseAttributes(course);
         setVisibilityOfComponents();
         setLabelNames();
-        frame.keepSize();
+        if (!course.getGoals().isEmpty()) {
+            setGoalFields(course);
+        }
+//        frame.keepSize(getSplitPane());
+    }
+
+    private void setGoalFields(Course course) {
+        ArrayList<Goal> goalsForCourse = course.getGoals();
+
+        List<Goal> collect = goalsForCourse.stream().filter(goalArray -> goalArray.getCourseParts().size() < course.getCourseParts().size()).collect(Collectors.toList());
+
+        IntStream.range(0, goalsForCourse.size()).forEach(index -> {
+            JTextField component;
+
+            if (index < 12) {
+                component = (JTextField) goalsPanel.getComponent(7 * index);
+            } else {
+                component = (JTextField)goalsPanel.getComponent(7 * (index + 1));
+            }
+
+            JRadioButton[] jRadioButtons = goals.get(component);
+            Goal goal = goalsForCourse.get(index);
+            IntStream.range(0, jRadioButtons.length).forEach(buttonIndex -> {
+                ArrayList<CoursePart> goalCourseParts = goal.getCourseParts();
+                boolean present = goalCourseParts.stream().anyMatch(part -> part.getName().toLowerCase().equals(partLabels[buttonIndex].getText().toLowerCase()));
+                if (present) {
+                    jRadioButtons[buttonIndex].setSelected(true);
+                }
+            });
+            component.setText(goal.getGoal());
+        });
+
+        if (collect.isEmpty() && !course.getCourseParts().isEmpty()) {
+            isConnectedToAll.setSelected(true);
+            updatePartsLabelsAndRadioButtons();
+            updatePrintOutRadios();
+        }
+
     }
 
     private void updateCourseAttributes(Course course) {
@@ -244,6 +329,10 @@ public class ExpectedResultPanel implements CoursePanel {
 
     public HashMap<JTextField, JRadioButton[]> getGoals() {
         return goals;
+    }
+
+    public JRadioButton getPrintAlt1Radio() {
+        return printAlt1Radio;
     }
 
 
@@ -303,6 +392,7 @@ public class ExpectedResultPanel implements CoursePanel {
                 }
             }
             i++;
+            outPutText += "\n";
         }
         return outPutText;
     }

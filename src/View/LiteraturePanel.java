@@ -14,6 +14,9 @@ public class LiteraturePanel implements CoursePanel {
     private JCheckBox multipleInstitutionsCheckBox;
     private JRadioButton radio1;
     private JRadioButton radio2;
+    private JTextField institutionField;
+    private JSplitPane splitPane;
+    private JButton saveButton;
 
     private boolean thesis = false;
 
@@ -27,6 +30,28 @@ public class LiteraturePanel implements CoursePanel {
         addActionListeners();
         properties = frame.getProperties();
         setToolTips();
+    }
+
+    public LiteraturePanel(MainFrame frame, Course course) {
+        nextPanelButton.setEnabled(false);
+        addActionListeners();
+        properties = frame.getProperties();
+        setToolTips();
+
+        if (course.getInstitution() != null) {
+            institutionField.setText(course.getInstitution());
+        }
+
+        multipleInstitutionsCheckBox.setSelected(course.hasMultipleInstitutions());
+        updateRadios();
+
+        if (course.hasMultipleInstitutions()) {
+            radio1.setSelected(course.getPrintMultipleInstitutionsAlt1());
+            radio2.setSelected(!course.getPrintMultipleInstitutionsAlt1());
+        } else {
+            radio1.setSelected(true);
+        }
+
     }
 
     public LiteraturePanel() {
@@ -54,8 +79,14 @@ public class LiteraturePanel implements CoursePanel {
         return previousPanelButton;
     }
 
+    public JButton getSaveButton() {return saveButton;}
+
     public String getFrameName() {
         return properties.getProperty("LiteratureTitle");
+    }
+
+    public JSplitPane getSplitPane() {
+        return splitPane;
     }
 
     public void updateView(Course course) {
@@ -75,6 +106,20 @@ public class LiteraturePanel implements CoursePanel {
         radio2.setVisible(multipleInstitutionsCheckBox.isSelected());
     }
 
+    // Getters
+
+    public JTextField getInstitutionField() {
+        return institutionField;
+    }
+
+    public JCheckBox getMultipleInstitutionsCheckBox() {
+        return multipleInstitutionsCheckBox;
+    }
+
+    public JRadioButton getRadio1() {
+        return radio1;
+    }
+
     // PrintOut methods
 
     public void printOut() {
@@ -90,15 +135,20 @@ public class LiteraturePanel implements CoursePanel {
     private String printOutMultipleInstitutions() {
         String outPutText = "";
         if (!multipleInstitutionsCheckBox.isSelected()) {
-            outPutText += "Kurslitteratur beslutas av institutionsstyrelsen och publiceras på " +
-                    "Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
+            outPutText += "Kurslitteratur beslutas av institutionsstyrelsen och publiceras på ";
+            outPutText += institutionField.getText();
+            outPutText += "s webbplats senast 2 månader före kursstart.\n\n";
         } else {
             if (radio1.isSelected()) {
                 outPutText += "Kurslitteratur beslutas av institutionsstyrelse där kursen är inrättad " +
-                        "och publiceras på Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
+                        "och publiceras på ";
+                outPutText += institutionField.getText();
+                outPutText += "s webbplats senast 2 månader före kursstart.\n\n";
             } else if (radio2.isSelected()) {
                 outPutText += "Kurslitteratur beslutas av respektive ansvarig institutionsstyrelse " +
-                        "och publiceras på Institutionen för XXs webbplats senast 2 månader före kursstart.\n\n";
+                        "och publiceras på ";
+                outPutText += institutionField.getText();
+                outPutText += "s webbplats senast 2 månader före kursstart.\n\n";
             }
         }
         return outPutText;
