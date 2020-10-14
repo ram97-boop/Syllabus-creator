@@ -6,7 +6,6 @@ public class Course {
 	
 	// General attributes
 	String name; // Name of the course
-	String engName; // English name of the course
 	double credits; // Credits earned from completing the course
 	String code; // The course's code
 	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>(); // Parts that the course consists of
@@ -19,7 +18,6 @@ public class Course {
 	boolean printGoalsAlt1;
 	
 	// Content, teaching
-	String content; // Content covered in the course
 	String courseContentText; // Description of the course content
 	String teaching; // How the course content is covered
 	boolean thesis; // Whether this course has a thesis or not
@@ -83,7 +81,6 @@ public class Course {
 	// Getters
 	
 	public String getName() {return name;}
-	public String getEngName() {return engName;}
 	public double getCredits() {return credits;}
 	public String getCode() {return code;}
 	public ArrayList<CoursePart> getCourseParts() {return courseParts;}
@@ -94,7 +91,6 @@ public class Course {
 	public ArrayList<Goal> getGoals() {return goals;}
 	public boolean getPrintGoalsAlt1() {return printGoalsAlt1;}
 
-	public String getContent() {return content;}
 	public String getCourseContentText() {return courseContentText;}
 	public String getTeaching() {return teaching;}
 	public boolean hasThesis() {return thesis;}
@@ -126,7 +122,6 @@ public class Course {
 	// Basic setters
 	
 	public void setName(String name) {this.name = name;}
-	public void setEngName(String engName) {this.engName = engName;}
 	public void setCredits(double credits) {this.credits = credits;}
 	public void setCode(String code) {this.code = code;}
 	public void setDistance(boolean distance) {this.distance = distance;}
@@ -134,7 +129,6 @@ public class Course {
 	
 	public void setPrintGoalsAlt1(boolean printGoalsAlt1) {this.printGoalsAlt1 = printGoalsAlt1;}
 
-	public void setContent(String content) {this.content = content;}
 	public void setCourseContentText(String courseContentText) {this.courseContentText = courseContentText;}
 	public void setTeaching(String teaching) {this.teaching = teaching;}
 	public void setThesis(boolean thesis) {this.thesis = thesis;}
@@ -172,7 +166,5 @@ public class Course {
 	public void setGradingScale(ArrayList<String> gradingScale) {this.gradingScale = gradingScale;}
 	
 	public void setGoals(ArrayList<Goal> goals) {this.goals = goals;}
-	public void addGoal(Goal goal) {goals.add(goal);}
-	public boolean removeGoal(Goal goal) {return goals.remove(goal);}
 	
 }
