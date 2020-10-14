@@ -358,6 +358,8 @@ public class ExaminationPanel implements CoursePanel {
             if (course.getCourseParts().get(i).getExamination() != null) {
                 String examination = course.getCourseParts().get(i).getExamination();
                 examinationField.setText(examination);
+            } else {
+                examinationField.setText("");
             }
         });
     }
