@@ -356,6 +356,65 @@ public class CourseContentControllerTest {
 
     }
 
+    @Test
+    public void changingOrderOfCoursePartsAndAddingNewCoursePartShouldResultInNewOrderIsSetWithSameCoursePartsForCourse() {
+
+        course.addCoursePart(thirdPart);
+        course.addCoursePart(firstPart);
+
+        setUpThreeTextFields();
+
+        courseContentController.updateModel();
+
+        assertEquals(3, course.getCourseParts().size());
+
+        assertEquals(firstPart.getName(), course.getCourseParts().get(0).getName());
+        assertEquals(firstPart.getEngName(), course.getCourseParts().get(0).getEngName());
+        assertTrue(Math.abs(1.5 - course.getCourseParts().get(0).getCredits()) < 1e-8);
+
+        assertEquals(secondPart.getName(), course.getCourseParts().get(1).getName());
+        assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
+        assertTrue(Math.abs(3 - course.getCourseParts().get(1).getCredits()) < 1e-8);
+
+        assertEquals(thirdPart.getName(), course.getCourseParts().get(2).getName());
+        assertEquals(thirdPart.getEngName(), course.getCourseParts().get(2).getEngName());
+        assertTrue(Math.abs(3 - course.getCourseParts().get(2).getCredits()) < 1e-8);
+
+    }
+
+    @Test
+    public void changingOrderOfCoursePartsAndRemovingCoursePartShouldResultInNewOrderIsSetWithSameCoursePartsForCourse() {
+
+        CoursePart extraPart = new CoursePart();
+        extraPart.setName("Extra");
+        extraPart.setEngName("Extra");
+        extraPart.setCredits(2.5);
+
+        course.addCoursePart(secondPart);
+        course.addCoursePart(extraPart);
+        course.addCoursePart(thirdPart);
+        course.addCoursePart(firstPart);
+
+        setUpThreeTextFields();
+
+        courseContentController.updateModel();
+
+        assertEquals(3, course.getCourseParts().size());
+
+        assertEquals(firstPart.getName(), course.getCourseParts().get(0).getName());
+        assertEquals(firstPart.getEngName(), course.getCourseParts().get(0).getEngName());
+        assertTrue(Math.abs(1.5 - course.getCourseParts().get(0).getCredits()) < 1e-8);
+
+        assertEquals(secondPart.getName(), course.getCourseParts().get(1).getName());
+        assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
+        assertTrue(Math.abs(3 - course.getCourseParts().get(1).getCredits()) < 1e-8);
+
+        assertEquals(thirdPart.getName(), course.getCourseParts().get(2).getName());
+        assertEquals(thirdPart.getEngName(), course.getCourseParts().get(2).getEngName());
+        assertTrue(Math.abs(3 - course.getCourseParts().get(2).getCredits()) < 1e-8);
+
+    }
+
     private void setUpThreeTextFields() {
 
         JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
