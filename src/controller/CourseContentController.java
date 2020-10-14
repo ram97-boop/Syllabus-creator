@@ -77,14 +77,18 @@ public class CourseContentController implements CourseController {
                     coursePart.setCredits(coursePartEntered.getCredits());
                 });
 
-        ArrayList<CoursePart> sortedList = new ArrayList<>();
-
         enteredCourseParts.forEach(part -> {
+            int index = enteredCourseParts.indexOf(part);
             List<CoursePart> collect2 = courseParts.stream().filter(coursePart -> coursePart.getName().toLowerCase().equals(part.getName().toLowerCase())).collect(Collectors.toList());
-            sortedList.add(collect2.get(0));
+            String name = collect2.get(0).getName().toLowerCase();
+            if (!courseParts.get(index).getName().toLowerCase().equals(name)) {
+                try {
+                    course.swapCourseParts(courseParts.get(index), collect2.get(0));
+                } catch (Exception e) {
+                    throw new RuntimeException("Kunde inte byta plats på kursdelar");
+                }
+            }
         });
-
-        course.setCourseParts(sortedList);
     }
 
     private ArrayList<CoursePart> setUpArrayListOfCoursePartsFromUserInput() {
