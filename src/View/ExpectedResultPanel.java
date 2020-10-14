@@ -250,7 +250,10 @@ public class ExpectedResultPanel implements CoursePanel {
     private void setGoalFields(Course course) {
         ArrayList<Goal> goalsForCourse = course.getGoals();
 
-        goals.values().stream().forEach(jRadioButtons -> Arrays.stream(jRadioButtons).forEach(jRadioButton -> jRadioButton.setSelected(false)));
+        goals.forEach((goalField, jRadioButtons) -> {
+            Arrays.stream(jRadioButtons).forEach(jRadioButton -> jRadioButton.setSelected(false));
+            goalField.setText("");
+        });
 
         List<Goal> collect = goalsForCourse.stream().filter(goalArray -> goalArray.getCourseParts().size() < course.getCourseParts().size()).collect(Collectors.toList());
 
