@@ -70,6 +70,8 @@ public class FirstPanel implements CoursePanel {
         return previousPanelButton;
     }
 
+    public JButton getSaveButton() {return saveButton;}
+
     public String getFrameName() {
         return properties.getProperty("FirstPanelTitle");
     }
