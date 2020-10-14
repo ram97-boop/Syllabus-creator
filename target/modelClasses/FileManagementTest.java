@@ -17,7 +17,6 @@ public class FileManagementTest {
 		
 		// Setting up a mock-up Course. Can be printed out just to see.
 		c.setName("testKurs");
-		c.setEngName("testCourse");
 		c.setCredits(7.5);
 		c.setCode("TE0001");
 		c.setDistance(false);
@@ -42,10 +41,10 @@ public class FileManagementTest {
 		c.setGradingScale(g.getGradingScale(7));
 		Goal go1 = new Goal();
 		go1.addCoursePart(cp1);
-		go1.describeGoal("Testmål1");
+		go1.describeGoal("Testmï¿½l1");
 		Goal go2 = new Goal();
 		go2.addCoursePart(cp2);
-		go2.describeGoal("Testmål2");
+		go2.describeGoal("Testmï¿½l2");
 		ArrayList<Goal> goals = new ArrayList<Goal>();
 		goals.add(go1);
 		goals.add(go2);
@@ -77,7 +76,6 @@ public class FileManagementTest {
 		
 		// Second mock-up.
 		c.setName("testKurs2");
-		c.setEngName("testCourse");
 		c.setCredits(7.5);
 		c.setCode("TE0001");
 		c.setDistance(false);
@@ -102,10 +100,10 @@ public class FileManagementTest {
 		c.setGradingScale(g.getGradingScale(7));
 		Goal go1 = new Goal();
 		go1.addCoursePart(cp1);
-		go1.describeGoal("Testmål1");
+		go1.describeGoal("Testmï¿½l1");
 		Goal go2 = new Goal();
 		go2.addCoursePart(cp2);
-		go2.describeGoal("Testmål2");
+		go2.describeGoal("Testmï¿½l2");
 		ArrayList<Goal> goals = new ArrayList<Goal>();
 		goals.add(go1);
 		goals.add(go2);
