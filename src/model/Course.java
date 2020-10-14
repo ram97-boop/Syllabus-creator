@@ -18,7 +18,6 @@ public class Course {
 	boolean printGoalsAlt1;
 	
 	// Content, teaching
-	String content; // Content covered in the course
 	String courseContentText; // Description of the course content
 	String teaching; // How the course content is covered
 	boolean thesis; // Whether this course has a thesis or not
@@ -92,7 +91,6 @@ public class Course {
 	public ArrayList<Goal> getGoals() {return goals;}
 	public boolean getPrintGoalsAlt1() {return printGoalsAlt1;}
 
-	public String getContent() {return content;}
 	public String getCourseContentText() {return courseContentText;}
 	public String getTeaching() {return teaching;}
 	public boolean hasThesis() {return thesis;}
@@ -131,7 +129,6 @@ public class Course {
 	
 	public void setPrintGoalsAlt1(boolean printGoalsAlt1) {this.printGoalsAlt1 = printGoalsAlt1;}
 
-	public void setContent(String content) {this.content = content;}
 	public void setCourseContentText(String courseContentText) {this.courseContentText = courseContentText;}
 	public void setTeaching(String teaching) {this.teaching = teaching;}
 	public void setThesis(boolean thesis) {this.thesis = thesis;}
