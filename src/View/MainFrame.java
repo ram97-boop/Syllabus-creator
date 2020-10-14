@@ -64,11 +64,6 @@ public class MainFrame extends JFrame {
         this.setContentPane(controllers[nextIndex].getPanel().getPanel());
         this.setTitle(properties.getProperty("Frame_name") + " | " + controllers[nextIndex].getPanel().getFrameName());
         keepSize();
-
-        // should not be here maybe - but just to see that it works
-        if (nextIndex>0) {
-            saveCourse();
-        }
     }
 
     private void saveCourse() {
@@ -85,6 +80,7 @@ public class MainFrame extends JFrame {
             controllers[i].getPanel().getNextPanelButton().addActionListener(e -> {
                 try{
                     controllers[finalI].updateModel();
+                    saveCourse();
                     changePanel(finalI + 1);
                 } catch (RuntimeException exception) {
                     JOptionPane.showMessageDialog(null, exception.getMessage());
@@ -93,6 +89,14 @@ public class MainFrame extends JFrame {
             controllers[i].getPanel().getPreviousPanelButton().addActionListener(e -> {
                 try {
                     changePanel(finalI - 1);
+                } catch (RuntimeException exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
+                }
+            });
+            controllers[i].getPanel().getSaveButton().addActionListener(e -> {
+                try {
+                    controllers[finalI].updateModel();
+                    saveCourse();
                 } catch (RuntimeException exception) {
                     JOptionPane.showMessageDialog(null, exception.getMessage());
                 }
