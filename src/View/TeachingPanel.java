@@ -23,6 +23,7 @@ public class TeachingPanel implements CoursePanel {
     private JButton printOutButton;
     private JTextPane teachingPane;
     private JSplitPane splitPane;
+    private JButton saveButton;
 
     boolean isDistance = false;
     boolean thesis = false;

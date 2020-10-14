@@ -18,6 +18,7 @@ public class FirstPanel implements CoursePanel {
     private JCheckBox isDistanceCheckBox;
     private JCheckBox thesisCheckBox;
     private JSplitPane splitPane;
+    private JButton saveButton;
 
     MainFrame frame;
     Properties properties;

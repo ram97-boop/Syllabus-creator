@@ -42,6 +42,7 @@ public class CourseContentPanel implements CoursePanel {
     private JLabel courseContentLabel;
     private JLabel creditsLabel;
     private JSplitPane splitPane;
+    private JButton saveButton;
 
 
     private JTextField[][] partFields = {
@@ -149,9 +150,9 @@ public class CourseContentPanel implements CoursePanel {
                 field.setVisible(i < nParts);
             }
         }
-//        if (frame != null) {
-//            frame.keepSize(getSplitPane());
-//        }
+        if (frame != null) {
+            frame.keepSize();
+        }
     }
 
     // Getters to Controller

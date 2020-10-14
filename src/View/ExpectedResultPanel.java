@@ -140,6 +140,7 @@ public class ExpectedResultPanel implements CoursePanel {
     private JRadioButton r165;
     private JRadioButton r166;
     private JSplitPane splitPane;
+    private JButton saveButton;
 
     MainFrame frame;
     Properties properties;
