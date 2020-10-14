@@ -124,6 +124,7 @@ public class CourseContentPanel implements CoursePanel {
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
+    public JButton getSaveButton() {return saveButton;}
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
