@@ -70,6 +70,7 @@ public class MainFrame extends JFrame {
         if (nextIndex>0) {
             saveCourse();
         }
+
     }
 
     private void saveCourse() {
@@ -86,6 +87,7 @@ public class MainFrame extends JFrame {
             controllers[i].getPanel().getNextPanelButton().addActionListener(e -> {
                 try{
                     controllers[finalI].updateModel();
+                    saveCourse();
                     changePanel(finalI + 1);
                 } catch (RuntimeException exception) {
                     JOptionPane.showMessageDialog(null, exception.getMessage());
@@ -94,6 +96,14 @@ public class MainFrame extends JFrame {
             controllers[i].getPanel().getPreviousPanelButton().addActionListener(e -> {
                 try {
                     changePanel(finalI - 1);
+                } catch (RuntimeException exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
+                }
+            });
+            controllers[i].getPanel().getSaveButton().addActionListener(e -> {
+                try {
+                    controllers[finalI].updateModel();
+                    saveCourse();
                 } catch (RuntimeException exception) {
                     JOptionPane.showMessageDialog(null, exception.getMessage());
                 }

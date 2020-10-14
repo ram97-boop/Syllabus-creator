@@ -79,6 +79,8 @@ public class LiteraturePanel implements CoursePanel {
         return previousPanelButton;
     }
 
+    public JButton getSaveButton() {return saveButton;}
+
     public String getFrameName() {
         return properties.getProperty("LiteratureTitle");
     }

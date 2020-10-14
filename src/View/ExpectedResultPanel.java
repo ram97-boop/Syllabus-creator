@@ -230,6 +230,7 @@ public class ExpectedResultPanel implements CoursePanel {
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+    public JButton getSaveButton() {return saveButton;}
     public String getFrameName() {
         return properties.getProperty("ExpectedResultsTitle");
     }
