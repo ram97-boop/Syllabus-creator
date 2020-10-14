@@ -60,10 +60,17 @@ public class MainFrame extends JFrame {
     }
 
     private void changePanel(int nextIndex) {
-        controllers[nextIndex].getPanel().updateView(course);
-        this.setContentPane(controllers[nextIndex].getPanel().getPanel());
-        this.setTitle(properties.getProperty("Frame_name") + " | " + controllers[nextIndex].getPanel().getFrameName());
-        keepSize();
+        CoursePanel coursePanel = controllers[nextIndex].getPanel();
+        coursePanel.updateView(course);
+        this.setContentPane(coursePanel.getPanel());
+        this.setTitle(properties.getProperty("Frame_name") + " | " + coursePanel.getFrameName());
+        keepSize(coursePanel.getSplitPane());
+
+        // should not be here maybe - but just to see that it works
+        if (nextIndex>0) {
+            saveCourse();
+        }
+
     }
 
     private void saveCourse() {
@@ -104,11 +111,12 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void keepSize() {
+    public void keepSize(JSplitPane splitPane) {
         width = this.getWidth();
         height = this.getHeight();
         this.pack();
         this.setSize(width, height);
+        splitPane.setDividerLocation(1.0d);
     }
 
     public Properties getProperties() {
