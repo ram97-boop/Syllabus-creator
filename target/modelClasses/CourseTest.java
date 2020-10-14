@@ -47,11 +47,9 @@ public class CourseTest {
 				c.getName().equals("testkurs") &&
 				c.getCredits() == 7.5 &&
 				c.getCode().equals("TE101") &&
-				c.getEngName().equals("testCourse") &&
 				c.isDistance() == true &&
 				c.getLanguage().equals("svenska") &&
 				c.getPrintGoalsAlt1() == true &&
-				c.getContent().equals("innehåll") &&
 				c.getCourseContentText().equals("kursinnehåll") &&
 				c.getTeaching().equals("teachingTestString") &&
 				c.hasThesis() == true &&
