@@ -6,7 +6,6 @@ public class Course {
 	
 	// General attributes
 	String name; // Name of the course
-	String engName; // English name of the course
 	double credits; // Credits earned from completing the course
 	String code; // The course's code
 	ArrayList<CoursePart> courseParts = new ArrayList<CoursePart>(); // Parts that the course consists of
@@ -83,7 +82,6 @@ public class Course {
 	// Getters
 	
 	public String getName() {return name;}
-	public String getEngName() {return engName;}
 	public double getCredits() {return credits;}
 	public String getCode() {return code;}
 	public ArrayList<CoursePart> getCourseParts() {return courseParts;}
@@ -126,7 +124,6 @@ public class Course {
 	// Basic setters
 	
 	public void setName(String name) {this.name = name;}
-	public void setEngName(String engName) {this.engName = engName;}
 	public void setCredits(double credits) {this.credits = credits;}
 	public void setCode(String code) {this.code = code;}
 	public void setDistance(boolean distance) {this.distance = distance;}
