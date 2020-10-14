@@ -171,7 +171,7 @@ public class CourseTest {
 	@Test
 	void testSetGoals() {
 		
-		// making sure courseParts in c is empty before the test.
+		// making sure Goals in c is empty before the test.
 		ArrayList<Goal> emptyGoalArray = new ArrayList<Goal>();
 		c.setGoals(emptyGoalArray);
 		
