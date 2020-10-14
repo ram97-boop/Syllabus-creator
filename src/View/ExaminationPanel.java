@@ -88,6 +88,7 @@ public class ExaminationPanel implements CoursePanel {
     private JTextPane distanceAttendancePane;
     private JSplitPane splitPane;
     private JTextPane dPane;
+    private JButton saveButton;
 
     Properties properties;
 

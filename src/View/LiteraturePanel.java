@@ -16,6 +16,7 @@ public class LiteraturePanel implements CoursePanel {
     private JRadioButton radio2;
     private JTextField institutionField;
     private JSplitPane splitPane;
+    private JButton saveButton;
 
     private boolean thesis = false;
 
