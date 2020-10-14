@@ -166,7 +166,5 @@ public class Course {
 	public void setGradingScale(ArrayList<String> gradingScale) {this.gradingScale = gradingScale;}
 	
 	public void setGoals(ArrayList<Goal> goals) {this.goals = goals;}
-	public void addGoal(Goal goal) {goals.add(goal);}
-	public boolean removeGoal(Goal goal) {return goals.remove(goal);}
 	
 }
