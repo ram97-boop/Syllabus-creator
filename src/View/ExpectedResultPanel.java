@@ -309,7 +309,6 @@ public class ExpectedResultPanel implements CoursePanel {
         for (JRadioButton[] radioPanel : goals.values()) {
             for (int i = 0; i < radioPanel.length; i++) {
                 radioPanel[i].setVisible(!isConnectedToAll.isSelected() && i < nParts);
-                radioPanel[i].setSelected(false);
             }
         }
 
