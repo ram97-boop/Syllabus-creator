@@ -66,7 +66,7 @@ public class StartPanelController {
                 new ExpectedResultPanel(frame, course),
                 new TeachingPanel(frame, course),
                 new ExaminationPanel(frame, course),
-                new LiteraturePanel(frame)};
+                new LiteraturePanel(frame, course)};
     }
 
 }

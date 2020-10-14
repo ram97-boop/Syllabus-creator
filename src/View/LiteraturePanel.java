@@ -30,6 +30,28 @@ public class LiteraturePanel implements CoursePanel {
         setToolTips();
     }
 
+    public LiteraturePanel(MainFrame frame, Course course) {
+        nextPanelButton.setEnabled(false);
+        addActionListeners();
+        properties = frame.getProperties();
+        setToolTips();
+
+        if (course.getInstitution() != null) {
+            institutionField.setText(course.getInstitution());
+        }
+
+        multipleInstitutionsCheckBox.setSelected(course.hasMultipleInstitutions());
+        updateRadios();
+
+        if (course.hasMultipleInstitutions()) {
+            radio1.setSelected(course.getPrintMultipleInstitutionsAlt1());
+            radio2.setSelected(!course.getPrintMultipleInstitutionsAlt1());
+        } else {
+            radio1.setSelected(true);
+        }
+
+    }
+
     public LiteraturePanel() {
 
     }
