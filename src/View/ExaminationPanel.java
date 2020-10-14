@@ -76,7 +76,6 @@ public class ExaminationPanel implements CoursePanel {
     private JTextPane ePane;
     private JTextPane examinationPane;
     private JComboBox<String> courseGradingScaleComboBox;
-    private JTextPane dPane;
     private JRadioButton gradeCertainPart1;
     private JRadioButton gradeCertainPart2;
     private JRadioButton gradeCertainPart3;
@@ -87,6 +86,8 @@ public class ExaminationPanel implements CoursePanel {
     private JTextPane totalGradeAlt3TextPane;
     private JTextPane notDistanceAttendancePane;
     private JTextPane distanceAttendancePane;
+    private JSplitPane splitPane;
+    private JTextPane dPane;
 
     Properties properties;
 
@@ -310,6 +311,9 @@ public class ExaminationPanel implements CoursePanel {
     }
     public String getFrameName() {
         return properties.getProperty("ExaminationTitle");
+    }
+    public JSplitPane getSplitPane() {
+        return splitPane;
     }
     public void updateView(Course course) {
         updateCourseAttributes(course);

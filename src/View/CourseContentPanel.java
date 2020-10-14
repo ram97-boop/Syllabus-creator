@@ -41,6 +41,7 @@ public class CourseContentPanel implements CoursePanel {
     private JPanel partsPanel;
     private JLabel courseContentLabel;
     private JLabel creditsLabel;
+    private JSplitPane splitPane;
 
 
     private JTextField[][] partFields = {
@@ -128,8 +129,12 @@ public class CourseContentPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("CourseContentTitle");
     }
+    public JSplitPane getSplitPane() {
+        return splitPane;
+    }
     public void updateView(Course course) {
-
+        System.out.println(splitPane.getLastDividerLocation());
+        splitPane.setDividerLocation(splitPane.getLastDividerLocation());
     }
 
     // Action listener methods
@@ -144,9 +149,9 @@ public class CourseContentPanel implements CoursePanel {
                 field.setVisible(i < nParts);
             }
         }
-        if (frame != null) {
-            frame.keepSize();
-        }
+//        if (frame != null) {
+//            frame.keepSize(getSplitPane());
+//        }
     }
 
     // Getters to Controller

@@ -9,5 +9,6 @@ public interface CoursePanel {
     JButton getPreviousPanelButton();
     JButton getNextPanelButton();
     String getFrameName();
+    JSplitPane getSplitPane();
     void updateView(Course course);
 }
