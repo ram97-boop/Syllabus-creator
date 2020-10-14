@@ -21,7 +21,7 @@
         <border type="none"/>
         <children>
           <grid id="37aa8" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="3" left="3" bottom="3" right="30"/>
+            <margin top="3" left="3" bottom="3" right="3"/>
             <constraints>
               <splitpane position="left"/>
             </constraints>
@@ -96,7 +96,7 @@
             </children>
           </grid>
           <grid id="db9d9" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="3" left="3" bottom="3" right="30"/>
+            <margin top="3" left="3" bottom="3" right="3"/>
             <constraints>
               <splitpane position="right"/>
             </constraints>

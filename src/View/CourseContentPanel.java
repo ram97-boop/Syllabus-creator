@@ -151,7 +151,7 @@ public class CourseContentPanel implements CoursePanel {
             }
         }
         if (frame != null) {
-            frame.keepSize();
+            frame.keepSize(splitPane);
         }
     }
 
