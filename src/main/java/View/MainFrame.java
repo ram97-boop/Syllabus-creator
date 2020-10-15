@@ -1,7 +1,6 @@
 package View;
 
-import controller.CourseController;
-import controller.StartPanelController;
+import controller.*;
 import model.Course;
 import model.FileManagement;
 
