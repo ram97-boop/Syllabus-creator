@@ -6,7 +6,7 @@ import model.Goal;
 import model.CoursePart;
 import org.junit.jupiter.api.Test;
 
-class GoalTest {
+public class GoalTest {
 	Goal g = new Goal();
 	String testDescription = "This is a test goal.";
 	CoursePart testC1 = new CoursePart();
