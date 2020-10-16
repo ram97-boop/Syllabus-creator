@@ -170,6 +170,10 @@ public class CourseContentPanel implements CoursePanel {
         return partFields;
     }
 
+    public JTextPane getPrintOutPane() {
+        return printOutPane;
+    }
+
     // Print out
 
     public void printOut() {
