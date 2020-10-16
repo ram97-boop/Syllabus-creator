@@ -32,11 +32,12 @@ public class CourseContentPanelTest {
         partFields[1][0].setText("Projekt");
         partFields[1][1].setText("Project");
         partFields[1][2].setText("4.5");
+
+        panel.printOut();
     }
 
     @Test
     public void printOutShouldPrintOutCorrect() {
-        panel.printOut();
         String actualOutput = panel.getPrintOutPane().getText();
         String expectedOutput = "a. Kursen behandlar: Systematiska principer för konstruktion av korrekt och robust mjukvara.\n" +
                 "Projektplanering och projektdokumentation.\n" +
@@ -48,6 +49,6 @@ public class CourseContentPanelTest {
                 "Del 1, Teori (Theory), 3 hp\n" +
                 "Del 2, Projekt (Project), 4,5 hp\n";
 
-        assertEquals(actualOutput, expectedOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }
