@@ -1,12 +1,8 @@
 package View;
 
 import model.Course;
-import model.GradingScale;
-
 import javax.swing.*;
-import java.util.HashMap;
 import java.util.Properties;
-
 
 public class FirstPanel implements CoursePanel {
     private JButton nextPanelButton;
