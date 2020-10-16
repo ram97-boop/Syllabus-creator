@@ -503,6 +503,10 @@ public class ExaminationPanel implements CoursePanel {
         return englishRadio1;
     }
 
+    public JRadioButton getEnglishRadio2() {
+        return englishRadio2;
+    }
+
     public JCheckBox getHasAttendanceCheckBox() {
         return hasAttendanceCheckBox;
     }
@@ -563,6 +567,10 @@ public class ExaminationPanel implements CoursePanel {
                 noSupplementRadio1,
                 noSupplementRadio2
         };
+    }
+
+    public JTextPane getPrintOutPane() {
+        return printOutPane;
     }
 
     // PrintOut methods
