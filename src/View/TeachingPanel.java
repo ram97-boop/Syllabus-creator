@@ -137,6 +137,10 @@ public class TeachingPanel implements CoursePanel {
         return radio1;
     }
 
+    public JRadioButton getRadioButtonCourseLanguageNotSpecified() {
+        return radio2;
+    }
+
     public JTextField getThesisSupervisedHoursField() {
         return thesisSupervisedHoursField;
     }
@@ -145,6 +149,9 @@ public class TeachingPanel implements CoursePanel {
         return canChangeSupervisorCheckBox;
     }
 
+    public JTextPane getPrintOutPane() {
+        return printOutPane;
+    }
 
     // PrintOut method
     public void printOut() {
