@@ -340,6 +340,10 @@ public class ExpectedResultPanel implements CoursePanel {
         return printAlt1Radio;
     }
 
+    public JTextPane getPrintOutPane() {
+        return printOutPane;
+    }
+
 
     // Print out
     public void printOut() {
