@@ -5,10 +5,10 @@ För att köra programmet är det enklast att köra jar filen alternativt att k�
 
 ### JAR fil
 
-- För att kunna köra programmet på redan sparde klasser behöver dessa filer ligga i samma mapp som jar filen.
+- För att kunna köra programmet på redan sparade klasser behöver dessa filer ligga i samma mapp som jar filen.
 
 ### IntelliJ IDEA
 
 - Main-klassen ligger under src/View och heter MainFrame.
-- För att kunna köra programmet på redan sparde klasser behöver dessa filer ligga direkt under Syllabus-creator, 
+- För att kunna köra programmet på redan sparade klasser behöver dessa filer ligga direkt under Syllabus-creator, 
 alltså på samma nivå som mapparna src, target osv.

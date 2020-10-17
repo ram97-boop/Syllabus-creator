@@ -120,6 +120,10 @@ public class LiteraturePanel implements CoursePanel {
         return radio1;
     }
 
+    public JTextPane getPrintOutPane() {
+        return printOutPane;
+    }
+
     // PrintOut methods
 
     public void printOut() {
