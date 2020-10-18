@@ -9,8 +9,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * ExpectedResultPanel
+ * Implements CoursePanel
+ *
+ * Handles all components in the JPanel component mainPanel
+ * used when the user is entering goals and expected results
+ * of the course.
+ *
+ * @author Mikael Stener
+ */
 
 public class ExpectedResultPanel implements CoursePanel {
+    /**
+     * Swing components
+     */
     private JPanel mainPanel;
     private JButton nextPanelButton;
     private JButton previousPanelButton;
@@ -142,10 +155,9 @@ public class ExpectedResultPanel implements CoursePanel {
     private JSplitPane splitPane;
     private JButton saveButton;
 
-    MainFrame frame;
-    Properties properties;
-
-
+    /**
+     * Collections of swing components
+     */
     private final JLabel[] partLabels = {
         partLabel1,
         partLabel2,
@@ -157,11 +169,23 @@ public class ExpectedResultPanel implements CoursePanel {
 
     private final LinkedHashMap<JTextField, JRadioButton[]> goals = new LinkedHashMap<>();
 
+    /**
+     * Course attributes
+     */
     ArrayList<CoursePart> courseParts;
     int nParts = 0;
     boolean hasParts = false;
 
-    //Constructors
+    /**
+     * MainFrame attributes
+     */
+    MainFrame frame;
+    Properties properties;
+
+    /**
+     * Constructors
+     */
+
     public ExpectedResultPanel(MainFrame frame) {
         setUpGoalsMap();
         addActionListeners();
@@ -185,6 +209,13 @@ public class ExpectedResultPanel implements CoursePanel {
         setToolTips();
     }
 
+    /**
+     * Helper methods to constructors
+     */
+
+    /**
+     * Add items to goals.
+     */
     private void setUpGoalsMap() {
         goals.put(goal01, new JRadioButton[]{r011, r012, r013, r014, r015, r016});
         goals.put(goal02, new JRadioButton[]{r021, r022, r023, r024, r025, r026});
@@ -204,6 +235,9 @@ public class ExpectedResultPanel implements CoursePanel {
         goals.put(goal16, new JRadioButton[]{r161, r162, r163, r164, r165, r166});
     }
 
+    /**
+     * Add action listeners to components.
+     */
     private void addActionListeners() {
         isConnectedToAll.addActionListener(e -> {
             updatePartsLabelsAndRadioButtons();
@@ -214,39 +248,85 @@ public class ExpectedResultPanel implements CoursePanel {
         printOutButton.addActionListener(e -> printOut());
     }
 
+    /**
+     * Setting tool tips (help text popups).
+     */
     private void setToolTips() {
         goalsLabel.setToolTipText(properties.getProperty("courseContentLabelToolTip"));
         printAlt1Radio.setToolTipText(properties.getProperty("expectedResultsPrintOutAlt1ToolTip"));
         printAlt2Radio.setToolTipText(properties.getProperty("expectedResultsPrintOutAlt2ToolTip"));
     }
 
-    // Interface methods
+    /**
+     * Methods from interface CoursePanel
+     */
+
+    /**
+     * Returns JPanel with all content.
+     * @return
+     */
     public JPanel getPanel() {
         return mainPanel;
     }
+
+    /**
+     * Returns next panel button.
+     * @return
+     */
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
+
+    /**
+     * Returns previous panel button.
+     * @return
+     */
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+
+    /**
+     * Returns button to save course.
+     * @return
+     */
     public JButton getSaveButton() {return saveButton;}
+
+    /**
+     * Returns title to be set in MainFrame when this panel is shown.
+     * @return A string from properties file.
+     */
     public String getFrameName() {
         return properties.getProperty("ExpectedResultsTitle");
     }
+    /**
+     * Returns the JSplitPane of this panel.
+     * @return
+     */
     public JSplitPane getSplitPane() {
         return splitPane;
     }
+
+    /**
+     * Updates components of the panel based on previously entered attributes of course.
+     * @param course
+     */
     public void updateView(Course course) {
         updateCourseAttributes(course);
-        setVisibilityOfComponents();
+        updateComponents();
         setLabelNames();
         if (!course.getGoals().isEmpty()) {
             setGoalFields(course);
         }
-//        frame.keepSize(getSplitPane());
     }
 
+    /**
+     * Helper methods for updateView
+     */
+
+    /**
+     *
+     * @param course
+     */
     private void setGoalFields(Course course) {
         ArrayList<Goal> goalsForCourse = course.getGoals();
 
@@ -286,19 +366,29 @@ public class ExpectedResultPanel implements CoursePanel {
 
     }
 
+    /**
+     * Updates course attributes based on previously entered attributes of course.
+     * @param course
+     */
     private void updateCourseAttributes(Course course) {
         courseParts = course.getCourseParts();
         nParts = courseParts.size();
         hasParts = nParts > 0;
     }
 
-    private void setVisibilityOfComponents() {
+    /**
+     * Updates swing components based on previously entered attributes of course.
+     */
+    private void updateComponents() {
         updatePartsLabelsAndRadioButtons();
         isConnectedToAll.setVisible(hasParts);
         printAlt1Radio.setVisible(hasParts);
         printAlt2Radio.setVisible(hasParts);
     }
 
+    /**
+     * Sets label names based on previously entered attributes of course.
+     */
     private void setLabelNames() {
         for (int i = 0; i < nParts; i++) {
             String partName = courseParts.get(i).getName();
@@ -306,7 +396,14 @@ public class ExpectedResultPanel implements CoursePanel {
         }
     }
 
-    // Action listener methods
+    /**
+     * Action listener methods
+     */
+
+    /**
+     * Showing labels and radio buttons based on user
+     * choosing to connect all goals to all parts or not.
+     */
     private void updatePartsLabelsAndRadioButtons() {
         for (int i = 0; i < partLabels.length; i++) {
             partLabels[i].setVisible(!isConnectedToAll.isSelected() && i < nParts);
@@ -320,13 +417,19 @@ public class ExpectedResultPanel implements CoursePanel {
 
     }
 
+    /**
+     * Showing print out alternative radio buttons based on user
+     * choosing to connect all goals to all parts or not.
+     */
     private void updatePrintOutRadios() {
         printAlt1Radio.setSelected(isConnectedToAll.isSelected() || printAlt1Radio.isSelected());
         printAlt2Radio.setSelected(!isConnectedToAll.isSelected() && printAlt2Radio.isSelected());
         printAlt2Radio.setEnabled(!isConnectedToAll.isSelected());
     }
 
-    // Getters to Controller
+    /**
+     * Getters
+     */
 
     public JCheckBox getIsConnectedToAll() {
         return isConnectedToAll;
@@ -345,7 +448,13 @@ public class ExpectedResultPanel implements CoursePanel {
     }
 
 
-    // Print out
+    /**
+     * Print out methods
+     */
+
+    /**
+     * Updates text in printOutPane.
+     */
     public void printOut() {
         String outPutText = "";
         if (isConnectedToAll.isSelected()) {
@@ -361,6 +470,10 @@ public class ExpectedResultPanel implements CoursePanel {
         printOutPane.setText(outPutText);
     }
 
+    /**
+     * Returns text to be output if alternative 1 is chosen by user.
+     * @return
+     */
     private String printOutAlternative1() {
         String outPutText = "";
         for (Map.Entry<JTextField, JRadioButton[]> entry : goals.entrySet()) {
@@ -389,6 +502,10 @@ public class ExpectedResultPanel implements CoursePanel {
         return outPutText;
     }
 
+    /**
+     * Returns text to be output if alternative 2 is chosen by user.
+     * @return
+     */
     private String printOutAlternative2() {
         String outPutText = "";
         int i = 0;
