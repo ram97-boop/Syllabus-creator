@@ -96,7 +96,7 @@ public class CourseContentController implements CourseController {
         JTextField[][] textFields = courseContentPanel.getPartFields();
 
         try {
-            int nParts = (int) courseContentPanel.getnPartsComboBox().getSelectedItem();
+            int nParts = (int) courseContentPanel.getNPartsComboBox().getSelectedItem();
 
             if (nParts>0) {
                 Arrays.stream(textFields).filter(row -> row[0].isVisible()).forEach(row -> {

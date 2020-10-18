@@ -6,7 +6,21 @@ import model.Course;
 import javax.swing.*;
 import java.util.Properties;
 
+/**
+ * TeachingPanel
+ * Implements CoursePanel
+ *
+ * Handles all components in the JPanel component mainPanel
+ * used when the user is entering teaching methods
+ * of the course.
+ *
+ * @author Mikael Stener
+ */
+
 public class TeachingPanel implements CoursePanel {
+    /**
+     * Swing components
+     */
     private JPanel mainPanel;
     private JButton nextPanelButton;
     private JButton previousPanelButton;
@@ -25,12 +39,20 @@ public class TeachingPanel implements CoursePanel {
     private JSplitPane splitPane;
     private JButton saveButton;
 
+    /**
+     * Course attributes
+     */
     boolean isDistance = false;
     boolean thesis = false;
 
+    /**
+     * MainFrame attributes
+     */
     Properties properties;
 
-    // Constructors
+    /**
+     * Constructors
+     */
 
     public TeachingPanel(MainFrame frame) {
         languagePanel.setVisible(false);
@@ -78,6 +100,13 @@ public class TeachingPanel implements CoursePanel {
 
     }
 
+    /**
+     * Helper methods for constructors
+     */
+
+    /**
+     * Add actions listeners to components.
+     */
     private void addActionListeners() {
         otherThanSwedishCheckBox.addActionListener(e -> updateLanguagePanel());
         radio1.addActionListener(e -> radio2.setSelected(false));
@@ -85,46 +114,102 @@ public class TeachingPanel implements CoursePanel {
         printOutButton.addActionListener(e -> printOut());
     }
 
-    // Interface methods
+    /**
+     * Methods from interface CoursePanel
+     */
 
+
+    /**
+     * Returns JPanel with all content.
+     * @return
+     */
     public JPanel getPanel() {
         return mainPanel;
     }
+
+    /**
+     * Returns next panel button.
+     * @return
+     */
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
-    public JButton getSaveButton() {return saveButton;}
+
+    /**
+     * Returns previous panel button.
+     * @return
+     */
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+
+    /**
+     * Returns button to save course.
+     * @return
+     */
+    public JButton getSaveButton() {return saveButton;}
+
+    /**
+     * Returns title to be set in MainFrame when this panel is shown.
+     * @return A string from properties file.
+     */
     public String getFrameName() {
         return properties.getProperty("TeachingTitle");
     }
+
+    /**
+     * Returns the JSplitPane of this panel.
+     * @return
+     */
     public JSplitPane getSplitPane() {
         return splitPane;
     }
+
+    /**
+     * Updates components of the panel based on previously entered attributes of course.
+     * @param course
+     */
     public void updateView(Course course) {
         updateCourseAttributes(course);
-        setVisibilityOfComponents();
+        updateComponents();
     }
 
+    /**
+     * Helper methods for updateView
+     */
+
+    /**
+     * Updates course attributes based on previously entered attributes of course.
+     * @param course
+     */
     private void updateCourseAttributes(Course course) {
         isDistance = course.isDistance();
         thesis = course.hasThesis();
     }
 
-    private void setVisibilityOfComponents() {
+    /**
+     * Updates swing components based on previously entered attributes of course.
+     */
+    private void updateComponents() {
         distancePanel.setVisible(isDistance);
         notDistancePanel.setVisible(!isDistance);
         thesisPanel.setVisible(thesis);
     }
 
-    // Action listeners methods
+    /**
+     * Action listener methods
+     */
+
+    /**
+     * Showing language options depending on user choosing other language than swedish.
+     */
     private void updateLanguagePanel() {
         languagePanel.setVisible(otherThanSwedishCheckBox.isSelected());
     }
 
-    // Getters
+    /**
+     * Getters
+     */
     public JTextPane getTeachingPane() {
         return teachingPane;
     }
@@ -153,7 +238,13 @@ public class TeachingPanel implements CoursePanel {
         return printOutPane;
     }
 
-    // PrintOut method
+    /**
+     * Print out methods
+     */
+
+    /**
+     * Updates text in printOutPane.
+     */
     public void printOut() {
         String outPutText = "";
         outPutText += printOutDistance();
@@ -165,6 +256,10 @@ public class TeachingPanel implements CoursePanel {
         printOutPane.setText(outPutText);
     }
 
+    /**
+     * Returns text to be printed if course contains a thesis.
+     * @return
+     */
     private String printOutThesis() {
         String outPutText = "";
         if (thesis) {
@@ -184,6 +279,10 @@ public class TeachingPanel implements CoursePanel {
         return outPutText;
     }
 
+    /**
+     * Returns text to be printed if teaching language might be other than Swedish.
+     * @return
+     */
     private String printOutEnglish() {
         String outPutText = "";
         if (otherThanSwedishCheckBox.isSelected()) {
@@ -197,6 +296,10 @@ public class TeachingPanel implements CoursePanel {
         return outPutText;
     }
 
+    /**
+     * Returns text to be printed if the course is a distance course.
+     * @return
+     */
     private String printOutDistance() {
         String outPutText = "";
         if (!isDistance) {

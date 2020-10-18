@@ -184,7 +184,7 @@ public class CourseContentControllerTest {
         assertEquals(secondPart.getEngName(), course.getCourseParts().get(1).getEngName());
 
         // change to 0 course parts
-        JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
+        JComboBox<Integer> nPartsComboBox = panel.getNPartsComboBox();
         nPartsComboBox.setSelectedItem(0);
 
         courseContentController.updateModel();
@@ -417,7 +417,7 @@ public class CourseContentControllerTest {
 
     private void setUpThreeTextFields() {
 
-        JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
+        JComboBox<Integer> nPartsComboBox = panel.getNPartsComboBox();
         nPartsComboBox.setSelectedItem(3);
 
         JTextField[][] partFields = panel.getPartFields();
@@ -449,7 +449,7 @@ public class CourseContentControllerTest {
     private void setUpTwoTextFields() {
         JTextField[][] partFields = panel.getPartFields();
 
-        JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
+        JComboBox<Integer> nPartsComboBox = panel.getNPartsComboBox();
         nPartsComboBox.setSelectedItem(2);
 
         partFields[0][0].setVisible(true);
