@@ -472,7 +472,7 @@ public class ExpectedResultPanel implements CoursePanel {
     }
 
     /**
-     * Returns text to be output if alternative 1 is chosen by user.
+     * Returns text to be printed if alternative 1 is chosen by user.
      * @return
      */
     private String printOutAlternative1() {
@@ -504,7 +504,7 @@ public class ExpectedResultPanel implements CoursePanel {
     }
 
     /**
-     * Returns text to be output if alternative 2 is chosen by user.
+     * Returns text to be printed if alternative 2 is chosen by user.
      * @return
      */
     private String printOutAlternative2() {
