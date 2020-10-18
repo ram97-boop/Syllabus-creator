@@ -120,6 +120,10 @@ public class CourseContentPanel implements CoursePanel {
     }
 
     /**
+     * Helper methods to constructors
+     */
+
+    /**
      * Set initial states of components.
      */
     private void setUpComponents() {
