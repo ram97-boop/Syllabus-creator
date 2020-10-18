@@ -77,7 +77,10 @@ public class CourseContentPanel implements CoursePanel {
      */
     Properties properties;
 
-    // Constructors
+    /**
+     * Constructors
+     */
+
     public CourseContentPanel(MainFrame frame) {
         setUpComponents();
         setUpComboBox();
@@ -150,7 +153,9 @@ public class CourseContentPanel implements CoursePanel {
         creditsLabel.setToolTipText("Använd punkt som kommatecken.");
     }
 
-    // Interface methods
+    /**
+     * Methods from interface CoursePanel
+     */
 
     /**
      * Returns JPanel with all content.
@@ -206,7 +211,9 @@ public class CourseContentPanel implements CoursePanel {
 
     }
 
-    // Action listener methods
+    /**
+     * Action listener methods
+     */
 
     /**
      * Adding or removing part fields based on number of parts the user entered.
@@ -226,8 +233,6 @@ public class CourseContentPanel implements CoursePanel {
             frame.keepSize(splitPane);
         }
     }
-
-    // Getters to Controller
 
     /**
      * Getters
@@ -250,7 +255,9 @@ public class CourseContentPanel implements CoursePanel {
         return printOutPane;
     }
 
-    // Print out
+    /**
+     * Print out methods
+     */
 
     /**
      * Updates text in printOutPane.
