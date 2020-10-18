@@ -9,9 +9,15 @@ import org.junit.Test;
 import javax.swing.*;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import static org.junit.Assert.*;
+
+/**
+ * ExaminationPanelTest
+ * Test class for ExaminationPanel
+ *
+ * @author Mikael Stener
+ */
 
 public class ExaminationPanelTest {
 

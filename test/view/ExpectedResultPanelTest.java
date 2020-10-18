@@ -13,6 +13,13 @@ import java.util.LinkedHashMap;
 
 import static org.junit.Assert.*;
 
+/**
+ * ExpectedResultPanelTest
+ * Test class for ExpectedResultPanel
+ *
+ * @author Mikael Stener
+ */
+
 public class ExpectedResultPanelTest {
 
     private Course course;
