@@ -9,9 +9,20 @@ import java.util.Properties;
 import java.util.stream.IntStream;
 
 
-
+/**
+ * CourseContentPanel
+ * Implements CoursePanel
+ *
+ * Handles all components in the JPanel component mainPanel
+ * used when the user is entering content of the course.
+ *
+ * @author Mikael Stener
+ */
 
 public class CourseContentPanel implements CoursePanel {
+    /**
+     * Swing components
+     */
     private MainFrame frame;
     private JButton nextPanelButton;
     private JButton previousPanelButton;
@@ -44,8 +55,7 @@ public class CourseContentPanel implements CoursePanel {
     private JSplitPane splitPane;
     private JButton saveButton;
 
-
-    private JTextField[][] partFields = {
+    private final JTextField[][] partFields = {
             {part1S, part1E, credits1},
             {part2S, part2E, credits2},
             {part3S, part3E, credits3},
@@ -60,7 +70,7 @@ public class CourseContentPanel implements CoursePanel {
 
     // Constructors
     public CourseContentPanel(MainFrame frame) {
-        setVisibilityOfComponents();
+        setUpComponents();
         setUpComboBox();
         addActionListeners();
         this.frame = frame;
@@ -69,7 +79,7 @@ public class CourseContentPanel implements CoursePanel {
     }
 
     public CourseContentPanel(MainFrame frame, Course course) {
-        setVisibilityOfComponents();
+        setUpComponents();
         setUpComboBox();
         addActionListeners();
         this.frame = frame;
@@ -97,49 +107,101 @@ public class CourseContentPanel implements CoursePanel {
         addActionListeners();
     }
 
-    private void setVisibilityOfComponents() {
+    /**
+     * Set initial states of components.
+     */
+    private void setUpComponents() {
         nPartsComboBox.setEditable(false);
         partsPanel.setVisible(false);
     }
+
+    /**
+     * Add items to parts ComboBox.
+     */
     private void setUpComboBox() {
-        int[] possibleNParts = {0, 1, 2, 3, 4, 5, 6};
+        int[] possibleNParts = IntStream.range(0, 6).toArray();
         for (int possibleNPart : possibleNParts) {
             nPartsComboBox.addItem(possibleNPart);
         }
     }
+
+    /**
+     * Add action listeners to components.
+     */
     private void addActionListeners() {
         nPartsComboBox.addActionListener(e -> updatePartFields());
         printOutButton.addActionListener(e -> printOut());
     }
 
+    /**
+     * Setting tool tips (help text popups).
+     */
     private void setToolTips() {
         courseContentLabel.setToolTipText("");
         creditsLabel.setToolTipText("Använd punkt som kommatecken.");
     }
 
     // Interface methods
+
+    /**
+     * Returns JPanel with all content.
+     * @return
+     */
     public JPanel getPanel() {
         return mainPanel;
     }
+
+    /**
+     * Returns next panel button.
+     * @return
+     */
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
-    public JButton getSaveButton() {return saveButton;}
+
+    /**
+     * Returns previous panel button.
+     * @return
+     */
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+
+    /**
+     * Returns button to save course.
+     * @return
+     */
+    public JButton getSaveButton() {return saveButton;}
+
+    /**
+     * Returns title to be set in MainFrame when this panel is shown.
+     * @return A string from properties file.
+     */
     public String getFrameName() {
         return properties.getProperty("CourseContentTitle");
     }
+
+    /**
+     * Returns the JSplitPane of this panel.
+     * @return
+     */
     public JSplitPane getSplitPane() {
         return splitPane;
     }
+
+    /**
+     * Updates components of the panel based on previously entered attributes of course.
+     * @param course
+     */
     public void updateView(Course course) {
-        System.out.println(splitPane.getLastDividerLocation());
-        splitPane.setDividerLocation(splitPane.getLastDividerLocation());
+
     }
 
     // Action listener methods
+
+    /**
+     * Adding or removing part fields based on number of parts the user entered.
+     */
     private void updatePartFields() {
         Object nPartsObject;
         if ((nPartsObject = nPartsComboBox.getSelectedItem()) != null) {
@@ -157,6 +219,11 @@ public class CourseContentPanel implements CoursePanel {
     }
 
     // Getters to Controller
+
+    /**
+     * Getters
+     * Methods used by controller and in tests.
+     */
 
     public JTextPane getCourseContentTextPane() {
         return courseContentTextPane;
@@ -176,6 +243,9 @@ public class CourseContentPanel implements CoursePanel {
 
     // Print out
 
+    /**
+     * Updates text in printOutPane.
+     */
     public void printOut() {
         String outPutText = "a. Kursen behandlar: ";
         outPutText += courseContentTextPane.getText() + "\n\n";
