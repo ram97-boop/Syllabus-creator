@@ -247,7 +247,7 @@ public class CourseContentPanel implements CoursePanel {
         return courseContentTextPane;
     }
 
-    public JComboBox<Integer> getnPartsComboBox() {
+    public JComboBox<Integer> getNPartsComboBox() {
         return nPartsComboBox;
     }
 
