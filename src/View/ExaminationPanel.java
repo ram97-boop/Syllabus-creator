@@ -14,9 +14,21 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-// TODO Problem med vad som krävs på campus
+/**
+ * ExaminationPanel
+ * Implements CoursePanel
+ *
+ * Handles all components in the JPanel component mainPanel
+ * used when the user is entering examination attributes
+ * of the course.
+ *
+ * @author Mikael Stener
+ */
 
 public class ExaminationPanel implements CoursePanel {
+    /**
+     * Swing components
+     */
     private JPanel mainPanel;
     private JButton nextPanelButton;
     private JButton previousPanelButton;
@@ -87,18 +99,18 @@ public class ExaminationPanel implements CoursePanel {
     private JTextPane notDistanceAttendancePane;
     private JTextPane distanceAttendancePane;
     private JSplitPane splitPane;
-    private JTextPane dPane;
     private JButton saveButton;
 
-    Properties properties;
-
+    /**
+     * Collections of swing components
+     */
     private final JLabel[] examinationLabels = {
-        partExaminationLabel1,
-        partExaminationLabel2,
-        partExaminationLabel3,
-        partExaminationLabel4,
-        partExaminationLabel5,
-        partExaminationLabel6,
+            partExaminationLabel1,
+            partExaminationLabel2,
+            partExaminationLabel3,
+            partExaminationLabel4,
+            partExaminationLabel5,
+            partExaminationLabel6,
     };
     private final JTextField[] examinationFields = {
             partExaminationField1,
@@ -136,6 +148,10 @@ public class ExaminationPanel implements CoursePanel {
             gradeCertainPart6
     };
 
+    /**
+     * Course attributes
+     */
+
     private ArrayList<CoursePart> courseParts;
     private int nParts = 0;
     private boolean hasParts = false;
@@ -143,7 +159,15 @@ public class ExaminationPanel implements CoursePanel {
     private final GradingScale gradingScale = new GradingScale();
     private boolean thesis = false;
 
-    // Constructors
+    /**
+     * MainFrame attributes
+     */
+    Properties properties;
+
+    /**
+     * Constructors
+     */
+
     public ExaminationPanel(MainFrame frame) {
         setUpComponents();
 
@@ -177,6 +201,10 @@ public class ExaminationPanel implements CoursePanel {
         setSupplementsForCourse(course);
 
     }
+
+    /**
+     * Helper methods to constructors
+     */
 
     private void setSupplementsForCourse(Course course) {
         supplementCheckBox.setSelected(course.areSupplementsAllowed());
@@ -244,6 +272,9 @@ public class ExaminationPanel implements CoursePanel {
         }
     }
 
+    /**
+     * Set initial states of components.
+     */
     private void setUpComponents() {
         supplementCheckBox.setSelected(true);
         supplementRadio1.setSelected(true);
@@ -251,6 +282,31 @@ public class ExaminationPanel implements CoursePanel {
         totalGradeAlt3TextPane.setVisible(false);
     }
 
+    /**
+     * Add items to grading scale ComboBoxes.
+     */
+    private void setUpGradingScalesComboBoxes() {
+        gradingScaleComboBoxes.add(gradingScale1);
+        gradingScaleComboBoxes.add(gradingScale2);
+        gradingScaleComboBoxes.add(gradingScale3);
+        gradingScaleComboBoxes.add(gradingScale4);
+        gradingScaleComboBoxes.add(gradingScale5);
+        gradingScaleComboBoxes.add(gradingScale6);
+
+        for (String gradingScaleString : gradingScaleStrings) {
+            courseGradingScaleComboBox.addItem(gradingScaleString);
+        }
+
+        for (String gradingScaleString : gradingScaleStringsLong) {
+            for (JComboBox<String> gradingScale : gradingScaleComboBoxes) {
+                gradingScale.addItem(gradingScaleString);
+            }
+        }
+    }
+
+    /**
+     * Add action listeners to components.
+     */
     private void addActionListeners() {
         homeExamCheckBox.addActionListener(e -> updateHomeExamPanel());
         examinationOnEnglishCheckBox.addActionListener(e -> updateEnglishExaminationPanel());
@@ -272,25 +328,9 @@ public class ExaminationPanel implements CoursePanel {
         printOutButton.addActionListener(e -> printOut());
     }
 
-    private void setUpGradingScalesComboBoxes() {
-        gradingScaleComboBoxes.add(gradingScale1);
-        gradingScaleComboBoxes.add(gradingScale2);
-        gradingScaleComboBoxes.add(gradingScale3);
-        gradingScaleComboBoxes.add(gradingScale4);
-        gradingScaleComboBoxes.add(gradingScale5);
-        gradingScaleComboBoxes.add(gradingScale6);
-
-        for (String gradingScaleString : gradingScaleStrings) {
-            courseGradingScaleComboBox.addItem(gradingScaleString);
-        }
-
-        for (String gradingScaleString : gradingScaleStringsLong) {
-            for (JComboBox<String> gradingScale : gradingScaleComboBoxes) {
-                gradingScale.addItem(gradingScaleString);
-            }
-        }
-    }
-
+    /**
+     * Setting tool tips (help text popups).
+     */
     private void setToolTips() {
         ePane.setToolTipText(properties.getProperty("examinationEPaneToolTip"));
         supplementRadio1.setToolTipText(properties.getProperty("examinationFPaneAlt1ToolTip"));
@@ -300,26 +340,63 @@ public class ExaminationPanel implements CoursePanel {
         noSupplementRadio2.setToolTipText(properties.getProperty("examinationFPaneAlt5ToolTip"));
     }
 
-    // Interface methods
+    /**
+     * Methods from interface CoursePanel
+     */
+
+    /**
+     * Returns JPanel with all content.
+     * @return
+     */
     public JPanel getPanel() {
         return mainPanel;
     }
+
+    /**
+     * Returns next panel button.
+     * @return
+     */
     public JButton getNextPanelButton() {
         return nextPanelButton;
     }
-    public JButton getSaveButton() {return saveButton;}
+
+    /**
+     * Returns previous panel button.
+     * @return
+     */
     public JButton getPreviousPanelButton() {
         return previousPanelButton;
     }
+
+    /**
+     * Returns button to save course.
+     * @return
+     */
+    public JButton getSaveButton() {return saveButton;}
+
+    /**
+     * Returns title to be set in MainFrame when this panel is shown.
+     * @return A string from properties file.
+     */
     public String getFrameName() {
         return properties.getProperty("ExaminationTitle");
     }
+
+    /**
+     * Returns the JSplitPane of this panel.
+     * @return
+     */
     public JSplitPane getSplitPane() {
         return splitPane;
     }
+
+    /**
+     * Updates components of the panel based on previously entered attributes of course.
+     * @param course
+     */
     public void updateView(Course course) {
         updateCourseAttributes(course);
-        setVisibilityOfComponents();
+        updateComponents();
         setLabelNames();
         if (!course.getCourseParts().isEmpty()) {
             setExaminationFieldsForCourseParts(course);
@@ -330,6 +407,11 @@ public class ExaminationPanel implements CoursePanel {
             setTotalGradeForCourse(course);
         }
     }
+
+    /**
+     * Helper methods for updateView
+     */
+
 
     private void setGradingScalesForCourseParts(Course course) {
         int size = course.getCourseParts().size();
@@ -389,6 +471,10 @@ public class ExaminationPanel implements CoursePanel {
 
     }
 
+    /**
+     * Updates course attributes based on previously entered attributes of course.
+     * @param course
+     */
     private void updateCourseAttributes(Course course) {
         courseParts = course.getCourseParts();
         nParts = courseParts.size();
@@ -397,7 +483,10 @@ public class ExaminationPanel implements CoursePanel {
         thesis = course.hasThesis();
     }
 
-    private void setVisibilityOfComponents() {
+    /**
+     * Updates swing components based on previously entered attributes of course.
+     */
+    private void updateComponents() {
         homeExamPanel.setVisible(homeExamCheckBox.isSelected());
         englishExaminationPanel.setVisible(examinationOnEnglishCheckBox.isSelected());
         attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
@@ -423,6 +512,9 @@ public class ExaminationPanel implements CoursePanel {
         updateSupplementRadios();
     }
 
+    /**
+     * Sets label names based on previously entered attributes of course.
+     */
     private void setLabelNames() {
         for (int i = 0; i < nParts; i++) {
             String partName = courseParts.get(i).getName();
@@ -433,33 +525,58 @@ public class ExaminationPanel implements CoursePanel {
         }
     }
 
+    /**
+     * Action listener methods
+     */
 
-
-    // Action listeners methods
+    /**
+     * Showing homeExamPanel based on whether there is a home exam in the course or not.
+     */
     private void updateHomeExamPanel() {
         homeExamPanel.setVisible(homeExamCheckBox.isSelected());
         homeExamRadio1.setSelected(true);
         homeExamRadio2.setSelected(false);
     }
 
+    /**
+     * Sets radio to false, so that only one radio button at a time can be chosen.
+     * @param radio
+     */
     private void updateHomeExamRadios(JRadioButton radio) {
         radio.setSelected(false);
     }
 
+    /**
+     * Showing englishExaminationPanel based on if examination might be in English.
+     */
     private void updateEnglishExaminationPanel() {
         englishExaminationPanel.setVisible(examinationOnEnglishCheckBox.isSelected());
         englishRadio1.setSelected(true);
         englishRadio2.setSelected(false);
     }
 
+    /**
+     * Sets radio to false, so that only one radio button at a time can be chosen.
+     * @param radio
+     */
     private void updateEnglishRadios(JRadioButton radio) {
         radio.setSelected(false);
     }
 
+    /**
+     * Shows attendancePanel based on if there are attendance requirements in the course.
+     */
     private void updateAttendancePanel() {
         attendancePanel.setVisible(hasAttendanceCheckBox.isSelected());
     }
 
+    /**
+     * Sets radio1 and radio2 to false, so that only one radio button at a time can be chosen.
+     * Shows gradeCertainPartsPanel based on if certain parts decide course grade.
+     * Shows totalGradeAlt3TextPane based on if course grade is set custom.
+     * @param radio1
+     * @param radio2
+     */
     private void updateTotalGradeRadios(JRadioButton radio1, JRadioButton radio2) {
         radio1.setSelected(false);
         radio2.setSelected(false);
@@ -467,10 +584,16 @@ public class ExaminationPanel implements CoursePanel {
         totalGradeAlt3TextPane.setVisible(totalGradeRadio3.isSelected());
     }
 
+    /**
+     * Shows otherActivitiesGradePanel based on if there are other activities deciding course grade.
+     */
     private void updateOtherActivitiesGradePanel() {
         otherActivitiesGradePanel.setVisible(otherActivitiesCheckBox.isSelected());
     }
 
+    /**
+     * Sets supplement radios visible or not depending on if there are ways of supplementing course grade.
+     */
     private void updateSupplementRadios() {
         supplementRadio1.setVisible(supplementCheckBox.isSelected());
         supplementRadio2.setVisible(supplementCheckBox.isSelected());
@@ -479,7 +602,9 @@ public class ExaminationPanel implements CoursePanel {
         noSupplementRadio2.setVisible(!supplementCheckBox.isSelected());
     }
 
-    // Getters to Controller
+    /**
+     * Getters
+     */
 
     public JTextPane getExaminationPane() {
         return examinationPane;
@@ -573,8 +698,13 @@ public class ExaminationPanel implements CoursePanel {
         return printOutPane;
     }
 
-    // PrintOut methods
+    /**
+     * Print out methods
+     */
 
+    /**
+     * Updates text in printOutPane.
+     */
     public void printOut() {
         // a. /////////
         String outPutText = aPrintOut();
@@ -593,6 +723,10 @@ public class ExaminationPanel implements CoursePanel {
         printOutPane.setText(outPutText);
     }
 
+    /**
+     * Returns text to be printed in panel a.
+     * @return
+     */
     private String aPrintOut() {
         String outPutText = "a. Kursen examineras på följande vis: \n";
 
@@ -631,6 +765,10 @@ public class ExaminationPanel implements CoursePanel {
         return outPutText;
     }
 
+    /**
+     * Returns text to be printed in panel b.
+     * @return
+     */
     private String bPrintOut() {
         String outPutText = "b. ";
         if (hasAttendanceCheckBox.isSelected()) {
@@ -653,6 +791,10 @@ public class ExaminationPanel implements CoursePanel {
         return outPutText;
     }
 
+    /**
+     * Returns text to be printed in panel c.
+     * @return
+     */
     private String cPrintOut() {
         String outPutText = "c. Betygsättning: Kursens slutbetyg sätts enligt ";
         outPutText += courseGradingScaleComboBox.getSelectedItem() + "\n";
@@ -704,6 +846,10 @@ public class ExaminationPanel implements CoursePanel {
         return outPutText;
     }
 
+    /**
+     * Returns text to be printed in panel d.
+     * @return
+     */
     private String dPrintOut() {
         String outPutText = "d. Kursens betygskriterier delas ut vid kursstart.\n\n";
 
@@ -722,6 +868,10 @@ public class ExaminationPanel implements CoursePanel {
         return outPutText;
     }
 
+    /**
+     * Returns text to be printed in panel e.
+     * @return
+     */
     private String ePrintOut() {
         return "e. Studerande som underkänts i ordinarie prov har rätt att genomgå " +
                 "ytterligare prov så länge kursen ges. Antalet provtillfällen är inte begränsat. " +
@@ -734,6 +884,10 @@ public class ExaminationPanel implements CoursePanel {
                 "kursen inte ges erbjuds minst ett examinationstillfälle. \n\n";
     }
 
+    /**
+     * Returns text to be printed in panel f.
+     * @return
+     */
     private String fPrintOut() {
         String outPutText = "f. ";
         if (supplementRadio1.isSelected()) {
