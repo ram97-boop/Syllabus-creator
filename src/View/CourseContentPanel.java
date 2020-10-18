@@ -55,6 +55,9 @@ public class CourseContentPanel implements CoursePanel {
     private JSplitPane splitPane;
     private JButton saveButton;
 
+    /**
+     * Collections of swing components
+     */
     private final JTextField[][] partFields = {
             {part1S, part1E, credits1},
             {part2S, part2E, credits2},
@@ -64,8 +67,14 @@ public class CourseContentPanel implements CoursePanel {
             {part6S, part6E, credits6},
     };
 
+    /**
+     * Course attributes
+     */
     private int nParts = 0;
 
+    /**
+     * MainFrame attributes
+     */
     Properties properties;
 
     // Constructors
