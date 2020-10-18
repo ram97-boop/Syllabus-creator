@@ -5,6 +5,17 @@ import model.Course;
 import javax.swing.*;
 import java.util.Properties;
 
+/**
+ * LiteraturePanel
+ * Implements CoursePanel
+ *
+ * Handles all components in the JPanel component mainPanel
+ * used when the user is entering literature attributes
+ * of the course.
+ *
+ * @author Mikael Stener
+ */
+
 public class LiteraturePanel implements CoursePanel {
     /**
      * Swing components
