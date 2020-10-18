@@ -298,6 +298,7 @@ public class ExpectedResultPanel implements CoursePanel {
     public String getFrameName() {
         return properties.getProperty("ExpectedResultsTitle");
     }
+
     /**
      * Returns the JSplitPane of this panel.
      * @return
