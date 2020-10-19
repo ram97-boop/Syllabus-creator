@@ -72,11 +72,11 @@ class GradingScaleTest {
 				gScale2.get(1) == "U = Underkänd");
 		
 		
-		ArrayList<String> gScale7long = g.userGetGradingScale("sjugradig målrelaterad skala.");
-		ArrayList<String> gScale3long = g.userGetGradingScale("tvågradig betygsskala: underkänd (U) eller godkänd (G).");
-		ArrayList<String> gScale2long = g.userGetGradingScale("tregradig skala underkänd (U), godkänd (G), väl godkänd (VG).");
+		ArrayList<String> gScale7long = g.userGetGradingScale("sjugradig målrelaterad skala");
+		ArrayList<String> gScale3long = g.userGetGradingScale("tregradig skala underkänd (U), godkänd (G), väl godkänd (VG)");
+		ArrayList<String> gScale2long = g.userGetGradingScale("tvågradig betygsskala: underkänd (U) eller godkänd (G)");
 		
-		assertTrue(gScale7.get(0) == "A = Utmärkt" &&
+		assertTrue(gScale7long.get(0) == "A = Utmärkt" &&
 				gScale7long.get(1) == "B = Mycket bra" &&
 				gScale7long.get(2) == "C = Bra" &&
 				gScale7long.get(3) == "D = Tillfredsställande" &&
