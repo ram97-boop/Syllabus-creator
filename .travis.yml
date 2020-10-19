@@ -1,0 +1,14 @@
+language: java
+os:
+  - windows
+  - linux
+  - osx
+jdk:
+  - openjdk14
+  - openjdk13
+on:
+  push:
+    branches:
+      - develop
+notifications:
+  email: false
