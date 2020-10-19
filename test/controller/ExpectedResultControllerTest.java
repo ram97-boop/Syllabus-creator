@@ -1,7 +1,3 @@
-/*
-Created by: Sofia Ayata Karbin
- */
-
 package controller;
 
 import View.ExpectedResultPanel;
@@ -15,6 +11,14 @@ import javax.swing.*;
 import java.util.*;
 
 import static org.junit.Assert.*;
+
+/**
+ * ExpectedResultControllerTest
+ *
+ * Test method updateModel() in class ExpectedResultController.
+ *
+ * @author Sofia Ayata Karbin
+ */
 
 public class ExpectedResultControllerTest {
 

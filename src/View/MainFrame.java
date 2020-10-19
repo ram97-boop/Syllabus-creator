@@ -9,7 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-// TODO Save draft Button
+/**
+ * MainFrame
+ *
+ * @author Mikael Stener
+ * @author Sofia Ayata Karbin
+ */
 
 public class MainFrame extends JFrame {
     private int width = 800;
@@ -65,11 +70,6 @@ public class MainFrame extends JFrame {
         this.setTitle(properties.getProperty("Frame_name") + " | " + coursePanel.getFrameName());
         keepSize(coursePanel.getSplitPane());
 
-        // should not be here maybe - but just to see that it works
-        if (nextIndex>0) {
-            saveCourse();
-        }
-
     }
 
     private void saveCourse() {
@@ -103,6 +103,7 @@ public class MainFrame extends JFrame {
                 try {
                     controllers[finalI].updateModel();
                     saveCourse();
+                    JOptionPane.showMessageDialog(null, "Kurs sparad.");
                 } catch (RuntimeException exception) {
                     JOptionPane.showMessageDialog(null, exception.getMessage());
                 }

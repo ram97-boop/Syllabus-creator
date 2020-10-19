@@ -1,7 +1,3 @@
-/*
-Created by: Sofia Ayata Karbin
- */
-
 package controller;
 import View.FirstPanel;
 import model.Course;
@@ -9,6 +5,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+
+/**
+ * FirstControllerTest
+ *
+ * Test method updateModel() in class FirstController.
+ *
+ * @author Sofia Ayata Karbin
+ */
 
 public class FirstControllerTest {
 

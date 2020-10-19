@@ -3,6 +3,15 @@ package controller;
 import View.FirstPanel;
 import model.Course;
 
+/**
+ * FirstController
+ * Implements CourseController
+ *
+ * Update course with content entered by user in all fields in the mainPanel in FirstPanel.
+ *
+ * @author Sofia Ayata Karbin
+ */
+
 public class FirstController implements CourseController {
     private Course course;
     private FirstPanel firstPanel;

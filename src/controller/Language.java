@@ -1,5 +1,9 @@
 package controller;
 
+/**
+ * @author Sofia Ayata Karbin
+ */
+
 public enum Language {
     SWEDISH("swedish"),
     ENGLISH("english"),

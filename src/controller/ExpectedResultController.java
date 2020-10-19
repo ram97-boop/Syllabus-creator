@@ -11,6 +11,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * ExpectedResultController
+ * Implements CourseController
+ *
+ * Update course with content entered by user in all fields in the mainPanel in ExpectedResultPanel.
+ *
+ * @author Sofia Ayata Karbin
+ */
+
 public class ExpectedResultController implements CourseController {
     private final Course course;
     private final ExpectedResultPanel expectedResultPanel;
