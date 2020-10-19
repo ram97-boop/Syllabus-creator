@@ -124,8 +124,6 @@ public class FirstPanel implements CoursePanel {
      * @param course
      */
     public void updateView(Course course) {
-        splitPane.setDividerLocation(0.5);
-        System.out.println(splitPane.getDividerLocation());
     }
 
     /**
