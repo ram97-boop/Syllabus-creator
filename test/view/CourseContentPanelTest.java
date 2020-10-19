@@ -21,7 +21,7 @@ public class CourseContentPanelTest {
                 "Versionshantering, kontinuerlig integration, och kvalitetssäkring.\n" +
                 "Testning och underhåll.");
 
-        JComboBox<Integer> nPartsComboBox = panel.getnPartsComboBox();
+        JComboBox<Integer> nPartsComboBox = panel.getNPartsComboBox();
         nPartsComboBox.setSelectedIndex(2); // 2 parts
         JTextField[][] partFields = panel.getPartFields();
 

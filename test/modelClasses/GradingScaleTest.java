@@ -25,7 +25,7 @@ class GradingScaleTest {
 		
 		assertSame(GradingScale.getLongGradingScaleStrings(),
 				gLongStrings,
-				"getLongGradingScaleStrings() should return {\"sjugradig målrelaterad skala.\", ...");
+				"getLongGradingScaleStrings() should return {\"sjugradig mÃ¥lrelaterad skala.\", ...");
 	}
 
 	@Test
@@ -34,42 +34,42 @@ class GradingScaleTest {
 		ArrayList<String> gScale3 = g.getGradingScale(3);
 		ArrayList<String> gScale2 = g.getGradingScale(2);
 		
-		assertTrue(gScale7.get(0) == "A = Utmärkt" &&
+		assertTrue(gScale7.get(0) == "A = UtmÃ¤rkt" &&
 				gScale7.get(1) == "B = Mycket bra" &&
 				gScale7.get(2) == "C = Bra" &&
-				gScale7.get(3) == "D = Tillfredsställande" &&
-				gScale7.get(4) == "E = Tillräckligt" &&
-				gScale7.get(5) == "Fx = Underkänd, något mer arbete krävs" &&
-				gScale7.get(6) == "F = Underkänd, mycket mer arbete krävs");
+				gScale7.get(3) == "D = TillfredsstÃ¤llande" &&
+				gScale7.get(4) == "E = TillrÃ¤ckligt" &&
+				gScale7.get(5) == "Fx = UnderkÃ¤nd, nÃ¥got mer arbete krÃ¤vs" &&
+				gScale7.get(6) == "F = UnderkÃ¤nd, mycket mer arbete krÃ¤vs");
 		
-		assertTrue(gScale3.get(0) == "V = Väl godkänd" &&
-				gScale3.get(1) == "G = Godkänd" &&
-				gScale3.get(2) == "U = Underkänd");
+		assertTrue(gScale3.get(0) == "V = VÃ¤l godkÃ¤nd" &&
+				gScale3.get(1) == "G = GodkÃ¤nd" &&
+				gScale3.get(2) == "U = UnderkÃ¤nd");
 		
-		assertTrue(gScale2.get(0) == "G = Tillfredsställande" &&
-				gScale2.get(1) == "U = Underkänd");
+		assertTrue(gScale2.get(0) == "G = TillfredsstÃ¤llande" &&
+				gScale2.get(1) == "U = UnderkÃ¤nd");
 	}
 
 	@Test
 	void testUserGetGradingScale() {
-		ArrayList<String> gScale7 = g.userGetGradingScale("sjugradig målrelaterad skala");
-		ArrayList<String> gScale3 = g.userGetGradingScale("tregradig målrelaterad skala");
-		ArrayList<String> gScale2 = g.userGetGradingScale("tvågradig målrelaterad skala");
+		ArrayList<String> gScale7 = g.userGetGradingScale("sjugradig mÃ¥lrelaterad skala");
+		ArrayList<String> gScale3 = g.userGetGradingScale("tregradig mÃ¥lrelaterad skala");
+		ArrayList<String> gScale2 = g.userGetGradingScale("tvÃ¥gradig mÃ¥lrelaterad skala");
 		
-		assertTrue(gScale7.get(0) == "A = Utmärkt" &&
+		assertTrue(gScale7.get(0) == "A = UtmÃ¤rkt" &&
 				gScale7.get(1) == "B = Mycket bra" &&
 				gScale7.get(2) == "C = Bra" &&
-				gScale7.get(3) == "D = Tillfredsställande" &&
-				gScale7.get(4) == "E = Tillräckligt" &&
-				gScale7.get(5) == "Fx = Underkänd, något mer arbete krävs" &&
-				gScale7.get(6) == "F = Underkänd, mycket mer arbete krävs");
+				gScale7.get(3) == "D = TillfredsstÃ¤llande" &&
+				gScale7.get(4) == "E = TillrÃ¤ckligt" &&
+				gScale7.get(5) == "Fx = UnderkÃ¤nd, nÃ¥got mer arbete krÃ¤vs" &&
+				gScale7.get(6) == "F = UnderkÃ¤nd, mycket mer arbete krÃ¤vs");
 		
-		assertTrue(gScale3.get(0) == "V = Väl godkänd" &&
-				gScale3.get(1) == "G = Godkänd" &&
-				gScale3.get(2) == "U = Underkänd");
+		assertTrue(gScale3.get(0) == "V = VÃ¤l godkÃ¤nd" &&
+				gScale3.get(1) == "G = GodkÃ¤nd" &&
+				gScale3.get(2) == "U = UnderkÃ¤nd");
 		
-		assertTrue(gScale2.get(0) == "G = Tillfredsställande" &&
-				gScale2.get(1) == "U = Underkänd");
+		assertTrue(gScale2.get(0) == "G = TillfredsstÃ¤llande" &&
+				gScale2.get(1) == "U = UnderkÃ¤nd");
 		
 		
 		ArrayList<String> gScale7long = g.userGetGradingScale("sjugradig målrelaterad skala");
@@ -79,17 +79,17 @@ class GradingScaleTest {
 		assertTrue(gScale7long.get(0) == "A = Utmärkt" &&
 				gScale7long.get(1) == "B = Mycket bra" &&
 				gScale7long.get(2) == "C = Bra" &&
-				gScale7long.get(3) == "D = Tillfredsställande" &&
-				gScale7long.get(4) == "E = Tillräckligt" &&
-				gScale7long.get(5) == "Fx = Underkänd, något mer arbete krävs" &&
-				gScale7long.get(6) == "F = Underkänd, mycket mer arbete krävs");
+				gScale7long.get(3) == "D = TillfredsstÃ¤llande" &&
+				gScale7long.get(4) == "E = TillrÃ¤ckligt" &&
+				gScale7long.get(5) == "Fx = UnderkÃ¤nd, nÃ¥got mer arbete krÃ¤vs" &&
+				gScale7long.get(6) == "F = UnderkÃ¤nd, mycket mer arbete krÃ¤vs");
 		
-		assertTrue(gScale3long.get(0) == "V = Väl godkänd" &&
-				gScale3long.get(1) == "G = Godkänd" &&
-				gScale3long.get(2) == "U = Underkänd");
+		assertTrue(gScale3long.get(0) == "V = VÃ¤l godkÃ¤nd" &&
+				gScale3long.get(1) == "G = GodkÃ¤nd" &&
+				gScale3long.get(2) == "U = UnderkÃ¤nd");
 		
-		assertTrue(gScale2long.get(0) == "G = Tillfredsställande" &&
-				gScale2long.get(1) == "U = Underkänd");
+		assertTrue(gScale2long.get(0) == "G = TillfredsstÃ¤llande" &&
+				gScale2long.get(1) == "U = UnderkÃ¤nd");
 	}
 
 }
