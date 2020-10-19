@@ -48,7 +48,7 @@ public class StartPanelController {
         }
 
         return new CourseController[]{
-                new FirstController(course, (FirstPanel) panels[0]),
+                new CourseInfoController(course, (CourseInfoPanel) panels[0]),
                 new CourseContentController(course, (CourseContentPanel) panels[1]),
                 new ExpectedResultController(course, (ExpectedResultPanel) panels[2]),
                 new TeachingController(course, (TeachingPanel) panels[3]),
@@ -60,7 +60,7 @@ public class StartPanelController {
 
     private CoursePanel[] getAllPanelsForNewCourse() {
         return new CoursePanel[]{
-                new FirstPanel(frame),
+                new CourseInfoPanel(frame),
                 new CourseContentPanel(frame),
                 new ExpectedResultPanel(frame),
                 new TeachingPanel(frame),
@@ -70,7 +70,7 @@ public class StartPanelController {
 
     private CoursePanel[] getAllPanelsForSavedCourse(Course course) {
         return new CoursePanel[]{
-                new FirstPanel(frame, course),
+                new CourseInfoPanel(frame, course),
                 new CourseContentPanel(frame, course),
                 new ExpectedResultPanel(frame, course),
                 new TeachingPanel(frame, course),

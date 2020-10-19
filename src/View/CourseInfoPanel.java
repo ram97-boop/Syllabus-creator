@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.util.Properties;
 
 /**
- * FistPanel
+ * CourseInfoPanel
  * Implements CoursePanel
  *
  * Handles all components in the JPanel component mainPanel
@@ -14,7 +14,7 @@ import java.util.Properties;
  * @author Mikael Stener, Sofia Karbin (see annotations)
  */
 
-public class FirstPanel implements CoursePanel {
+public class CourseInfoPanel implements CoursePanel {
     /**
      * Swing components
      */
@@ -38,13 +38,13 @@ public class FirstPanel implements CoursePanel {
     /**
      * Constructors
      */
-    public FirstPanel(MainFrame frame) {
+    public CourseInfoPanel(MainFrame frame) {
         setupComponents();
         this.frame = frame;
         properties = frame.getProperties();
     }
 
-    public FirstPanel(MainFrame frame, Course course) {
+    public CourseInfoPanel(MainFrame frame, Course course) {
         setupComponents();
         setToolTips();
         properties = frame.getProperties();
@@ -57,7 +57,7 @@ public class FirstPanel implements CoursePanel {
         thesisCheckBox.setSelected(course.hasThesis());
     }
 
-    public FirstPanel() {
+    public CourseInfoPanel() {
 
     }
 
@@ -118,7 +118,7 @@ public class FirstPanel implements CoursePanel {
      * @return A string from properties file.
      */
     public String getFrameName() {
-        return properties.getProperty("FirstPanelTitle");
+        return properties.getProperty("CourseInfoTitle");
     }
 
     /**
