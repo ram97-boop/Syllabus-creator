@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
 
     private Properties properties;
 
-    public MainFrame(String title) {
+    private MainFrame(String title) {
         super(title);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setContentPane(startPanelController.getPanel().getPanel());
