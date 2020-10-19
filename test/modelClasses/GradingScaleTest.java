@@ -92,4 +92,5 @@ class GradingScaleTest {
 				gScale2long.get(1) == "U = Underkänd");
 	}
 
+	
 }
