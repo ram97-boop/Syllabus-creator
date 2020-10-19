@@ -5,6 +5,15 @@ import model.Course;
 
 import javax.swing.*;
 
+/**
+ * CourseLiteratureController
+ * Implements CourseController
+ *
+ * Update course with content entered by user in all fields in the mainPanel in LiteraturePanel.
+ *
+ * @author Sofia Ayata Karbin
+ */
+
 public class CourseLiteratureController implements CourseController {
     private Course course;
     private LiteraturePanel courseLiteraturePanel;
@@ -22,11 +31,9 @@ public class CourseLiteratureController implements CourseController {
         this.course = course;
     }
 
-
     public LiteraturePanel getPanel() {
         return courseLiteraturePanel;
     }
-
 
     public void updateModel() {
         JTextField institutionField = courseLiteraturePanel.getInstitutionField();

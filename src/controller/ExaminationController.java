@@ -13,6 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * ExaminationController
+ * Implements CourseController
+ *
+ * Update course with content entered by user in all fields in the mainPanel in ExaminationPanel.
+ *
+ * @author Sofia Ayata Karbin
+ */
+
 public class ExaminationController implements CourseController {
     private Course course;
     private ExaminationPanel examinationPanel;

@@ -1,7 +1,3 @@
-/*
-Created by: Sofia Ayata Karbin
- */
-
 package controller;
 
 import View.ExaminationPanel;
@@ -16,6 +12,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
+
+/**
+ * ExaminationControllerTest
+ *
+ * Test method updateModel() in class ExaminationController.
+ *
+ * @author Sofia Ayata Karbin
+ */
 
 public class ExaminationControllerTest {
 

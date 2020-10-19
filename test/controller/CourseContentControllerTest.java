@@ -1,9 +1,6 @@
-/*
-Created by: Sofia Ayata Karbin
- */
-
 package controller;
 
+import static org.junit.Assert.*;
 import View.CourseContentPanel;
 import model.Course;
 import model.CoursePart;
@@ -14,7 +11,13 @@ import org.junit.Test;
 import javax.swing.*;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+/**
+ * CourseContentControllerTest
+ *
+ * Test methods sumCourseParts(ArrayList<CoursePart> courseParts) and updateModel() in class CourseContentController.
+ *
+ * @author Sofia Ayata Karbin
+ */
 
 public class CourseContentControllerTest {
 
