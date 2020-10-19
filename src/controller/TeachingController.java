@@ -5,6 +5,15 @@ import model.Course;
 
 import javax.swing.*;
 
+/**
+ * TeachingController
+ * Implements CourseController
+ *
+ * Update course with content entered by user in all fields in the mainPanel in TeachingPanel.
+ *
+ * @author Sofia Ayata Karbin
+ */
+
 public class TeachingController implements CourseController {
     private Course course;
     private TeachingPanel teachingPanel;

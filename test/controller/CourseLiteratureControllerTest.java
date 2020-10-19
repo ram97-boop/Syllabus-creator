@@ -1,7 +1,3 @@
-/*
-Created by: Sofia Ayata Karbin
- */
-
 package controller;
 
 import View.LiteraturePanel;
@@ -10,6 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+
+/**
+ * CourseLiteratureControllerTest
+ *
+ * Test method updateModel() in class CourseLiteratureController.
+ *
+ * @author Sofia Ayata Karbin
+ */
 
 public class CourseLiteratureControllerTest {
 

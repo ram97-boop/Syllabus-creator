@@ -9,6 +9,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * CourseContentController
+ * Implements CourseController
+ *
+ * Update course with content entered by user in all fields in the mainPanel in CourseContentPanel.
+ *
+ * @author Sofia Ayata Karbin
+ * @author Mikael Stener
+ */
+
 public class CourseContentController implements CourseController {
 
     private final Course course;

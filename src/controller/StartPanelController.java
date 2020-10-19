@@ -6,6 +6,15 @@ import model.FileManagement;
 
 import java.io.IOException;
 
+/**
+ * StartPanelController
+ *
+ * Returns CourseController[] by using information entered by user in StartPanel.
+ *
+ * @author Sofia Ayata Karbin
+ * @author Mikael Stener
+ */
+
 public class StartPanelController {
     private final MainFrame frame;
     private final StartPanel startPanel;
