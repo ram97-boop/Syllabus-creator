@@ -1,5 +1,5 @@
 package controller;
-import View.FirstPanel;
+import View.CourseInfoPanel;
 import model.Course;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,24 +7,24 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * FirstControllerTest
+ * CourseInfoControllerTest
  *
- * Test method updateModel() in class FirstController.
+ * Test method updateModel() in class CourseInfoController.
  *
  * @author Sofia Ayata Karbin
  */
 
-public class FirstControllerTest {
+public class CourseInfoControllerTest {
 
-    private FirstController firstController;
+    private CourseInfoController courseInfoController;
     private Course course;
-    private final FirstPanel panel = new FirstPanel();
+    private final CourseInfoPanel panel = new CourseInfoPanel();
 
 
     @Before
     public void setUp() {
         course = new Course();
-        firstController = new FirstController(course, panel);
+        courseInfoController = new CourseInfoController(course, panel);
 
         // default values
         panel.getIsDistanceCheckBox().setSelected(false);
@@ -39,7 +39,7 @@ public class FirstControllerTest {
         panel.getCoursePoints().setText("7.5");
         panel.getCourseCode().setText("DA4002");
 
-        firstController.updateModel();
+        courseInfoController.updateModel();
 
         assertEquals(panel.getCourseName().getText(), course.getName());
         assertEquals(panel.getCourseCode().getText(), course.getCode());
@@ -64,7 +64,7 @@ public class FirstControllerTest {
         panel.getIsDistanceCheckBox().setSelected(true);
         panel.getThesisCheckBox().setSelected(true);
 
-        firstController.updateModel();
+        courseInfoController.updateModel();
 
         assertEquals(panel.getCourseName().getText(), course.getName());
         assertEquals(panel.getCourseCode().getText(), course.getCode());
@@ -87,7 +87,7 @@ public class FirstControllerTest {
         panel.getCoursePoints().setText("7,5");
         panel.getCourseCode().setText("DA4002");
 
-        firstController.updateModel();
+        courseInfoController.updateModel();
 
         assertNull(course.getName());
         assertNull(course.getCode());
