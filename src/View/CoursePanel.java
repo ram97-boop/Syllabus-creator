@@ -1,8 +1,16 @@
+
 package View;
 
 import model.Course;
 
 import javax.swing.*;
+
+/**
+ * CoursePanel
+ * Interface class
+ *
+ * @author Mikael Stener
+ */
 
 public interface CoursePanel {
     JPanel getPanel();
