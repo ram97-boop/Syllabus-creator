@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  * Handles all components in the JPanel component mainPanel
  * used when the user is entering content of the course.
  *
- * @author Mikael Stener
+ * @author Mikael Stener, Sofia Karbin (see annotations)
  */
 
 public class CourseContentPanel implements CoursePanel {

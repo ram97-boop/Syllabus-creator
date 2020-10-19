@@ -2,6 +2,17 @@ package View;
 
 import javax.swing.*;
 
+/**
+ * StartPanel
+ *
+ * Handles all components in the JPanel component mainPanel
+ * used when the user is starting a new syllabus or loads
+ * a previous one.
+ *
+ * @authors Sofia Karbin, Mikael Stener (see annotations)
+ */
+
+
 public class StartPanel {
     /**
      * Swing components

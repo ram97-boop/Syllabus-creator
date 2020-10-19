@@ -4,6 +4,16 @@ import model.Course;
 import javax.swing.*;
 import java.util.Properties;
 
+/**
+ * FistPanel
+ * Implements CoursePanel
+ *
+ * Handles all components in the JPanel component mainPanel
+ * used when the user is entering basic info of the course.
+ *
+ * @author Mikael Stener, Sofia Karbin (see annotations)
+ */
+
 public class FirstPanel implements CoursePanel {
     /**
      * Swing components
