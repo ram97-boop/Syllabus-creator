@@ -11,7 +11,12 @@ import java.util.Properties;
 
 /**
  * MainFrame
- *
+ * Extends JFrame
+ * Main class of project
+
+ * Handles CoursePanel objects by setting their mainPanel as JFrame content.
+ * Handles the saving of a course to a .json-file.
+ * 
  * @author Mikael Stener
  * @author Sofia Ayata Karbin
  */
