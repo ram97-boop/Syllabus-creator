@@ -8,6 +8,13 @@ import javax.swing.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * CourseContentPanelTest
+ * Test class for CourseContentPanel
+ *
+ * @author Mikael Stener
+ */
+
 public class CourseContentPanelTest {
 
     private CourseContentPanel panel;

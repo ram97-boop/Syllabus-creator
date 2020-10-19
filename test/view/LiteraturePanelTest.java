@@ -1,17 +1,17 @@
 package view;
 
 import View.LiteraturePanel;
-import model.Course;
-import model.CoursePart;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.*;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-
 import static org.junit.Assert.*;
+
+/**
+ * LiteraturePanelTest
+ * Test class for LiteraturePanel
+ *
+ * @author Mikael Stener
+ */
 
 public class LiteraturePanelTest {
 
@@ -33,6 +33,6 @@ public class LiteraturePanelTest {
                 "Matematiska institutionens webbplats senast 2 månader före kursstart.\n" +
                 "\n";
 
-        assertEquals(actualOutput, expectedOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }
