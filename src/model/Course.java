@@ -1,3 +1,6 @@
+// Code written by Simon Ekman
+// Last changed 14/10/2020
+
 package model;
 
 import java.util.*;
