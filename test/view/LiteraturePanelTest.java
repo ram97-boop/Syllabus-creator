@@ -33,6 +33,6 @@ public class LiteraturePanelTest {
                 "Matematiska institutionens webbplats senast 2 månader före kursstart.\n" +
                 "\n";
 
-        assertEquals(actualOutput, expectedOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }

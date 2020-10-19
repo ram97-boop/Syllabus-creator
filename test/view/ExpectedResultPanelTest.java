@@ -81,6 +81,6 @@ public class ExpectedResultPanelTest {
                 "- använda versionshantering i parallellt arbetande projektgrupp (Teori, Projekt)\n" +
                 "- utveckla mjukvara i projektgrupp (Teori, Projekt)\n";
 
-        assertEquals(actualOutput, expectedOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }

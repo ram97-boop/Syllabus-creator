@@ -135,7 +135,7 @@ public class CourseContentPanel implements CoursePanel {
      * Add items to parts ComboBox.
      */
     private void setUpComboBox() {
-        int[] possibleNParts = IntStream.range(0, 6).toArray();
+        int[] possibleNParts = IntStream.range(0, 7).toArray();
         for (int possibleNPart : possibleNParts) {
             nPartsComboBox.addItem(possibleNPart);
         }

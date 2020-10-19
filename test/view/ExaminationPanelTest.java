@@ -116,6 +116,6 @@ public class ExaminationPanelTest {
                 "vilka kompletteringsuppgifter som ska utföras och vilka kriterier som ska gälla för att bli " +
                 "godkänd på kompletteringen. Kompletteringen ska äga rum före nästa examinationstillfälle.";
 
-        assertEquals(actualOutput, expectedOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }

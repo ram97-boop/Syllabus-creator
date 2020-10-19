@@ -37,6 +37,6 @@ public class TeachingPanelTest {
                 "Kursens undervisningsspråk anges inför varje kurstillfälle och framgår av den digitala utbildningskatalogen.\n" +
                 "\n";
 
-        assertEquals(actualOutput, expectedOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }
