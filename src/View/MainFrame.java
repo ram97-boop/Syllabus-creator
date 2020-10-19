@@ -9,7 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
+/**
+ * MainFrame
+ *
+ * @author Mikael Stener
+ * @author Sofia Ayata Karbin
+ */
 
 public class MainFrame extends JFrame {
     private int width = 800;
