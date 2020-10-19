@@ -1,17 +1,17 @@
 package view;
 
 import View.TeachingPanel;
-import model.Course;
-import model.CoursePart;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.*;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-
 import static org.junit.Assert.*;
+
+/**
+ * TeachingPanelTest
+ * Test class for TeachingPanel
+ *
+ * @author Mikael Stener
+ */
 
 public class TeachingPanelTest {
 
@@ -37,6 +37,6 @@ public class TeachingPanelTest {
                 "Kursens undervisningsspråk anges inför varje kurstillfälle och framgår av den digitala utbildningskatalogen.\n" +
                 "\n";
 
-        assertEquals(actualOutput, expectedOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }

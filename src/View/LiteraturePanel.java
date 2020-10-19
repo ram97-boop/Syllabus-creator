@@ -13,7 +13,7 @@ import java.util.Properties;
  * used when the user is entering literature attributes
  * of the course.
  *
- * @author Mikael Stener
+ * @author Mikael Stener, Sofia Karbin (see annotations)
  */
 
 public class LiteraturePanel implements CoursePanel {

@@ -14,7 +14,7 @@ import java.util.Properties;
  * used when the user is entering teaching methods
  * of the course.
  *
- * @author Mikael Stener
+ * @author Mikael Stener, Sofia Karbin (see annotations)
  */
 
 public class TeachingPanel implements CoursePanel {

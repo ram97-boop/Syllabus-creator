@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
  * used when the user is entering goals and expected results
  * of the course.
  *
- * @author Mikael Stener
+ * @author Mikael Stener, Sofia Karbin (see annotations)
  */
 
 public class ExpectedResultPanel implements CoursePanel {

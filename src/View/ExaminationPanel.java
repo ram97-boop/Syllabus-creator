@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
  * used when the user is entering examination attributes
  * of the course.
  *
- * @author Mikael Stener
+ * @author Mikael Stener, Sofia Karbin (see annotations)
  */
 
 public class ExaminationPanel implements CoursePanel {

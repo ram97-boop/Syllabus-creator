@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  * Handles all components in the JPanel component mainPanel
  * used when the user is entering content of the course.
  *
- * @author Mikael Stener
+ * @author Mikael Stener, Sofia Karbin (see annotations)
  */
 
 public class CourseContentPanel implements CoursePanel {
@@ -135,7 +135,7 @@ public class CourseContentPanel implements CoursePanel {
      * Add items to parts ComboBox.
      */
     private void setUpComboBox() {
-        int[] possibleNParts = IntStream.range(0, 6).toArray();
+        int[] possibleNParts = IntStream.range(0, 7).toArray();
         for (int possibleNPart : possibleNParts) {
             nPartsComboBox.addItem(possibleNPart);
         }
